@@ -15,6 +15,13 @@
     <module>service</module>
   </modules>
 
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.version>1.0-SNAPSHOT</project.version>
+    <junit.version>3.8.1</junit.version>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -27,14 +34,6 @@
       </plugin>
     </plugins>
   </build>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.version>1.0-SNAPSHOT</project.version>
-    <junit.version>3.8.1</junit.version>
-    <servlet.version></servlet.version>
-    <mysql-connector.version></mysql-connector.version>
-  </properties>
 
   <dependencies>
     <dependency>
