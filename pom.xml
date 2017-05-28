@@ -36,8 +36,6 @@
     <mysql-connector.version></mysql-connector.version>
   </properties>
 
-
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
