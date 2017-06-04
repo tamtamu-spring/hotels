@@ -1,36 +1,38 @@
 package com.mnazarenka.dao.mysql.db;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.apache.tomcat.jdbc.pool.PoolProperties;
-
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class DbConnector {
     private static final DbConnector instance = new DbConnector();
-    private DataSource dataSource;
-    private PoolProperties poolProperties;
+    private SessionFactory sessionFactory;
 
     private DbConnector() {
-        poolProperties = new PoolProperties();
-        poolProperties.setUrl("jdbc:mysql://localhost:3306/hotels");
-        poolProperties.setUsername("root");
-        poolProperties.setPassword("root");
-        poolProperties.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource = new DataSource(poolProperties);
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
     public static DbConnector getInstance() {
         return instance;
     }
 
-    public Connection getConnetction() {
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            System.out.println("Getting connection failed");
-        }
-        return connection;
+    public Session getSession() {
+        Session session = sessionFactory.openSession();
+        return session;
+    }
+
+    public Session getSessionWithTransaction() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        return session;
+    }
+
+    public void closeSession(Session session) {
+        session.close();
+    }
+
+    public void commitTransactionAndCloseSession(Session session) {
+        session.getTransaction().commit();
+        session.close();
     }
 }
