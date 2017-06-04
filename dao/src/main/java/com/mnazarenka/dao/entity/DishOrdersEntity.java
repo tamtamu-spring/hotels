@@ -18,7 +18,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
-@ToString(callSuper = true)
+@ToString(exclude = "details", callSuper = true)
 @Entity
 @Table(name = "dish_orders")
 public class DishOrdersEntity extends BaseEntity implements Serializable {

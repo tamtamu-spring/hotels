@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -31,7 +30,7 @@ public class HotelEntity extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "hotel")
-    private List<AppartmentEntity> entities;
+    private Set<AppartmentEntity> entities;
     @Getter
     @Setter
     @Embedded

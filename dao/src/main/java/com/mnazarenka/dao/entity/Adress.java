@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Adress implements Serializable{
+public class Adress implements Serializable {
     @Getter
     @Setter
     @Column

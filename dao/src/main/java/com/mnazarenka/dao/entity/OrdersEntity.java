@@ -38,5 +38,4 @@ public class OrdersEntity extends BaseEntity implements Serializable {
     @Setter
     @Column(name = "end_date")
     private LocalDate endDate;
-
 }
