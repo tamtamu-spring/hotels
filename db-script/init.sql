@@ -28,17 +28,17 @@ CREATE TABLE `hotels` (
 );
 
 CREATE TABLE `appartments` (
-  `id`                    BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_hotel_id`           BIGINT       NOT NULL,
-  `name`                  VARCHAR(255) NOT NULL,
-  `description`           VARCHAR(255),
-  `guests_counts`         INT,
-  `wi_fi`                 BOOLEAN,
-  `wc`                    BOOLEAN,
-  `tv`                    BOOLEAN,
-  `bar`                   BOOLEAN,
-  `kichen`                BOOLEAN,
-  `appartments_type`      VARCHAR(255) NOT NULL,
+  `id`               BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_hotel_id`      BIGINT       NOT NULL,
+  `name`             VARCHAR(255) NOT NULL,
+  `description`      VARCHAR(255),
+  `guests_counts`    INT,
+  `wi_fi`            BOOLEAN,
+  `wc`               BOOLEAN,
+  `tv`               BOOLEAN,
+  `bar`              BOOLEAN,
+  `kichen`           BOOLEAN,
+  `appartments_type` VARCHAR(255) NOT NULL,
   CONSTRAINT `fk_appartments_to_hotels` FOREIGN KEY (`fk_hotel_id`) REFERENCES `hotels` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -85,19 +85,24 @@ CREATE TABLE `dishes_hotels` (
 );
 
 CREATE TABLE `dish_orders` (
-  `id`           BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_users_id`  BIGINT NOT NULL,
-  `fk_dishes_id` BIGINT NOT NULL,
-  `fk_hotels_id` BIGINT NOT NULL,
-  `start_date`   DATE   NOT NULL,
-
+  `id`                BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_users_id`       BIGINT NOT NULL,
+  `fk_appartments_id` BIGINT NOT NULL,
+  `order_time`        DATE   NOT NULL,
   CONSTRAINT `fk_dish_orders_to_user` FOREIGN KEY (`fk_users_id`) REFERENCES `users` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT `fk_dish_orders_to_dishes` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dishes` (`id`)
+  CONSTRAINT `fk_dish_orders_to_appartments` FOREIGN KEY (`fk_appartments_id`) REFERENCES `appartments` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  CONSTRAINT `fk_dish_orders_to_hotels` FOREIGN KEY (`fk_hotels_id`) REFERENCES `hotels` (`id`)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE `dish_orders_details` (
+  `id`                BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_dish_orders_id` BIGINT NOT NULL,
+  `fk_dishes_id`      BIGINT NOT NULL,
+  `count`             INT    NOT NULL,
+  CONSTRAINT `fk_orders_details_to_dish_orders` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dish_orders` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );

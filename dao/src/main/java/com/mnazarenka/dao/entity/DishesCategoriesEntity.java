@@ -15,8 +15,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "roles")
-public class RoleEntity extends BaseEntity implements Serializable {
+@Table(name = "dishes_categories")
+public class DishesCategoriesEntity extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column

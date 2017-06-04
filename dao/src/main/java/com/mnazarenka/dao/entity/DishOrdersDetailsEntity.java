@@ -17,23 +17,20 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "users")
-public class UserEntity extends BaseEntity implements Serializable {
+@Table(name = "dish_orders_details")
+public class DishOrdersDetailsEntity extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "fk_role_id")
-    private RoleEntity role;
+    @JoinColumn(name = "fk_dish_orders_id")
+    private DishOrdersEntity order;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "fk_dishes_id")
+    private DishesEntity dish;
     @Getter
     @Setter
     @Column
-    private String login;
-    @Getter
-    @Setter
-    @Column
-    private String password;
-    @Getter
-    @Setter
-    @Column(name = "block_status")
-    private String blockStatus;
+    private Integer count;
 }

@@ -20,6 +20,12 @@
         <mapping class="com.mnazarenka.dao.entity.HotelEntity"/>
         <mapping class="com.mnazarenka.dao.entity.UserEntity"/>
         <mapping class="com.mnazarenka.dao.entity.RoleEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.DishesCategoriesEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.DishesEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.DishOrdersEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.DishOrdersDetailsEntity"/>
+
+
 
     </session-factory>
 </hibernate-configuration>

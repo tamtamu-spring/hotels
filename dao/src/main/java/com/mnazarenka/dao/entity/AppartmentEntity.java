@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Table(name = "appartments")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "appartments_type")
-public class AppartmentEntity extends BaseDao implements Serializable {
+public class AppartmentEntity extends BaseEntity implements Serializable {
 
     @Getter
     @Setter
