@@ -6,32 +6,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "hotels")
-public class HotelEntity extends BaseDao implements Serializable {
+@Table(name = "users")
+public class UserEntity extends BaseDao implements Serializable {
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "fk_role_id")
+    private RoleEntity role;
     @Getter
     @Setter
     @Column
-    private String name;
+    private String login;
     @Getter
     @Setter
-    @OneToMany(mappedBy = "hotel")
-    private List<AppartmentEntity> entities;
+    @Column
+    private String password;
     @Getter
     @Setter
-    @Embedded
-    private Adress adress;
+    @Column(name = "block_status")
+    private String blockStatus;
 }

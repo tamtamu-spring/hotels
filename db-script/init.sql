@@ -105,7 +105,7 @@ CREATE TABLE `dish_orders` (
 );
 
 -- test data --
-INSERT INTO hotels (name) VALUES ("one");
+INSERT INTO hotels (name, city, street) VALUES ("one", "city1", "street1");
 
 INSERT INTO appart_categories (name) VALUES ("one");
 
