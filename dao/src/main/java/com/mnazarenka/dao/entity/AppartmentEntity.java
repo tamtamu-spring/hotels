@@ -1,4 +1,4 @@
-package com.mnazarenka.dao.entityies;
+package com.mnazarenka.dao.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
