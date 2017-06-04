@@ -20,11 +20,6 @@ CREATE TABLE `users` (
     ON DELETE NO ACTION
 );
 
-CREATE TABLE `appart_categories` (
-  `id`   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE `hotels` (
   `id`     BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name`   VARCHAR(255) NOT NULL,
@@ -34,13 +29,16 @@ CREATE TABLE `hotels` (
 
 CREATE TABLE `appartments` (
   `id`                    BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_appart_category_id` BIGINT       NOT NULL,
   `fk_hotel_id`           BIGINT       NOT NULL,
   `name`                  VARCHAR(255) NOT NULL,
   `description`           VARCHAR(255),
-  CONSTRAINT `fk_appartments_to_appart_categories` FOREIGN KEY (`fk_appart_category_id`) REFERENCES `appart_categories` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
+  `guests_counts`         INT,
+  `wi_fi`                 BOOLEAN,
+  `wc`                    BOOLEAN,
+  `tv`                    BOOLEAN,
+  `bar`                   BOOLEAN,
+  `kichen`                BOOLEAN,
+  `appartments_type`      VARCHAR(255) NOT NULL,
   CONSTRAINT `fk_appartments_to_hotels` FOREIGN KEY (`fk_hotel_id`) REFERENCES `hotels` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -107,11 +105,9 @@ CREATE TABLE `dish_orders` (
 -- test data --
 INSERT INTO hotels (name, city, street) VALUES ("one", "city1", "street1");
 
-INSERT INTO appart_categories (name) VALUES ("one");
-
-INSERT INTO appartments (fk_appart_category_id, fk_hotel_id, name, description) VALUES (1, 1, 'name', 'desc');
-INSERT INTO appartments (fk_appart_category_id, fk_hotel_id, name, description) VALUES (1, 1, 'name1', 'desc1');
-INSERT INTO appartments (fk_appart_category_id, fk_hotel_id, name, description) VALUES (1, 1, 'name2', 'desc2');
+INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
+INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'econom');
+INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name2', 'desc2', 'econom');
 
  
  
