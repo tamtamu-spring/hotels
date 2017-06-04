@@ -1,7 +1,7 @@
 package com.mnazarenka.service.impl;
 
 import com.mnazarenka.dao.AppartmentDao;
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entityies.AppartmentEntity;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
 import com.mnazarenka.service.AppartmentService;
 

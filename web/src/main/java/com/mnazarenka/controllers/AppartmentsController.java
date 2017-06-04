@@ -1,6 +1,6 @@
 package com.mnazarenka.controllers;
 
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entityies.AppartmentEntity;
 import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.impl.AppartmentServiceImpl;
 

@@ -1,6 +1,6 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entityies.AppartmentEntity;
 
 import java.util.List;
 

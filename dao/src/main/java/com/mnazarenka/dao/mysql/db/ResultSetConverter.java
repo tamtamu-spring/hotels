@@ -1,6 +1,6 @@
 package com.mnazarenka.dao.mysql.db;
 
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entityies.AppartmentEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

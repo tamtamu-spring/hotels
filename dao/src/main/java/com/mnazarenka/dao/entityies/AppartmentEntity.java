@@ -1,4 +1,4 @@
-package com.mnazarenka.dao.entity;
+package com.mnazarenka.dao.entityies;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,4 +25,7 @@ public class AppartmentEntity implements Serializable {
     @Getter
     @Setter
     private String name;
+    @Getter
+    @Setter
+    private String descrioption;
 }

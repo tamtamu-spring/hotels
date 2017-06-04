@@ -1,7 +1,7 @@
 package com.mnazarenka.dao.mysql;
 
 import com.mnazarenka.dao.AppartmentDao;
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entityies.AppartmentEntity;
 import com.mnazarenka.dao.mysql.db.DbConnector;
 import com.mnazarenka.dao.mysql.db.ResultSetConverter;
 
