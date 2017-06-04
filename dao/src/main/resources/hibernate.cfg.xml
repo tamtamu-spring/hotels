@@ -14,6 +14,9 @@
         <property name="format_sql">true</property>
 
         <mapping class="com.mnazarenka.dao.entity.AppartmentEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.EconomApartmentEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.StandartAppartmentEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.LuxAppartmentEntity"/>
         <mapping class="com.mnazarenka.dao.entity.HotelEntity"/>
         <mapping class="com.mnazarenka.dao.entity.UserEntity"/>
         <mapping class="com.mnazarenka.dao.entity.RoleEntity"/>

@@ -18,7 +18,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
-@ToString(callSuper = true)
+@ToString(exclude = "entities", callSuper = true)
 @Entity
 @Table(name = "hotels")
 public class HotelEntity extends BaseDao implements Serializable {

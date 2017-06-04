@@ -15,8 +15,8 @@ public class MySqlAppartmentsDao implements AppartmentDao {
         List<AppartmentEntity> entities = new ArrayList<>();
 
         Session session = dbConnector.getSessionWithTransaction();
-
         entities = session.createQuery("from AppartmentEntity", AppartmentEntity.class).getResultList();
+
         dbConnector.commitTransactionAndCloseSession(session);
 
         return entities;

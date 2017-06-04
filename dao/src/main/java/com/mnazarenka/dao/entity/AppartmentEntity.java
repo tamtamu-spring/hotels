@@ -18,12 +18,12 @@ import java.io.Serializable;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
-@ToString(callSuper = true)
+@ToString( callSuper = true)
 @Entity
 @Table(name = "appartments")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "appartments_type")
-public abstract class AppartmentEntity extends BaseDao implements Serializable {
+public class AppartmentEntity extends BaseDao implements Serializable {
 
     @Getter
     @Setter

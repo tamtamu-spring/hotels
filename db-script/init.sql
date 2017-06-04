@@ -106,7 +106,8 @@ CREATE TABLE `dish_orders` (
 INSERT INTO hotels (name, city, street) VALUES ("one", "city1", "street1");
 
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
-INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'econom');
+INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'standart');
+INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name3', 'desc3', 'lux');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name2', 'desc2', 'econom');
 
  
