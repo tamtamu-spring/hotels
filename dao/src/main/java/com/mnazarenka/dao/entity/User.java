@@ -35,5 +35,5 @@ public class User extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column(name = "block_status")
-    private String blockStatus;
+    private Boolean blockStatus;
 }

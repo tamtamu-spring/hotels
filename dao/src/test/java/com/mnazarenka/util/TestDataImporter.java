@@ -2,6 +2,7 @@ package com.mnazarenka.util;
 
 
 import com.mnazarenka.dao.entity.Role;
+import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -26,11 +27,24 @@ public final class TestDataImporter {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Role admin = saveRole("Admin", session);
-        Role user = saveRole("User", session);
+        Role adminRole = saveRole("Admin", session);
+        Role userRole = saveRole("User", session);
+
+        User adminUser = saveUser(false, adminRole, "AdminLogin", "AdminPassword", session);
+        User userUser = saveUser(true, userRole, "UserLogin", "UserPassword", session);
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    private User saveUser(boolean blockStatus, Role role, String login, String password, Session session) {
+        User user = new User();
+        user.setBlockStatus(blockStatus);
+        user.setRole(role);
+        user.setLogin(login);
+        user.setPassword(password);
+        session.save(user);
+        return user;
     }
 
     private Role saveRole(String name, Session session) {

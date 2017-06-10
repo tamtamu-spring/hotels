@@ -1,6 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
+import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,8 +18,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class RoleDaoTest {
-
+public class UserDaoTest {
     private static SessionFactory sessionFactory;
 
     @BeforeClass
@@ -36,14 +36,24 @@ public class RoleDaoTest {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            List<Role> roles = session.createQuery("select r from Role r", Role.class)
+            List<User> users = session.createQuery("select u from User u", User.class)
                     .getResultList();
 
-            List<String> rolesNames = roles.stream().map(Role::getName)
+            List<String> usersLogins = users.stream().map(User::getLogin)
                     .collect(toList());
+            List<String> userPasswords = users.stream().map(User::getPassword)
+                    .collect(toList());
+            List<Boolean> userStatuses = users.stream().map(User::getBlockStatus)
+                    .collect(toList());
+            List<String> roles = users.stream().map(User::getRole)
+                    .collect(toList()).stream().map(Role::getName).collect(toList());
 
-            assertThat(roles, hasSize(2));
-            assertThat(rolesNames, containsInAnyOrder("User", "Admin"));
+            assertThat(users, hasSize(2));
+            assertThat(usersLogins, containsInAnyOrder("AdminLogin", "UserLogin"));
+            assertThat(userPasswords, containsInAnyOrder("AdminPassword", "UserPassword"));
+            assertThat(userStatuses, containsInAnyOrder(true, false));
+            assertThat(roles, containsInAnyOrder("User", "Admin"));
+
 
             session.getTransaction().commit();
         }
@@ -54,5 +64,4 @@ public class RoleDaoTest {
     public static void destroy() {
         sessionFactory.close();
     }
-
 }
