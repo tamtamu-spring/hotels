@@ -13,17 +13,17 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
-        <mapping class="com.mnazarenka.dao.entity.AppartmentEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.EconomApartmentEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.StandartAppartmentEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.LuxAppartmentEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.HotelEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.UserEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.RoleEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.DishesCategoriesEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.DishesEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.DishOrdersEntity"/>
-        <mapping class="com.mnazarenka.dao.entity.DishOrdersDetailsEntity"/>
+        <mapping class="com.mnazarenka.dao.entity.Appartment"/>
+        <mapping class="com.mnazarenka.dao.entity.EconomApartment"/>
+        <mapping class="com.mnazarenka.dao.entity.StandartAppartment"/>
+        <mapping class="com.mnazarenka.dao.entity.LuxAppartment"/>
+        <mapping class="com.mnazarenka.dao.entity.Hotel"/>
+        <mapping class="com.mnazarenka.dao.entity.User"/>
+        <mapping class="com.mnazarenka.dao.entity.Role"/>
+        <mapping class="com.mnazarenka.dao.entity.DishesCategories"/>
+        <mapping class="com.mnazarenka.dao.entity.Dishes"/>
+        <mapping class="com.mnazarenka.dao.entity.DishOrders"/>
+        <mapping class="com.mnazarenka.dao.entity.DishOrdersDetails"/>
 
 
 

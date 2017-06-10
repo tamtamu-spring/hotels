@@ -7,22 +7,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorValue("standart")
-public class StandartAppartmentEntity extends AppartmentEntity implements Serializable {
+@Table(name = "roles")
+public class Role extends Base implements Serializable {
     @Getter
     @Setter
     @Column
-    private Boolean wc;
-    @Getter
-    @Setter
-    @Column
-    private Boolean tv;
+    private String name;
 }

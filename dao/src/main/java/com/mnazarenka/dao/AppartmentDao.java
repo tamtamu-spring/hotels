@@ -1,9 +1,9 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entity.Appartment;
 
 import java.util.List;
 
 public interface AppartmentDao {
-    List<AppartmentEntity> getAllAppartments();
+    List<Appartment> getAllAppartments();
 }

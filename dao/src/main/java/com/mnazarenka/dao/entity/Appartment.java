@@ -23,12 +23,12 @@ import java.io.Serializable;
 @Table(name = "appartments")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "appartments_type")
-public class AppartmentEntity extends BaseEntity implements Serializable {
+public class Appartment extends Base implements Serializable {
     @Getter
     @Setter
     @ManyToOne
     @JoinColumn(name = "fk_hotel_id", nullable = false)
-    private HotelEntity hotel;
+    private Hotel hotel;
     @Getter
     @Setter
     @Column

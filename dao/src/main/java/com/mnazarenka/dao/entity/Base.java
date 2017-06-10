@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class Base implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter

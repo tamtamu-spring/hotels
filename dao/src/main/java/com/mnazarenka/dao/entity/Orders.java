@@ -10,34 +10,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
-@ToString(exclude = "details", callSuper = true)
+@ToString(callSuper = true)
 @Entity
-@Table(name = "dish_orders")
-public class DishOrdersEntity extends BaseEntity implements Serializable {
+@Table(name = "orders")
+public class Orders extends Base implements Serializable {
     @Getter
     @Setter
     @ManyToOne
     @JoinColumn(name = "fk_users_id")
-    private UserEntity user;
+    private User user;
     @Getter
     @Setter
     @ManyToOne
     @JoinColumn(name = "fk_appartments_id")
-    private AppartmentEntity appartment;
+    private Appartment appartment;
     @Getter
     @Setter
-    @Column(name = "order_time")
-    private LocalDateTime orderTime;
+    @Column(name = "start_date")
+    private LocalDate startDate;
     @Getter
     @Setter
-    @OneToMany(mappedBy = "order")
-    private Set<DishOrdersDetailsEntity> details;
+    @Column(name = "end_date")
+    private LocalDate endDate;
 }

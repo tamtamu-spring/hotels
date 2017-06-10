@@ -1,6 +1,6 @@
 package com.mnazarenka.controllers;
 
-import com.mnazarenka.dao.entity.AppartmentEntity;
+import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.impl.AppartmentServiceImpl;
 
@@ -20,7 +20,7 @@ public class AppartmentsController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AppartmentService appartmentService = new AppartmentServiceImpl();
-        List<AppartmentEntity> entities = appartmentService.getAllAppartments();
+        List<Appartment> entities = appartmentService.getAllAppartments();
 
         req.setAttribute("appartments", entities);
         req.getRequestDispatcher(APPARTMENT_VIEW).forward(req, resp);

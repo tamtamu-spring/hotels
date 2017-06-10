@@ -18,7 +18,7 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "dishes")
-public class DishesEntity extends BaseEntity implements Serializable {
+public class Dishes extends Base implements Serializable {
     @Getter
     @Setter
     @Column
@@ -27,5 +27,5 @@ public class DishesEntity extends BaseEntity implements Serializable {
     @Setter
     @ManyToOne
     @JoinColumn(name = "fk_dishes_categories")
-    private DishesCategoriesEntity category;
+    private DishesCategories category;
 }

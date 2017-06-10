@@ -22,7 +22,7 @@ import java.util.Set;
 @ToString(exclude = "entities", callSuper = true)
 @Entity
 @Table(name = "hotels")
-public class HotelEntity extends BaseEntity implements Serializable {
+public class Hotel extends Base implements Serializable {
     @Getter
     @Setter
     @Column
@@ -30,7 +30,7 @@ public class HotelEntity extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "hotel")
-    private Set<AppartmentEntity> entities;
+    private Set<Appartment> entities;
     @Getter
     @Setter
     @Embedded
@@ -42,5 +42,5 @@ public class HotelEntity extends BaseEntity implements Serializable {
             joinColumns = @JoinColumn(name = "fk_dishes_id"),
             inverseJoinColumns = @JoinColumn(name = "fk_hotels_id")
     )
-    private Set<DishesEntity> dishes;
+    private Set<Dishes> dishes;
 }

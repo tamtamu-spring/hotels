@@ -7,18 +7,30 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "dishes_categories")
-public class DishesCategoriesEntity extends BaseEntity implements Serializable {
+@DiscriminatorValue("lux")
+public class LuxAppartment extends Appartment implements Serializable{
     @Getter
     @Setter
     @Column
-    private String name;
+    private Boolean wc;
+    @Getter
+    @Setter
+    @Column
+    private Boolean tv;
+    @Getter
+    @Setter
+    @Column
+    private Boolean bar;
+    @Getter
+    @Setter
+    @Column
+    private Boolean kichen;
 }

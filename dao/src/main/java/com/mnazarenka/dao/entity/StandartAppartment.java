@@ -1,9 +1,12 @@
 package com.mnazarenka.dao.entity;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -12,6 +15,14 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorValue("econom")
-public class EconomApartmentEntity extends AppartmentEntity implements Serializable {
+@DiscriminatorValue("standart")
+public class StandartAppartment extends Appartment implements Serializable {
+    @Getter
+    @Setter
+    @Column
+    private Boolean wc;
+    @Getter
+    @Setter
+    @Column
+    private Boolean tv;
 }

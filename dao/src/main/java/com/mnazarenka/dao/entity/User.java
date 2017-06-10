@@ -7,30 +7,33 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorValue("lux")
-public class LuxAppartmentEntity extends AppartmentEntity implements Serializable{
+@Table(name = "users")
+public class User extends Base implements Serializable {
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "fk_role_id")
+    private Role role;
     @Getter
     @Setter
     @Column
-    private Boolean wc;
+    private String login;
     @Getter
     @Setter
     @Column
-    private Boolean tv;
+    private String password;
     @Getter
     @Setter
-    @Column
-    private Boolean bar;
-    @Getter
-    @Setter
-    @Column
-    private Boolean kichen;
+    @Column(name = "block_status")
+    private String blockStatus;
 }

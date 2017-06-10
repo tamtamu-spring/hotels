@@ -8,6 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -15,10 +17,20 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "roles")
-public class RoleEntity extends BaseEntity implements Serializable {
+@Table(name = "dish_orders_details")
+public class DishOrdersDetails extends Base implements Serializable {
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "fk_dish_orders_id")
+    private DishOrders order;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "fk_dishes_id")
+    private Dishes dish;
     @Getter
     @Setter
     @Column
-    private String name;
+    private Integer count;
 }
