@@ -27,6 +27,15 @@ CREATE TABLE `hotels` (
   `street` VARCHAR(255)
 );
 
+
+CREATE TABLE `restaurants` (
+  `id`   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  CONSTRAINT `fk_restaurants_to_hotels` FOREIGN KEY (`id`) REFERENCES `hotels` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
 CREATE TABLE `appartments` (
   `id`               BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fk_hotel_id`      BIGINT       NOT NULL,
@@ -72,14 +81,14 @@ CREATE TABLE `dishes` (
     ON DELETE CASCADE
 );
 
-CREATE TABLE `dishes_hotels` (
+CREATE TABLE `dishes_restaurants` (
   `fk_dishes_id` BIGINT NOT NULL,
-  `fk_hotels_id` BIGINT NOT NULL,
-  PRIMARY KEY (`fk_dishes_id`, `fk_hotels_id`),
-  CONSTRAINT `fk_dishes_hotels_to_dishes` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dishes` (`id`)
+  `fk_restaurants_id` BIGINT NOT NULL,
+  PRIMARY KEY (`fk_dishes_id`, `fk_restaurants_id`),
+  CONSTRAINT `fk_dishes_restaurants_to_dishes` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dishes` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT `fk_dishes_hotels_to_hotels` FOREIGN KEY (`fk_hotels_id`) REFERENCES `hotels` (`id`)
+  CONSTRAINT `fk_dishes_restaurants_to_hotels` FOREIGN KEY (`fk_restaurants_id`) REFERENCES `restaurants` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 );

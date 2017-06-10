@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "orders")
-public class Orders extends Base implements Serializable {
+public class Orders extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne

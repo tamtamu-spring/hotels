@@ -9,9 +9,6 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -22,7 +19,7 @@ import java.util.Set;
 @ToString(exclude = "entities", callSuper = true)
 @Entity
 @Table(name = "hotels")
-public class Hotel extends Base implements Serializable {
+public class Hotel extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column
@@ -35,12 +32,5 @@ public class Hotel extends Base implements Serializable {
     @Setter
     @Embedded
     private Adress adress;
-    @Getter
-    @Setter
-    @ManyToMany
-    @JoinTable(name = "dishes_hotels",
-            joinColumns = @JoinColumn(name = "fk_dishes_id"),
-            inverseJoinColumns = @JoinColumn(name = "fk_hotels_id")
-    )
-    private Set<Dishes> dishes;
+
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "roles")
-public class Role extends Base implements Serializable {
+public class Role extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column
