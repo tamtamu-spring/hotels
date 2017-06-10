@@ -9,10 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
-/**
- * Created by Николай on 10.06.2017.
- */
-public class Restaurants extends BaseEntity {
+public class Restaurant extends BaseEntity {
     @Getter
     @Setter
     @Column
