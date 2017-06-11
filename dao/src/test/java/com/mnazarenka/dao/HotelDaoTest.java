@@ -36,8 +36,7 @@ public class HotelDaoTest {
 
             List<String> hotelNames = hotels.stream().map(Hotel::getName)
                     .collect(toList());
-            List<String> hotelAdresses = hotels.stream().map(Hotel::getAdress).collect(toList())
-                    .stream().map(Adress::getFullAdress).collect(toList());
+            List<String> hotelAdresses = hotels.stream().map(Hotel::getAdress).map(Adress::getFullAdress).collect(toList());
 
             assertThat(hotels, hasSize(3));
             assertThat(hotelNames, containsInAnyOrder("FirstHotel", "SecondHotel", "ThirdHotel"));
