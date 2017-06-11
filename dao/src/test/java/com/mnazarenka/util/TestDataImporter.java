@@ -4,6 +4,7 @@ package com.mnazarenka.util;
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.Dish;
+import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
@@ -16,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public final class TestDataImporter {
     private static TestDataImporter INSTANCE;
@@ -82,8 +85,20 @@ public final class TestDataImporter {
         secondRestaurant.getDishes().add(firstDish);
         secondRestaurant.getDishes().add(secondDish);
 
+        DishOrder firstDishOrder = saveDishOrder(userUser, economApartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), session);
+        DishOrder secondDishOrder = saveDishOrder(adminUser, luxAppartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), session);
+
         session.getTransaction().commit();
         session.close();
+    }
+
+    private DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, Session session) {
+        DishOrder dishOrder = new DishOrder();
+        dishOrder.setUser(user);
+        dishOrder.setAppartment(apartment);
+        dishOrder.setOrderTime(time);
+        session.save(dishOrder);
+        return dishOrder;
     }
 
     private AppartmentOrder saveOrder(User user, Appartment appartment, LocalDate startDate, LocalDate endDate, Session session) {

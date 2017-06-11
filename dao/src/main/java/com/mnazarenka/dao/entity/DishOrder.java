@@ -21,7 +21,7 @@ import java.util.Set;
 @ToString(exclude = "details", callSuper = true)
 @Entity
 @Table(name = "dish_orders")
-public class DishOrders extends BaseEntity implements Serializable {
+public class DishOrder extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne

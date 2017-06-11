@@ -23,7 +23,7 @@ public class DishOrdersDetails extends BaseEntity implements Serializable {
     @Setter
     @ManyToOne
     @JoinColumn(name = "fk_dish_orders_id")
-    private DishOrders order;
+    private DishOrder order;
     @Getter
     @Setter
     @ManyToOne

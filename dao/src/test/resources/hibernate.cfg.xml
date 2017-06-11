@@ -21,7 +21,7 @@
     <mapping class="com.mnazarenka.dao.entity.User"/>
     <mapping class="com.mnazarenka.dao.entity.Role"/>
     <mapping class="com.mnazarenka.dao.entity.Dish"/>
-    <mapping class="com.mnazarenka.dao.entity.DishOrders"/>
+    <mapping class="com.mnazarenka.dao.entity.DishOrder"/>
     <mapping class="com.mnazarenka.dao.entity.DishOrdersDetails"/>
     <mapping class="com.mnazarenka.dao.entity.AppartmentOrder"/>
   </session-factory>
