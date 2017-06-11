@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "orders")
-public class Orders extends BaseEntity implements Serializable {
+public class AppartmentOrder extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne

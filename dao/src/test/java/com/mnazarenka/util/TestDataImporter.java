@@ -2,10 +2,12 @@ package com.mnazarenka.util;
 
 
 import com.mnazarenka.dao.entity.Adress;
+import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
+import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.StandartAppartment;
@@ -13,7 +15,7 @@ import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.HashMap;
+import java.time.LocalDate;
 
 public final class TestDataImporter {
     private static TestDataImporter INSTANCE;
@@ -64,6 +66,11 @@ public final class TestDataImporter {
         LuxAppartment luxAppartment = saveLuxAppartment(firstHotel, "LuxAppartmentName", "LuxAppartmentDescription",
                 4, true, true, true, true, true, session);
 
+        AppartmentOrder firstOrder = saveOrder(userUser, economApartment,
+                LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), session);
+        AppartmentOrder secondOrder = saveOrder(adminUser, luxAppartment,
+                LocalDate.of(2017, 11, 20), LocalDate.of(2017, 11, 25), session);
+
         Dish firstDish = saveDish("FirstDish", session);
         Dish secondDish = saveDish("SecondDish", session);
 
@@ -77,6 +84,16 @@ public final class TestDataImporter {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    private AppartmentOrder saveOrder(User user, Appartment appartment, LocalDate startDate, LocalDate endDate, Session session) {
+        AppartmentOrder order = new AppartmentOrder();
+        order.setUser(user);
+        order.setAppartment(appartment);
+        order.setStartDate(startDate);
+        order.setEndDate(endDate);
+        session.save(order);
+        return order;
     }
 
     private LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount,
