@@ -1,7 +1,8 @@
 package com.mnazarenka.dao;
 
+import com.mnazarenka.dao.entity.Adress;
+import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Role;
-import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,7 +19,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class UserDaoTest {
+public class HotelDaoTest {
     private static SessionFactory sessionFactory;
 
     @BeforeClass
@@ -32,28 +33,21 @@ public class UserDaoTest {
     }
 
     @Test
-    public void findAllUsersTest() {
+    public void findAllHotelsTest() {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 
-            List<User> users = session.createQuery("select u from User u", User.class)
+            List<Hotel> hotels = session.createQuery("select h from Hotel h", Hotel.class)
                     .getResultList();
 
-            List<String> usersLogins = users.stream().map(User::getLogin)
+            List<String> hotelNames = hotels.stream().map(Hotel::getName)
                     .collect(toList());
-            List<String> userPasswords = users.stream().map(User::getPassword)
-                    .collect(toList());
-            List<Boolean> userStatuses = users.stream().map(User::getBlockStatus)
-                    .collect(toList());
-            List<String> roles = users.stream().map(User::getRole)
-                    .collect(toList()).stream().map(Role::getName).collect(toList());
+            List<String> hotelAdresses = hotels.stream().map(Hotel::getAdress).collect(toList())
+                    .stream().map(Adress::getFullAdress).collect(toList());
 
-            assertThat(users, hasSize(2));
-            assertThat(usersLogins, containsInAnyOrder("AdminLogin", "UserLogin"));
-            assertThat(userPasswords, containsInAnyOrder("AdminPassword", "UserPassword"));
-            assertThat(userStatuses, containsInAnyOrder(true, false));
-            assertThat(roles, containsInAnyOrder("User", "Admin"));
-
+            assertThat(hotels, hasSize(3));
+            assertThat(hotelNames, containsInAnyOrder("FirstHotel", "SecondHotel", "ThirdHotel"));
+            assertThat(hotelAdresses, containsInAnyOrder("FirstCity FirstStreet", "SecondCity SecondStreet", "ThirdCity ThirdStreet"));
 
             session.getTransaction().commit();
         }

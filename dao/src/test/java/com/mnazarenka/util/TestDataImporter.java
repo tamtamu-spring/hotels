@@ -1,6 +1,8 @@
 package com.mnazarenka.util;
 
 
+import com.mnazarenka.dao.entity.Adress;
+import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
@@ -33,8 +35,32 @@ public final class TestDataImporter {
         User adminUser = saveUser(false, adminRole, "AdminLogin", "AdminPassword", session);
         User userUser = saveUser(true, userRole, "UserLogin", "UserPassword", session);
 
+        Adress firstHotelAdress = new Adress();
+        firstHotelAdress.setCity("FirstCity");
+        firstHotelAdress.setStreet("FirstStreet");
+        Hotel firstHotel = saveHotel("FirstHotel", firstHotelAdress, session);
+
+        Adress secondAdress = new Adress();
+        secondAdress.setCity("SecondCity");
+        secondAdress.setStreet("SecondStreet");
+        Hotel secondHotel = saveHotel("SecondHotel", secondAdress, session);
+
+        Adress thirdAdress = new Adress();
+        thirdAdress.setCity("ThirdCity");
+        thirdAdress.setStreet("ThirdStreet");
+        Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, session);
+
+
         session.getTransaction().commit();
         session.close();
+    }
+
+    private Hotel saveHotel(String name, Adress adress, Session session) {
+        Hotel hotel = new Hotel();
+        hotel.setName(name);
+        hotel.setAdress(adress);
+        session.save(hotel);
+        return hotel;
     }
 
     private User saveUser(boolean blockStatus, Role role, String login, String password, Session session) {

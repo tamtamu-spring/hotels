@@ -32,7 +32,7 @@ public class RoleDaoTest {
     }
 
     @Test
-    public void loadAllRoles() {
+    public void findAllRolesTest() {
         try(Session session = sessionFactory.openSession()){
             session.beginTransaction();
 

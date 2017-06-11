@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Embeddable
@@ -24,4 +25,9 @@ public class Adress implements Serializable {
     @Setter
     @Column
     private String street;
+
+    @Transient
+    public String getFullAdress(){
+        return String.format("%s %s", city, street);
+    }
 }
