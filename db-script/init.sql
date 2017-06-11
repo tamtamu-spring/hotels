@@ -59,6 +59,7 @@ CREATE TABLE `orders` (
   `fk_appartments_id` BIGINT NOT NULL,
   `start_date`        DATE   NOT NULL,
   `end_date`          DATE   NOT NULL,
+  `version`           TIMESTAMP,
   CONSTRAINT `fk_orders_to_user` FOREIGN KEY (`fk_users_id`) REFERENCES `users` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -76,13 +77,13 @@ CREATE TABLE `dishes` (
   `id`                   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fk_dishes_categories` BIGINT       NOT NULL,
   `name`                 VARCHAR(255) NOT NULL
- /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE*/
+  /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
+     ON UPDATE CASCADE
+     ON DELETE CASCADE*/
 );
 
 CREATE TABLE `dishes_restaurants` (
-  `fk_dishes_id` BIGINT NOT NULL,
+  `fk_dishes_id`      BIGINT NOT NULL,
   `fk_restaurants_id` BIGINT NOT NULL,
   PRIMARY KEY (`fk_dishes_id`, `fk_restaurants_id`),
   CONSTRAINT `fk_dishes_restaurants_to_dishes` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dishes` (`id`)
