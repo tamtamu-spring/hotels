@@ -1,19 +1,35 @@
 package com.mnazarenka.dao.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Set;
 
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = "id")
+@ToString(callSuper = true)
+@Entity
+@Table(name = "restaurants")
 public class Restaurant extends BaseEntity {
     @Getter
     @Setter
     @Column
     private String name;
+    @Getter
+    @Setter
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Hotel hotel;
     @Getter
     @Setter
     @ManyToMany

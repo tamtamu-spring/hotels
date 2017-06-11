@@ -3,6 +3,7 @@ package com.mnazarenka.util;
 
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
+import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
@@ -50,9 +51,20 @@ public final class TestDataImporter {
         thirdAdress.setStreet("ThirdStreet");
         Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, session);
 
+        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", firstHotel, session);
+        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", secondHotel, session);
+
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    private Restaurant saveRestaurant(String name, Hotel hotel, Session session) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setName(name);
+        restaurant.setHotel(hotel);
+        session.save(restaurant);
+        return restaurant;
     }
 
     private Hotel saveHotel(String name, Adress adress, Session session) {

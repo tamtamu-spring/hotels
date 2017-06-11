@@ -17,6 +17,7 @@
     <mapping class="com.mnazarenka.dao.entity.StandartAppartment"/>
     <mapping class="com.mnazarenka.dao.entity.LuxAppartment"/>
     <mapping class="com.mnazarenka.dao.entity.Hotel"/>
+    <mapping class="com.mnazarenka.dao.entity.Restaurant"/>
     <mapping class="com.mnazarenka.dao.entity.User"/>
     <mapping class="com.mnazarenka.dao.entity.Role"/>
     <mapping class="com.mnazarenka.dao.entity.DishesCategories"/>
