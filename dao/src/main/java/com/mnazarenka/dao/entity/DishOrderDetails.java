@@ -18,7 +18,7 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "dish_orders_details")
-public class DishOrdersDetails extends BaseEntity implements Serializable {
+public class DishOrderDetails extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne

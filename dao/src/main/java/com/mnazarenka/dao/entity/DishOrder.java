@@ -39,5 +39,5 @@ public class DishOrder extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @OneToMany(mappedBy = "order")
-    private Set<DishOrdersDetails> details;
+    private Set<DishOrderDetails> details;
 }

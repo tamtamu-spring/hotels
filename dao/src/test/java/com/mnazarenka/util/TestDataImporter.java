@@ -5,6 +5,7 @@ import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
+import com.mnazarenka.dao.entity.DishOrderDetails;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
@@ -88,8 +89,20 @@ public final class TestDataImporter {
         DishOrder firstDishOrder = saveDishOrder(userUser, economApartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), session);
         DishOrder secondDishOrder = saveDishOrder(adminUser, luxAppartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), session);
 
+        DishOrderDetails firstDetail = saveDishOrderDetail(firstDish, firstDishOrder, 1, session);
+        DishOrderDetails secondDetail = saveDishOrderDetail(secondDish, firstDishOrder, 2, session);
+
         session.getTransaction().commit();
         session.close();
+    }
+
+    private DishOrderDetails saveDishOrderDetail(Dish dish, DishOrder order, int count, Session session) {
+        DishOrderDetails dishOrderDetails = new DishOrderDetails();
+        dishOrderDetails.setDish(dish);
+        dishOrderDetails.setOrder(order);
+        dishOrderDetails.setCount(count);
+        session.save(dishOrderDetails);
+        return dishOrderDetails;
     }
 
     private DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, Session session) {
