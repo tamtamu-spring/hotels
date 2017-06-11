@@ -40,7 +40,7 @@ public class Appartment extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column(name = "guests_counts")
-    private String guestsCounts;
+    private Integer guestsCounts;
     @Getter
     @Setter
     @Column(name = "wi_fi")

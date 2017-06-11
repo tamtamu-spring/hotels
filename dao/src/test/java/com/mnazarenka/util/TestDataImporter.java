@@ -3,12 +3,17 @@ package com.mnazarenka.util;
 
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Dish;
+import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
+import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
+import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import java.util.HashMap;
 
 public final class TestDataImporter {
     private static TestDataImporter INSTANCE;
@@ -52,6 +57,13 @@ public final class TestDataImporter {
         thirdAdress.setStreet("ThirdStreet");
         Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, session);
 
+        EconomApartment economApartment = saveEconomAppartment(firstHotel, "EconomAppartmentName", "EconomAppartmentDescription",
+                1, true, session);
+        StandartAppartment standartAppartment = saveStandartAppartment(firstHotel, "StandartAppartmentName", "StandartAppartmentDescription",
+                2, true, true, true, session);
+        LuxAppartment luxAppartment = saveLuxAppartment(firstHotel, "LuxAppartmentName", "LuxAppartmentDescription",
+                4, true, true, true, true, true, session);
+
         Dish firstDish = saveDish("FirstDish", session);
         Dish secondDish = saveDish("SecondDish", session);
 
@@ -65,6 +77,48 @@ public final class TestDataImporter {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    private LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount,
+                                            boolean wifi, boolean wc, boolean tv, boolean bar, boolean kitchen, Session session) {
+        LuxAppartment luxAppartment = new LuxAppartment();
+        luxAppartment.setHotel(hotel);
+        luxAppartment.setName(name);
+        luxAppartment.setDescription(description);
+        luxAppartment.setGuestsCounts(guestCount);
+        luxAppartment.setWiFi(wifi);
+        luxAppartment.setWc(wc);
+        luxAppartment.setTv(tv);
+        luxAppartment.setBar(bar);
+        luxAppartment.setKichen(kitchen);
+        session.save(luxAppartment);
+        return luxAppartment;
+
+    }
+
+    private StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount,
+                                                      boolean wifi, boolean wc, boolean tv, Session session) {
+        StandartAppartment standartAppartment = new StandartAppartment();
+        standartAppartment.setHotel(hotel);
+        standartAppartment.setName(name);
+        standartAppartment.setDescription(description);
+        standartAppartment.setGuestsCounts(guestCount);
+        standartAppartment.setWiFi(wifi);
+        standartAppartment.setWc(wc);
+        standartAppartment.setTv(tv);
+        session.save(standartAppartment);
+        return standartAppartment;
+    }
+
+    private EconomApartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, Session session) {
+        EconomApartment economApartment = new EconomApartment();
+        economApartment.setHotel(hotel);
+        economApartment.setName(name);
+        economApartment.setDescription(description);
+        economApartment.setGuestsCounts(guestCount);
+        economApartment.setWiFi(wifi);
+        session.save(economApartment);
+        return economApartment;
     }
 
     private Dish saveDish(String name, Session session) {
