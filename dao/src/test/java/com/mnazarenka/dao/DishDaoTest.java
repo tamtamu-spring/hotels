@@ -1,15 +1,12 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Dish;
-import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -22,19 +19,15 @@ import static org.junit.Assert.assertThat;
 public class DishDaoTest {
     private static SessionFactory sessionFactory;
 
-    @BeforeClass
-    public static void init() {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
-    }
-
     @Before
     public void initDb() {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
         TestDataImporter.getInstance().importTestData(sessionFactory);
     }
 
     @Test
     public void findAllDishesTest() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
             List<Dish> hotels = session.createQuery("select d from Dish d", Dish.class)
@@ -51,8 +44,8 @@ public class DishDaoTest {
 
     }
 
-    @AfterClass
-    public static void destroy() {
+    @After
+    public void destroy() {
         sessionFactory.close();
     }
 }

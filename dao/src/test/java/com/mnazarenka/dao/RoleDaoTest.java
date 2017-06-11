@@ -5,9 +5,8 @@ import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,19 +20,15 @@ public class RoleDaoTest {
 
     private static SessionFactory sessionFactory;
 
-    @BeforeClass
-    public static void init() {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
-    }
-
     @Before
     public void initDb() {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
         TestDataImporter.getInstance().importTestData(sessionFactory);
     }
 
     @Test
     public void findAllRolesTest() {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
             List<Role> roles = session.createQuery("select r from Role r", Role.class)
@@ -50,8 +45,8 @@ public class RoleDaoTest {
 
     }
 
-    @AfterClass
-    public static void destroy() {
+    @After
+    public void destroy() {
         sessionFactory.close();
     }
 

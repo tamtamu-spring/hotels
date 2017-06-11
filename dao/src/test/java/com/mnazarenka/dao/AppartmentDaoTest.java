@@ -1,7 +1,6 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
@@ -18,9 +17,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class AppartmentDaoTest {
     private static SessionFactory sessionFactory;
@@ -120,7 +117,7 @@ public class AppartmentDaoTest {
     }
 
     @After
-    public  void destroy() {
+    public void destroy() {
         sessionFactory.close();
     }
 
