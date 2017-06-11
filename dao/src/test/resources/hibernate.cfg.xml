@@ -20,8 +20,7 @@
     <mapping class="com.mnazarenka.dao.entity.Restaurant"/>
     <mapping class="com.mnazarenka.dao.entity.User"/>
     <mapping class="com.mnazarenka.dao.entity.Role"/>
-    <mapping class="com.mnazarenka.dao.entity.DishesCategories"/>
-    <mapping class="com.mnazarenka.dao.entity.Dishes"/>
+    <mapping class="com.mnazarenka.dao.entity.Dish"/>
     <mapping class="com.mnazarenka.dao.entity.DishOrders"/>
     <mapping class="com.mnazarenka.dao.entity.DishOrdersDetails"/>
   </session-factory>

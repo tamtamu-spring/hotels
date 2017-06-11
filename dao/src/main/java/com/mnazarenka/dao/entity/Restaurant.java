@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -37,5 +38,5 @@ public class Restaurant extends BaseEntity {
             joinColumns = @JoinColumn(name = "fk_restaurants_id"),
             inverseJoinColumns = @JoinColumn(name = "fk_dishes_id")
     )
-    private Set<Dishes> dishes;
+    private Set<Dish> dishes = new HashSet<>();
 }

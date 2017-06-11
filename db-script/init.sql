@@ -67,18 +67,18 @@ CREATE TABLE `orders` (
     ON DELETE CASCADE
 );
 
-CREATE TABLE `dishes_categories` (
+/*CREATE TABLE `dishes_categories` (
   `id`   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL
 );
-
+*/
 CREATE TABLE `dishes` (
   `id`                   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fk_dishes_categories` BIGINT       NOT NULL,
-  `name`                 VARCHAR(255) NOT NULL,
-  CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
+  `name`                 VARCHAR(255) NOT NULL
+ /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON DELETE CASCADE*/
 );
 
 CREATE TABLE `dishes_restaurants` (

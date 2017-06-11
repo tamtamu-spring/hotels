@@ -8,6 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -15,8 +17,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
-@Table(name = "dishes_categories")
-public class DishesCategories extends BaseEntity implements Serializable {
+@Table(name = "dishes")
+public class Dish extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column

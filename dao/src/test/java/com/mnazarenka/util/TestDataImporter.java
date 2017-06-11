@@ -2,6 +2,7 @@ package com.mnazarenka.util;
 
 
 import com.mnazarenka.dao.entity.Adress;
+import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
@@ -51,12 +52,26 @@ public final class TestDataImporter {
         thirdAdress.setStreet("ThirdStreet");
         Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, session);
 
-        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", firstHotel, session);
-        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", secondHotel, session);
+        Dish firstDish = saveDish("FirstDish", session);
+        Dish secondDish = saveDish("SecondDish", session);
 
+        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", firstHotel, session);
+        firstRestaurant.getDishes().add(firstDish);
+        firstRestaurant.getDishes().add(secondDish);
+
+        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", secondHotel, session);
+        secondRestaurant.getDishes().add(firstDish);
+        secondRestaurant.getDishes().add(secondDish);
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    private Dish saveDish(String name, Session session) {
+        Dish dish = new Dish();
+        dish.setName(name);
+        session.save(dish);
+        return dish;
     }
 
     private Restaurant saveRestaurant(String name, Hotel hotel, Session session) {
