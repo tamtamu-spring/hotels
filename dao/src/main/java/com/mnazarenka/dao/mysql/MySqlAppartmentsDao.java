@@ -1,24 +1,46 @@
 package com.mnazarenka.dao.mysql;
 
-import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.mysql.db.DbConnector;
+import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.LuxAppartment;
+import com.mnazarenka.dao.entity.StandartAppartment;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MySqlAppartmentsDao implements AppartmentDao {
-    private static final DbConnector dbConnector = DbConnector.getInstance();
+public class MySqlAppartmentsDao extends BaseDao<Appartment> {
 
-    public List<Appartment> getAllAppartments() {
-        List<Appartment> entities = new ArrayList<>();
+    public MySqlAppartmentsDao() {
+        super(Appartment.class);
+    }
 
-        Session session = dbConnector.getSessionWithTransaction();
-        entities = session.createQuery("from Appartment", Appartment.class).getResultList();
+    public List<EconomApartment> findAllEconomAppartments() {
+        Session session = SESSION_FACTORY.openSession();
+        session.beginTransaction();
+        List<EconomApartment> resultList = session.createQuery("select e from EconomApartment e", EconomApartment.class)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return resultList;
+    }
 
-        dbConnector.commitTransactionAndCloseSession(session);
+    public List<StandartAppartment> findAllStandartAppartments() {
+        Session session = SESSION_FACTORY.openSession();
+        session.beginTransaction();
+        List<StandartAppartment> resultList = session.createQuery("select e from StandartAppartment e", StandartAppartment.class)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return resultList;
+    }
 
-        return entities;
+    public List<LuxAppartment> findAllLuxAppartments() {
+        Session session = SESSION_FACTORY.openSession();
+        session.beginTransaction();
+        List<LuxAppartment> resultList = session.createQuery("select e from LuxAppartment e", LuxAppartment.class)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return resultList;
     }
 }

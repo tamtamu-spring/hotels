@@ -14,6 +14,7 @@ import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.entity.User;
+import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -23,8 +24,10 @@ import java.time.LocalTime;
 
 public final class TestDataImporter {
     private static TestDataImporter INSTANCE;
+    private SessionFactory sessionFactory;
 
     private TestDataImporter(){
+        sessionFactory = DbSessionFactoryCreater.getInstance().getSessionFactory();
     }
 
     public static TestDataImporter getInstance(){

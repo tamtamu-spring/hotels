@@ -20,7 +20,7 @@ public class AppartmentsController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AppartmentService appartmentService = new AppartmentServiceImpl();
-        List<Appartment> entities = appartmentService.getAllAppartments();
+        List<Appartment> entities = appartmentService.findAllAppartments();
 
         req.setAttribute("appartments", entities);
         req.getRequestDispatcher(APPARTMENT_VIEW).forward(req, resp);

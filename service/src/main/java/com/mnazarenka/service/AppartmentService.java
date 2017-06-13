@@ -5,5 +5,5 @@ import com.mnazarenka.dao.entity.Appartment;
 import java.util.List;
 
 public interface AppartmentService {
-    List<Appartment> getAllAppartments();
+    List<Appartment> findAllAppartments();
 }

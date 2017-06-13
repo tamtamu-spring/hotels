@@ -4,6 +4,8 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
+import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
+import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,91 +31,65 @@ public class AppartmentDaoTest {
     }
 
     @Test
-    public void findAllAppartmentsTest() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+    public void testFindAll() {
 
-            List<Appartment> appartments = session.createQuery("select a from Appartment a", Appartment.class)
-                    .getResultList();
+        List<Appartment> appartments = new MySqlAppartmentsDao().findAll();
 
-            List<String> appartmentNames = appartments.stream().map(Appartment::getName)
-                    .collect(toList());
-            List<String> appartmentDescriptions = appartments.stream().map(Appartment::getDescription)
-                    .collect(toList());
-            List<Integer> appartmentsCounts = appartments.stream().map(Appartment::getGuestsCounts).collect(toList());
-            List<Boolean> appartmentsWifiOptions = appartments.stream().map(Appartment::getWiFi).collect(toList());
+        List<String> appartmentNames = appartments.stream().map(Appartment::getName)
+                .collect(toList());
+        List<String> appartmentDescriptions = appartments.stream().map(Appartment::getDescription)
+                .collect(toList());
+        List<Integer> appartmentsCounts = appartments.stream().map(Appartment::getGuestsCounts).collect(toList());
+        List<Boolean> appartmentsWifiOptions = appartments.stream().map(Appartment::getWiFi).collect(toList());
 
 
-            assertThat(appartments, hasSize(3));
-            assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName",
-                    "LuxAppartmentName"));
-            assertThat(appartmentDescriptions, containsInAnyOrder("EconomAppartmentDescription", "StandartAppartmentDescription",
-                    "LuxAppartmentDescription"));
-            assertThat(appartmentsCounts, containsInAnyOrder(1, 2, 4));
-            appartmentsWifiOptions.forEach(a -> assertNotNull(a));
-
-            session.getTransaction().commit();
-        }
-
+        assertThat(appartments, hasSize(3));
+        assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName",
+                "LuxAppartmentName"));
+        assertThat(appartmentDescriptions, containsInAnyOrder("EconomAppartmentDescription", "StandartAppartmentDescription",
+                "LuxAppartmentDescription"));
+        assertThat(appartmentsCounts, containsInAnyOrder(1, 2, 4));
+        appartmentsWifiOptions.forEach(a -> assertNotNull(a));
     }
 
     @Test
-    public void findEconomAppartmentTest() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+    public void testFindEconomAppartments() {
 
-            EconomApartment appartment = session.createQuery("select e from EconomApartment e", EconomApartment.class)
-                    .getSingleResult();
+        List<EconomApartment> appartments = new MySqlAppartmentsDao().findAllEconomAppartments();
 
-
-            assertEquals(appartment.getName(), "EconomAppartmentName");
-            assertEquals(appartment.getDescription(), "EconomAppartmentDescription");
-            assertEquals((long) appartment.getGuestsCounts(), 1);
-            assertEquals(appartment.getWiFi(), true);
-
-            session.getTransaction().commit();
-        }
+        assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
+        assertEquals(appartments.get(0).getDescription(), "EconomAppartmentDescription");
+        assertEquals((long) appartments.get(0).getGuestsCounts(), 1);
+        assertEquals(appartments.get(0).getWiFi(), true);
 
     }
 
     @Test
     public void findStandatAppartmentTest() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
 
-            StandartAppartment appartment = session.createQuery("select e from StandartAppartment e", StandartAppartment.class)
-                    .getSingleResult();
+            List<StandartAppartment> appartments = new MySqlAppartmentsDao().findAllStandartAppartments();
 
-            assertEquals(appartment.getName(), "StandartAppartmentName");
-            assertEquals(appartment.getDescription(), "StandartAppartmentDescription");
-            assertEquals((long) appartment.getGuestsCounts(), 2);
-            assertEquals(appartment.getWiFi(), true);
-            assertEquals(appartment.getWc(), true);
-            assertEquals(appartment.getTv(), true);
-
-            session.getTransaction().commit();
-        }
+            assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
+            assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
+            assertEquals((long) appartments.get(0).getGuestsCounts(), 2);
+            assertEquals(appartments.get(0).getWiFi(), true);
+            assertEquals(appartments.get(0).getWc(), true);
+            assertEquals(appartments.get(0).getTv(), true);
     }
 
     @Test
     public void findLuxAppartmentTest() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
 
-            LuxAppartment appartment = session.createQuery("select e from LuxAppartment e", LuxAppartment.class)
-                    .getSingleResult();
+            List<LuxAppartment> appartments = new MySqlAppartmentsDao().findAllLuxAppartments();
 
-            assertEquals(appartment.getName(), "LuxAppartmentName");
-            assertEquals(appartment.getDescription(), "LuxAppartmentDescription");
-            assertEquals((long) appartment.getGuestsCounts(), 4);
-            assertEquals(appartment.getWiFi(), true);
-            assertEquals(appartment.getWc(), true);
-            assertEquals(appartment.getTv(), true);
-            assertEquals(appartment.getBar(), true);
-            assertEquals(appartment.getKichen(), true);
-
-            session.getTransaction().commit();
-        }
+            assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
+            assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");
+            assertEquals((long) appartments.get(0).getGuestsCounts(), 4);
+            assertEquals(appartments.get(0).getWiFi(), true);
+            assertEquals(appartments.get(0).getWc(), true);
+            assertEquals(appartments.get(0).getTv(), true);
+            assertEquals(appartments.get(0).getBar(), true);
+            assertEquals(appartments.get(0).getKichen(), true);
     }
 
     @After
