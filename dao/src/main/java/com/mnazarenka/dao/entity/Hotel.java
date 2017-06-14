@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,6 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(exclude = "entities", callSuper = true)
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "my-cache")
 @Table(name = "hotels")
 public class Hotel extends BaseEntity implements Serializable {
     @Getter
