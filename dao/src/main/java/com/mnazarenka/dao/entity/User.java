@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
 @Table(name = "users")

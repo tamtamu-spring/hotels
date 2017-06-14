@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
 @ToString(exclude = "details", callSuper = true)
 @Entity
 @Table(name = "dish_orders")

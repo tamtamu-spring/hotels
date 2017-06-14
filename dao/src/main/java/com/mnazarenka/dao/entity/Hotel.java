@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
 @ToString(exclude = "entities", callSuper = true)
 @Entity
 @Table(name = "hotels")

@@ -13,7 +13,6 @@ import java.io.Serializable;
 
 @Embeddable
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
 public class Adress implements Serializable {
     @Getter

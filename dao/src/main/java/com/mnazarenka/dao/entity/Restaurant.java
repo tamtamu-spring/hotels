@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
 @ToString(callSuper = true)
 @Entity
 @Table(name = "restaurants")

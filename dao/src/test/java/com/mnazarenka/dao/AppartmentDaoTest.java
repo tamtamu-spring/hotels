@@ -2,9 +2,11 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
+import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import com.mnazarenka.util.TestDataImporter;
 import org.hibernate.Session;
@@ -28,6 +30,63 @@ public class AppartmentDaoTest {
     public void initDb() {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         TestDataImporter.getInstance().importTestData(sessionFactory);
+    }
+
+    @Test
+    public void testFind() {
+        Appartment appartment = new MySqlAppartmentsDao().find(1L);
+
+        assertEquals("EconomAppartmentName", appartment.getName());
+    }
+
+    @Test
+    public void testCreate() {
+        Hotel hotel = new MySqlHotelDao().find(1L);
+
+        Appartment appartment = new Appartment();
+        appartment.setName("New Appartment");
+        appartment.setHotel(hotel);
+
+        Appartment newAppartment = new MySqlAppartmentsDao().create(appartment);
+
+        assertEquals("New Appartment", newAppartment.getName());
+    }
+
+    @Test
+    public void testUpdate() {
+        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
+
+        Appartment appartment = mySqlAppartmentsDao.find(1L);
+        appartment.setName("New Name");
+
+        Appartment update = mySqlAppartmentsDao.update(appartment);
+
+        appartment = mySqlAppartmentsDao.find(1L);
+
+        assertEquals("New Name", appartment.getName());
+    }
+
+    @Test
+    public void testDelete() {
+        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
+
+    /*    Appartment appartment = mySqlAppartmentsDao.find(1L);
+*/
+        Hotel hotel = new MySqlHotelDao().find(1L);
+
+        Appartment appartment = new Appartment();
+        appartment.setName("New Appartment");
+        appartment.setHotel(hotel);
+
+        Appartment newAppartment = mySqlAppartmentsDao.create(appartment);
+
+        long id = newAppartment.getId();
+
+        mySqlAppartmentsDao.delete(appartment);
+
+        Appartment deletedAppartment = mySqlAppartmentsDao.find(id);
+
+        assertNull(deletedAppartment);
     }
 
     @Test
@@ -67,29 +126,29 @@ public class AppartmentDaoTest {
     @Test
     public void findStandatAppartmentTest() {
 
-            List<StandartAppartment> appartments = new MySqlAppartmentsDao().findAllStandartAppartments();
+        List<StandartAppartment> appartments = new MySqlAppartmentsDao().findAllStandartAppartments();
 
-            assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
-            assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
-            assertEquals((long) appartments.get(0).getGuestsCounts(), 2);
-            assertEquals(appartments.get(0).getWiFi(), true);
-            assertEquals(appartments.get(0).getWc(), true);
-            assertEquals(appartments.get(0).getTv(), true);
+        assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
+        assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
+        assertEquals((long) appartments.get(0).getGuestsCounts(), 2);
+        assertEquals(appartments.get(0).getWiFi(), true);
+        assertEquals(appartments.get(0).getWc(), true);
+        assertEquals(appartments.get(0).getTv(), true);
     }
 
     @Test
     public void findLuxAppartmentTest() {
 
-            List<LuxAppartment> appartments = new MySqlAppartmentsDao().findAllLuxAppartments();
+        List<LuxAppartment> appartments = new MySqlAppartmentsDao().findAllLuxAppartments();
 
-            assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
-            assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");
-            assertEquals((long) appartments.get(0).getGuestsCounts(), 4);
-            assertEquals(appartments.get(0).getWiFi(), true);
-            assertEquals(appartments.get(0).getWc(), true);
-            assertEquals(appartments.get(0).getTv(), true);
-            assertEquals(appartments.get(0).getBar(), true);
-            assertEquals(appartments.get(0).getKichen(), true);
+        assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
+        assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");
+        assertEquals((long) appartments.get(0).getGuestsCounts(), 4);
+        assertEquals(appartments.get(0).getWiFi(), true);
+        assertEquals(appartments.get(0).getWc(), true);
+        assertEquals(appartments.get(0).getTv(), true);
+        assertEquals(appartments.get(0).getBar(), true);
+        assertEquals(appartments.get(0).getKichen(), true);
     }
 
     @After
