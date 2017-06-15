@@ -12,7 +12,7 @@ public abstract class BaseDao<T> {
 
     private Class<T> genericClass;
 
-    BaseDao(Class<T> genericClass) {
+    protected BaseDao(Class<T> genericClass) {
         this.genericClass = genericClass;
     }
 
