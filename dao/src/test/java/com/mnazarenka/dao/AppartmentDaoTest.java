@@ -5,11 +5,10 @@ import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
+import com.mnazarenka.dao.mysql.BaseDao;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
 import com.mnazarenka.dao.mysql.MySqlHotelDao;
-import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import com.mnazarenka.util.TestDataImporter;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.After;
@@ -23,7 +22,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
-public class AppartmentDaoTest {
+public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
     private static SessionFactory sessionFactory;
 
     @Before
@@ -32,12 +31,26 @@ public class AppartmentDaoTest {
         TestDataImporter.getInstance().importTestData(sessionFactory);
     }
 
-    @Test
+    @Override
+    public Appartment getEntity() {
+        Hotel hotel = new MySqlHotelDao().find(1L);
+        Appartment appartment = new Appartment();
+        appartment.setName("New Appartment");
+        appartment.setHotel(hotel);
+        return appartment;
+    }
+
+    @Override
+    public BaseDao<Appartment> getCurrentDao() {
+        return new MySqlAppartmentsDao();
+    }
+
+   /* @Test
     public void testFind() {
         Appartment appartment = new MySqlAppartmentsDao().find(1L);
 
         assertEquals("EconomAppartmentName", appartment.getName());
-    }
+    }*/
 
     @Test
     public void testCreate() {
@@ -59,19 +72,18 @@ public class AppartmentDaoTest {
         Appartment appartment = mySqlAppartmentsDao.find(1L);
         appartment.setName("New Name");
 
-        Appartment update = mySqlAppartmentsDao.update(appartment);
+        mySqlAppartmentsDao.update(appartment);
 
         appartment = mySqlAppartmentsDao.find(1L);
 
         assertEquals("New Name", appartment.getName());
     }
 
-    @Test
+    /*@Test
     public void testDelete() {
         MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
 
-    /*    Appartment appartment = mySqlAppartmentsDao.find(1L);
-*/
+
         Hotel hotel = new MySqlHotelDao().find(1L);
 
         Appartment appartment = new Appartment();
@@ -87,7 +99,7 @@ public class AppartmentDaoTest {
         Appartment deletedAppartment = mySqlAppartmentsDao.find(id);
 
         assertNull(deletedAppartment);
-    }
+    }*/
 
     @Test
     public void testFindAll() {
