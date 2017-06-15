@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "my-cache")
 @Table(name = "restaurants")
 public class Restaurant extends BaseEntity {
     @Getter
