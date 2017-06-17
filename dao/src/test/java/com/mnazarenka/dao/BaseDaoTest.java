@@ -22,18 +22,26 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
 
     @Test
     public void testCreateAndFind() {
-        getCurrentDao().create(getEntity());
-        T entity = getCurrentDao().find(1L);
+        T entity = getCurrentDao().create(getEntity());
+        Long id = entity.getId();
+        entity = getCurrentDao().find(id);
         assertNotNull(entity);
+
+        getCurrentDao().delete(entity);
     }
 
     @Test
     public void testFindAll() {
-        getCurrentDao().create(getEntity());
-        getCurrentDao().create(getEntity());
-        getCurrentDao().create(getEntity());
+        T firstEntity = getCurrentDao().create(getEntity());
+        T secondEntity = getCurrentDao().create(getEntity());
+        T thirdEntity = getCurrentDao().create(getEntity());
+
         List<T> result = getCurrentDao().findAll();
         assertThat(result, hasSize(3));
+
+        getCurrentDao().delete(firstEntity);
+        getCurrentDao().delete(secondEntity);
+        getCurrentDao().delete(thirdEntity);
     }
 
     @Test
