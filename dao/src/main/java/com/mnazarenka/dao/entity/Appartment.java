@@ -26,7 +26,7 @@ public class Appartment extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "fk_hotel_id", nullable = false)
+    @JoinColumn(name = "fk_hotel_id")
     private Hotel hotel;
     @Getter
     @Setter

@@ -106,10 +106,7 @@ public class UserDaoTest extends BaseDaoTest<User> {
 
     @Override
     public User getEntity() {
-        /*Role role = new Role();
-        User user = new User();
-        user.setRole(role);
-        */return new User();
+        return new User();
     }
 
     @Override
@@ -119,13 +116,9 @@ public class UserDaoTest extends BaseDaoTest<User> {
 
     @Override
     public void testUpdate() {
-        Role role = new Role();
-
-        MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
-        role = mySqlRoleDao.create(role);
 
         MySqlUserDao mySqlUserDao = new MySqlUserDao();
-        User user = saveUser(false, role, "AdminLogin", "AdminPassword", mySqlUserDao);
+        User user = saveUser(false, null, "AdminLogin", "AdminPassword", mySqlUserDao);
         Long id = user.getId();
 
         user.setLogin("New login");
@@ -136,6 +129,5 @@ public class UserDaoTest extends BaseDaoTest<User> {
         assertEquals("New login", user.getLogin());
 
         mySqlUserDao.delete(user);
-        mySqlRoleDao.delete(role);
     }
 }
