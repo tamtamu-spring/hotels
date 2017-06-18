@@ -8,8 +8,6 @@ import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.mysql.BaseDao;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
 import com.mnazarenka.dao.mysql.MySqlHotelDao;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -19,7 +17,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
-public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
+public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     private Hotel hotel;
 
@@ -27,20 +25,13 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
     private LuxAppartment luxAppartment;
     private EconomApartment economApartment;
 
-    @Before
-    public void initDb() {
-        //sessionFactory = new Configuration().configure().buildSessionFactory();
-        //TestDataImporter.getInstance().importTestData(sessionFactory);
-    }
 
     @Override
     public Appartment getEntity() {
 
-        hotel = saveHotel("New Hotel", new MySqlHotelDao());
 
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
-        appartment.setHotel(hotel);
         return appartment;
     }
 
@@ -56,6 +47,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
         assertEquals("EconomAppartmentName", appartment.getName());
     }*/
 
+/*
     @Test
     public void testCreate() {
         MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
@@ -72,16 +64,15 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
 
         mySqlAppartmentsDao.delete(appartment);
     }
+*/
 
     @Test
     public void testUpdate() {
         MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
 
-        hotel = saveHotel("New Hotel", new MySqlHotelDao());
 
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
-        appartment.setHotel(hotel);
         appartment = mySqlAppartmentsDao.create(appartment);
 
         appartment.setName("New Name");
@@ -215,11 +206,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment>{
                 2, true, true, true, mySqlAppartmentsDao);
         luxAppartment = saveLuxAppartment(hotel, "LuxAppartmentName", "LuxAppartmentDescription",
                 4, true, true, true, true, true, mySqlAppartmentsDao);
-    }
-
-    @After
-    public void destroy() {
-        //sessionFactory.close();
     }
 
 

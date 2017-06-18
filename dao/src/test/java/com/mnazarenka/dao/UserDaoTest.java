@@ -1,14 +1,10 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.dao.mysql.BaseDao;
-import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import com.mnazarenka.dao.mysql.MySqlRoleDao;
 import com.mnazarenka.dao.mysql.MySqlUserDao;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -26,12 +22,8 @@ public class UserDaoTest extends BaseDaoTest<User> {
     private User user;
 
 
-    @Before
-    public void initDb() {
-    }
-
     @Test
-    public void findAllUsersTest() {
+    public void testFindAll() {
 
         createTestData();
 
@@ -64,8 +56,6 @@ public class UserDaoTest extends BaseDaoTest<User> {
         mySqlUserDao.delete(admin);
         mySqlRoleDao.delete(userRole);
         mySqlRoleDao.delete(adminRole);
-
-
     }
 
     private void createTestData() {
@@ -85,13 +75,6 @@ public class UserDaoTest extends BaseDaoTest<User> {
         role.setName(name);
         mySqlRoleDao.create(role);
         return role;
-    }
-
-
-    @After
-    public void destroy() {
-
-
     }
 
     private User saveUser(boolean blockStatus, Role role, String login, String password, MySqlUserDao mySqlUserDao) {

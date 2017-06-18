@@ -1,19 +1,10 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.mysql.BaseDao;
-import com.mnazarenka.dao.mysql.MySqlDishDao;
 import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import com.mnazarenka.dao.mysql.MySqlRestaurantDao;
-import com.mnazarenka.dao.mysql.MySqlRoleDao;
-import com.mnazarenka.util.TestDataImporter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,20 +12,13 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-public class RestaurantDaoTest extends BaseDaoTest<Restaurant>{
+public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
 
-    @Before
-    public void initDb() {
-        //sessionFactory = new Configuration().configure().buildSessionFactory();
-        //TestDataImporter.getInstance().importTestData(sessionFactory);
-    }
 
-    /*@Test
-    public void findAllResraurantsTest() {
+    @Test
+    public void testFindAll() {
         MySqlRestaurantDao mySqlRestaurantDao = new MySqlRestaurantDao();
 
         MySqlHotelDao mySqlHotelDao = new MySqlHotelDao();
@@ -46,25 +30,19 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant>{
 
         List<Restaurant> restaurants = mySqlRestaurantDao.findAll();
 
-            List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
-                    .collect(toList());
-            List<Hotel> hotels = restaurants.stream().map(Restaurant::getHotel).collect(toList());
+        List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
+                .collect(toList());
+        List<Hotel> hotels = restaurants.stream().map(Restaurant::getHotel).collect(toList());
 
-            assertThat(restaurants, hasSize(2));
-            assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant","SecondRestaurant"));
-            hotels.forEach(hot -> assertNotNull(hot));
+        assertThat(restaurants, hasSize(2));
+        assertThat(hotels, hasSize(2));
+        assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant", "SecondRestaurant"));
 
         mySqlRestaurantDao.delete(firstRestaurant);
         mySqlRestaurantDao.delete(secondRestaurant);
 
         mySqlHotelDao.delete(hotel);
 
-    }
-*/
-    @After
-    public void destroy() {
-
-        //sessionFactory.close();
     }
 
     @Override
@@ -93,7 +71,8 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant>{
         mySqlRestaurantDao.delete(restaurant);
 
     }
-    private Restaurant saveRestaurant(String name, Hotel hotel, MySqlRestaurantDao mySqlRestaurantDao ) {
+
+    private Restaurant saveRestaurant(String name, Hotel hotel, MySqlRestaurantDao mySqlRestaurantDao) {
         Restaurant restaurant = new Restaurant();
         restaurant.setName(name);
         restaurant.setHotel(hotel);

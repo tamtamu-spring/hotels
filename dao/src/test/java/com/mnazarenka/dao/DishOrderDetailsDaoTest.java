@@ -3,55 +3,90 @@ package com.mnazarenka.dao;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.DishOrderDetails;
-import com.mnazarenka.util.TestDataImporter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.junit.After;
-import org.junit.Before;
+import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.mysql.MySqlDishDao;
+import com.mnazarenka.dao.mysql.MySqlDishOrderDao;
+import com.mnazarenka.dao.mysql.MySqlDishOrderDetailsDao;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.*;
 
-public class DishOrderDetailsDaoTest {
-    private static SessionFactory sessionFactory;
+public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails> {
 
-    @Before
-    public void initDb() {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
-        TestDataImporter.getInstance().importTestData(sessionFactory);
-    }
 
     @Test
-    public void findAllDishesTest() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+    public void testFindAll() {
+        MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao = new MySqlDishOrderDetailsDao();
+        MySqlDishOrderDao mySqlDishOrderDao = new MySqlDishOrderDao();
+        MySqlDishDao mySqlDishDao = new MySqlDishDao();
 
-            List<DishOrderDetails> details = session.createQuery("select d from DishOrderDetails d", DishOrderDetails.class)
-                    .getResultList();
-            List<LocalDateTime> dishOrderTimes = details.stream().map(DishOrderDetails::getOrder).map(DishOrder::getOrderTime)
-                    .collect(toList());
-            List<String> dishesNames = details.stream().map(DishOrderDetails::getDish).map(Dish::getName).collect(toList());
-            List<Integer> counts = details.stream().map(DishOrderDetails::getCount).collect(toList());
+        Dish dish = new Dish();
+        mySqlDishDao.create(dish);
 
-            assertThat(details, hasSize(2));
-            assertThat(dishOrderTimes, containsInRelativeOrder(LocalDateTime.of(LocalDate.now(), LocalTime.MAX)));
-            assertThat(dishesNames, containsInAnyOrder("FirstDish", "SecondDish"));
-            assertThat(counts, containsInAnyOrder(1, 2));
-            session.getTransaction().commit();
-        }
+        DishOrder dishOrder = new DishOrder();
+        mySqlDishOrderDao.create(dishOrder);
+
+        DishOrderDetails firstDetail = saveDishOrderDetail(dish, dishOrder, 1, mySqlDishOrderDetailsDao);
+        DishOrderDetails secondDetail = saveDishOrderDetail(dish, dishOrder, 2, mySqlDishOrderDetailsDao);
+
+
+        List<DishOrderDetails> details = mySqlDishOrderDetailsDao.findAll();
+        List<DishOrder> dishOrders = details.stream().map(DishOrderDetails::getOrder)
+                .collect(toList());
+        List<Dish> dishes = details.stream().map(DishOrderDetails::getDish).collect(toList());
+        List<Integer> counts = details.stream().map(DishOrderDetails::getCount).collect(toList());
+
+        assertThat(details, hasSize(2));
+        dishes.forEach(d -> assertNotNull(d));
+        dishOrders.forEach(o -> assertNotNull(o));
+        assertThat(counts, containsInAnyOrder(1, 2));
+
+        mySqlDishOrderDetailsDao.delete(firstDetail);
+        mySqlDishOrderDetailsDao.delete(secondDetail);
+        mySqlDishOrderDao.delete(dishOrder);
+        mySqlDishDao.delete(dish);
     }
 
-    @After
-    public void destroy() {
-        sessionFactory.close();
+
+    @Override
+    public DishOrderDetails getEntity() {
+        return new DishOrderDetails();
+    }
+
+    @Override
+    public BaseDao<DishOrderDetails> getCurrentDao() {
+        return new MySqlDishOrderDetailsDao();
+    }
+
+    @Override
+    public void testUpdate() {
+        MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao = new MySqlDishOrderDetailsDao();
+        DishOrderDetails dishOrderDetails = saveDishOrderDetail(null, null, 3, mySqlDishOrderDetailsDao);
+
+        Long id = dishOrderDetails.getId();
+        dishOrderDetails.setCount(5);
+        mySqlDishOrderDetailsDao.update(dishOrderDetails);
+
+        dishOrderDetails = mySqlDishOrderDetailsDao.find(id);
+
+        assertEquals(5, (long) dishOrderDetails.getCount());
+
+        mySqlDishOrderDetailsDao.delete(dishOrderDetails);
+
+    }
+
+    private DishOrderDetails saveDishOrderDetail(Dish dish, DishOrder order, int count, MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao) {
+        DishOrderDetails dishOrderDetails = new DishOrderDetails();
+        dishOrderDetails.setDish(dish);
+        dishOrderDetails.setOrder(order);
+        dishOrderDetails.setCount(count);
+        mySqlDishOrderDetailsDao.create(dishOrderDetails);
+        return dishOrderDetails;
     }
 }
 

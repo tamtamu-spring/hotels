@@ -2,13 +2,10 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.mysql.BaseDao;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import java.util.List;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 
 public abstract class BaseDaoTest<T extends BaseEntity> {
@@ -31,18 +28,7 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
     }
 
     @Test
-    public void testFindAll() {
-        T firstEntity = getCurrentDao().create(getEntity());
-        T secondEntity = getCurrentDao().create(getEntity());
-        T thirdEntity = getCurrentDao().create(getEntity());
-
-        List<T> result = getCurrentDao().findAll();
-        assertThat(result, hasSize(3));
-
-        getCurrentDao().delete(firstEntity);
-        getCurrentDao().delete(secondEntity);
-        getCurrentDao().delete(thirdEntity);
-    }
+    public abstract void testFindAll();
 
     @Test
     public void testDelete() {

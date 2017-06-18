@@ -2,10 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.mysql.BaseDao;
-import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import com.mnazarenka.dao.mysql.MySqlRoleDao;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -20,30 +17,20 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
     private Role userRole;
     private Role adminRole;
 
-    @Before
-    public void initDb() {
-        //sessionFactory = new Configuration().configure().buildSessionFactory();
-        //TestDataImporter.getInstance().importTestData(sessionFactory);
-    }
 
     @Test
-    public void findAllRolesTest() {
+    public void testFindAll() {
 
-            createTestData();
+        createTestData();
 
-            List<Role> roles = new MySqlRoleDao().findAll();
-            List<String> rolesNames = roles.stream().map(Role::getName)
-                    .collect(toList());
+        List<Role> roles = new MySqlRoleDao().findAll();
+        List<String> rolesNames = roles.stream().map(Role::getName)
+                .collect(toList());
 
-            assertThat(roles, hasSize(2));
-            assertThat(rolesNames, containsInAnyOrder("User", "Admin"));
+        assertThat(roles, hasSize(2));
+        assertThat(rolesNames, containsInAnyOrder("User", "Admin"));
 
-            destroyData();
-    }
-
-    @After
-    public void destroy() {
-        //sessionFactory.close();
+        destroyData();
     }
 
     @Override
@@ -80,13 +67,13 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
         return role;
     }
 
-    private void createTestData(){
+    private void createTestData() {
         MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
         adminRole = saveRole("Admin", mySqlRoleDao);
         userRole = saveRole("User", mySqlRoleDao);
     }
 
-    private void destroyData(){
+    private void destroyData() {
         MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
         mySqlRoleDao.delete(adminRole);
         mySqlRoleDao.delete(userRole);

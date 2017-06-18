@@ -1,19 +1,10 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.mysql.BaseDao;
-import com.mnazarenka.dao.mysql.MySqlAppartmentOderDao;
 import com.mnazarenka.dao.mysql.MySqlDishDao;
-import com.mnazarenka.util.TestDataImporter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -24,13 +15,8 @@ import static org.junit.Assert.assertThat;
 
 public class DishDaoTest extends BaseDaoTest<Dish> {
 
-    @Before
-    public void initDb() {
-
-    }
-
     @Test
-    public void findAllDishesTest() {
+    public void testFindAll() {
 
         MySqlDishDao mySqlDishDao = new MySqlDishDao();
 
@@ -49,11 +35,6 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
         mySqlDishDao.delete(firstDish);
         mySqlDishDao.delete(secondDish);
 
-    }
-
-    @After
-    public void destroy() {
-        //sessionFactory.close();
     }
 
     @Override
