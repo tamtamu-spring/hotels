@@ -14,6 +14,19 @@ public class MySqlAppartmentsDao extends BaseDao<Appartment> {
         super(Appartment.class);
     }
 
+    public List<Appartment> findAppartmentsByRange(int from, int to){
+        Session session = SESSION_FACTORY.openSession();
+        session.beginTransaction();
+        List<Appartment> resultList = session.createQuery("select a from Appartment a", Appartment.class)
+                .setFirstResult(from)
+                .setMaxResults(to)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return resultList;
+
+    }
+
     public List<EconomApartment> findAllEconomAppartments() {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();

@@ -28,8 +28,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Override
     public Appartment getEntity() {
-
-
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
         return appartment;
@@ -40,36 +38,10 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         return new MySqlAppartmentsDao();
     }
 
-   /* @Test
-    public void testFind() {
-        Appartment appartment = new MySqlAppartmentsDao().find(1L);
-
-        assertEquals("EconomAppartmentName", appartment.getName());
-    }*/
-
-/*
-    @Test
-    public void testCreate() {
-        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
-
-        hotel = saveHotel("New Hotel", new MySqlHotelDao());
-
-        Appartment appartment = new Appartment();
-        appartment.setName("New Appartment");
-        appartment.setHotel(hotel);
-
-        Appartment newAppartment = mySqlAppartmentsDao.create(appartment);
-
-        assertEquals("New Appartment", newAppartment.getName());
-
-        mySqlAppartmentsDao.delete(appartment);
-    }
-*/
 
     @Test
     public void testUpdate() {
         MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
-
 
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
@@ -95,27 +67,20 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     }
 
-    /*@Test
-    public void testDelete() {
-        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
+    @Test
+    public void testFindByRange(){
+        createTestData();
 
+        List<Appartment> appartments = new MySqlAppartmentsDao().findAppartmentsByRange(0, 2);
 
-        Hotel hotel = new MySqlHotelDao().find(1L);
+        List<String> appartmentNames = appartments.stream().map(Appartment::getName)
+                .collect(toList());
 
-        Appartment appartment = new Appartment();
-        appartment.setName("New Appartment");
-        appartment.setHotel(hotel);
+        assertThat(appartments, hasSize(2));
+        assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName"));
 
-        Appartment newAppartment = mySqlAppartmentsDao.create(appartment);
-
-        long id = newAppartment.getId();
-
-        mySqlAppartmentsDao.delete(appartment);
-
-        Appartment deletedAppartment = mySqlAppartmentsDao.find(id);
-
-        assertNull(deletedAppartment);
-    }*/
+        destroyData();
+    }
 
     @Test
     public void testFindAll() {
