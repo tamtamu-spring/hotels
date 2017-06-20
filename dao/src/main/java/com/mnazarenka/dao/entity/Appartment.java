@@ -1,6 +1,5 @@
 package com.mnazarenka.dao.entity;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

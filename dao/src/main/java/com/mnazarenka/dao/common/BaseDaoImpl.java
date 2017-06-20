@@ -4,7 +4,6 @@ import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
