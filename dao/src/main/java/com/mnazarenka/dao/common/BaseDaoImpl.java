@@ -1,5 +1,6 @@
-package com.mnazarenka.dao.mysql;
+package com.mnazarenka.dao.common;
 
+import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,12 +8,12 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public abstract class BaseDao<T> {
+public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T>{
     protected static final SessionFactory SESSION_FACTORY = DbSessionFactoryCreater.getInstance().getSessionFactory();
 
     private Class<T> genericClass;
 
-    protected BaseDao(Class<T> genericClass) {
+    protected BaseDaoImpl(Class<T> genericClass) {
         this.genericClass = genericClass;
     }
 
@@ -20,6 +21,7 @@ public abstract class BaseDao<T> {
         return SESSION_FACTORY;
     }
 
+    @Override
     public List<T> findAll() {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -30,6 +32,7 @@ public abstract class BaseDao<T> {
         return resultList;
     }
 
+    @Override
     public T find(Long id) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -39,6 +42,7 @@ public abstract class BaseDao<T> {
         return ob;
     }
 
+    @Override
     public T create(T ob) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -48,6 +52,7 @@ public abstract class BaseDao<T> {
         return ob;
     }
 
+    @Override
     public void update(T ob) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -56,6 +61,7 @@ public abstract class BaseDao<T> {
         session.close();
     }
 
+    @Override
     public void delete(T ob) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -64,6 +70,7 @@ public abstract class BaseDao<T> {
         session.close();
     }
 
+    @Override
     public void delete(Long id) {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();

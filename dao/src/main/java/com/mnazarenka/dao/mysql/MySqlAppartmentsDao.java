@@ -1,5 +1,6 @@
 package com.mnazarenka.dao.mysql;
 
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
@@ -8,7 +9,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class MySqlAppartmentsDao extends BaseDao<Appartment> {
+public class MySqlAppartmentsDao extends BaseDaoImpl<Appartment> {
 
     public MySqlAppartmentsDao() {
         super(Appartment.class);

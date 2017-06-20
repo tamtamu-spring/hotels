@@ -5,7 +5,7 @@ import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
 import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     }
 
     @Override
-    public BaseDao<Appartment> getCurrentDao() {
+    public BaseDaoImpl<Appartment> getCurrentDao() {
         return new MySqlAppartmentsDao();
     }
 

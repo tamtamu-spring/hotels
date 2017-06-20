@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlHotelDao;
 import org.junit.Test;
 
@@ -85,7 +85,7 @@ public class HotelDaoTest extends BaseDaoTest<Hotel> {
     }
 
     @Override
-    public BaseDao<Hotel> getCurrentDao() {
+    public BaseDaoImpl<Hotel> getCurrentDao() {
         return new MySqlHotelDao();
     }
 

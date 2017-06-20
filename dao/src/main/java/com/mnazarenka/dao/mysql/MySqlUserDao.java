@@ -1,9 +1,10 @@
 package com.mnazarenka.dao.mysql;
 
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
 
-public class MySqlUserDao extends BaseDao<User> {
+public class MySqlUserDao extends BaseDaoImpl<User> {
     public MySqlUserDao() {
         super(User.class);
     }

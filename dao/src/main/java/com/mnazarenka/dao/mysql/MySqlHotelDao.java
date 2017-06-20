@@ -1,10 +1,11 @@
 package com.mnazarenka.dao.mysql;
 
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
 import org.hibernate.Session;
 
-public class MySqlHotelDao extends BaseDao<Hotel> {
+public class MySqlHotelDao extends BaseDaoImpl<Hotel> {
     public MySqlHotelDao() {
         super(Hotel.class);
     }

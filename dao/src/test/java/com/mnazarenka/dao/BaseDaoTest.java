@@ -1,7 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.BaseEntity;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +12,7 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
 
     public abstract T getEntity();
 
-    public abstract BaseDao<T> getCurrentDao();
+    public abstract BaseDaoImpl<T> getCurrentDao();
 
     @Test
     public abstract void testUpdate();

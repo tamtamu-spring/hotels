@@ -3,7 +3,7 @@ package com.mnazarenka.dao;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.User;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
 import com.mnazarenka.dao.mysql.MySqlDishOrderDao;
 import com.mnazarenka.dao.mysql.MySqlUserDao;
@@ -64,7 +64,7 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
     }
 
     @Override
-    public BaseDao<DishOrder> getCurrentDao() {
+    public BaseDaoImpl<DishOrder> getCurrentDao() {
         return new MySqlDishOrderDao();
     }
 

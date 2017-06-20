@@ -1,7 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Dish;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlDishDao;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
     }
 
     @Override
-    public BaseDao<Dish> getCurrentDao() {
+    public BaseDaoImpl<Dish> getCurrentDao() {
         return new MySqlDishDao();
     }
 

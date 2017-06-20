@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
-import com.mnazarenka.dao.mysql.BaseDao;
+import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlRoleDao;
 import com.mnazarenka.dao.mysql.MySqlUserDao;
 import org.junit.Test;
@@ -93,7 +93,7 @@ public class UserDaoTest extends BaseDaoTest<User> {
     }
 
     @Override
-    public BaseDao<User> getCurrentDao() {
+    public BaseDaoImpl<User> getCurrentDao() {
         return new MySqlUserDao();
     }
 
