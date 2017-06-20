@@ -4,9 +4,9 @@ import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.DishOrderDetails;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlDishDao;
-import com.mnazarenka.dao.mysql.MySqlDishOrderDao;
-import com.mnazarenka.dao.mysql.MySqlDishOrderDetailsDao;
+import com.mnazarenka.dao.mysql.MySqlDishDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlDishOrderDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlDishOrderDetailsDaoImpl;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,21 +21,21 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails> {
 
     @Test
     public void testFindAll() {
-        MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao = new MySqlDishOrderDetailsDao();
-        MySqlDishOrderDao mySqlDishOrderDao = new MySqlDishOrderDao();
-        MySqlDishDao mySqlDishDao = new MySqlDishDao();
+        MySqlDishOrderDetailsDaoImpl mySqlDishOrderDetailsDaoImpl = new MySqlDishOrderDetailsDaoImpl();
+        MySqlDishOrderDaoImpl mySqlDishOrderDaoImpl = new MySqlDishOrderDaoImpl();
+        MySqlDishDaoImpl mySqlDishDaoImpl = new MySqlDishDaoImpl();
 
         Dish dish = new Dish();
-        mySqlDishDao.create(dish);
+        mySqlDishDaoImpl.create(dish);
 
         DishOrder dishOrder = new DishOrder();
-        mySqlDishOrderDao.create(dishOrder);
+        mySqlDishOrderDaoImpl.create(dishOrder);
 
-        DishOrderDetails firstDetail = saveDishOrderDetail(dish, dishOrder, 1, mySqlDishOrderDetailsDao);
-        DishOrderDetails secondDetail = saveDishOrderDetail(dish, dishOrder, 2, mySqlDishOrderDetailsDao);
+        DishOrderDetails firstDetail = saveDishOrderDetail(dish, dishOrder, 1, mySqlDishOrderDetailsDaoImpl);
+        DishOrderDetails secondDetail = saveDishOrderDetail(dish, dishOrder, 2, mySqlDishOrderDetailsDaoImpl);
 
 
-        List<DishOrderDetails> details = mySqlDishOrderDetailsDao.findAll();
+        List<DishOrderDetails> details = mySqlDishOrderDetailsDaoImpl.findAll();
         List<DishOrder> dishOrders = details.stream().map(DishOrderDetails::getOrder)
                 .collect(toList());
         List<Dish> dishes = details.stream().map(DishOrderDetails::getDish).collect(toList());
@@ -46,10 +46,10 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails> {
         dishOrders.forEach(o -> assertNotNull(o));
         assertThat(counts, containsInAnyOrder(1, 2));
 
-        mySqlDishOrderDetailsDao.delete(firstDetail);
-        mySqlDishOrderDetailsDao.delete(secondDetail);
-        mySqlDishOrderDao.delete(dishOrder);
-        mySqlDishDao.delete(dish);
+        mySqlDishOrderDetailsDaoImpl.delete(firstDetail);
+        mySqlDishOrderDetailsDaoImpl.delete(secondDetail);
+        mySqlDishOrderDaoImpl.delete(dishOrder);
+        mySqlDishDaoImpl.delete(dish);
     }
 
 
@@ -60,32 +60,32 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails> {
 
     @Override
     public BaseDaoImpl<DishOrderDetails> getCurrentDao() {
-        return new MySqlDishOrderDetailsDao();
+        return new MySqlDishOrderDetailsDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao = new MySqlDishOrderDetailsDao();
-        DishOrderDetails dishOrderDetails = saveDishOrderDetail(null, null, 3, mySqlDishOrderDetailsDao);
+        MySqlDishOrderDetailsDaoImpl mySqlDishOrderDetailsDaoImpl = new MySqlDishOrderDetailsDaoImpl();
+        DishOrderDetails dishOrderDetails = saveDishOrderDetail(null, null, 3, mySqlDishOrderDetailsDaoImpl);
 
         Long id = dishOrderDetails.getId();
         dishOrderDetails.setCount(5);
-        mySqlDishOrderDetailsDao.update(dishOrderDetails);
+        mySqlDishOrderDetailsDaoImpl.update(dishOrderDetails);
 
-        dishOrderDetails = mySqlDishOrderDetailsDao.find(id);
+        dishOrderDetails = mySqlDishOrderDetailsDaoImpl.find(id);
 
         assertEquals(5, (long) dishOrderDetails.getCount());
 
-        mySqlDishOrderDetailsDao.delete(dishOrderDetails);
+        mySqlDishOrderDetailsDaoImpl.delete(dishOrderDetails);
 
     }
 
-    private DishOrderDetails saveDishOrderDetail(Dish dish, DishOrder order, int count, MySqlDishOrderDetailsDao mySqlDishOrderDetailsDao) {
+    private DishOrderDetails saveDishOrderDetail(Dish dish, DishOrder order, int count, MySqlDishOrderDetailsDaoImpl mySqlDishOrderDetailsDaoImpl) {
         DishOrderDetails dishOrderDetails = new DishOrderDetails();
         dishOrderDetails.setDish(dish);
         dishOrderDetails.setOrder(order);
         dishOrderDetails.setCount(count);
-        mySqlDishOrderDetailsDao.create(dishOrderDetails);
+        mySqlDishOrderDetailsDaoImpl.create(dishOrderDetails);
         return dishOrderDetails;
     }
 }

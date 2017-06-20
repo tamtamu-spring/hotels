@@ -3,8 +3,8 @@ package com.mnazarenka.dao;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlHotelDao;
-import com.mnazarenka.dao.mysql.MySqlRestaurantDao;
+import com.mnazarenka.dao.mysql.MySqlHotelDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlRestaurantDaoImpl;
 import org.junit.Test;
 
 import java.util.List;
@@ -19,16 +19,16 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
 
     @Test
     public void testFindAll() {
-        MySqlRestaurantDao mySqlRestaurantDao = new MySqlRestaurantDao();
+        MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl = new MySqlRestaurantDaoImpl();
 
-        MySqlHotelDao mySqlHotelDao = new MySqlHotelDao();
+        MySqlHotelDaoImpl mySqlHotelDaoImpl = new MySqlHotelDaoImpl();
         Hotel hotel = new Hotel();
-        hotel = mySqlHotelDao.create(hotel);
+        hotel = mySqlHotelDaoImpl.create(hotel);
 
-        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", hotel, mySqlRestaurantDao);
-        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", hotel, mySqlRestaurantDao);
+        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", hotel, mySqlRestaurantDaoImpl);
+        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", hotel, mySqlRestaurantDaoImpl);
 
-        List<Restaurant> restaurants = mySqlRestaurantDao.findAll();
+        List<Restaurant> restaurants = mySqlRestaurantDaoImpl.findAll();
 
         List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
                 .collect(toList());
@@ -38,10 +38,10 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
         assertThat(hotels, hasSize(2));
         assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant", "SecondRestaurant"));
 
-        mySqlRestaurantDao.delete(firstRestaurant);
-        mySqlRestaurantDao.delete(secondRestaurant);
+        mySqlRestaurantDaoImpl.delete(firstRestaurant);
+        mySqlRestaurantDaoImpl.delete(secondRestaurant);
 
-        mySqlHotelDao.delete(hotel);
+        mySqlHotelDaoImpl.delete(hotel);
 
     }
 
@@ -52,31 +52,31 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
 
     @Override
     public BaseDaoImpl<Restaurant> getCurrentDao() {
-        return new MySqlRestaurantDao();
+        return new MySqlRestaurantDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlRestaurantDao mySqlRestaurantDao = new MySqlRestaurantDao();
-        Restaurant restaurant = saveRestaurant("Restaurant", null, mySqlRestaurantDao);
+        MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl = new MySqlRestaurantDaoImpl();
+        Restaurant restaurant = saveRestaurant("Restaurant", null, mySqlRestaurantDaoImpl);
 
         Long id = restaurant.getId();
         restaurant.setName("New name");
-        mySqlRestaurantDao.update(restaurant);
+        mySqlRestaurantDaoImpl.update(restaurant);
 
-        restaurant = mySqlRestaurantDao.find(id);
+        restaurant = mySqlRestaurantDaoImpl.find(id);
 
         assertEquals("New name", restaurant.getName());
 
-        mySqlRestaurantDao.delete(restaurant);
+        mySqlRestaurantDaoImpl.delete(restaurant);
 
     }
 
-    private Restaurant saveRestaurant(String name, Hotel hotel, MySqlRestaurantDao mySqlRestaurantDao) {
+    private Restaurant saveRestaurant(String name, Hotel hotel, MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl) {
         Restaurant restaurant = new Restaurant();
         restaurant.setName(name);
         restaurant.setHotel(hotel);
-        mySqlRestaurantDao.create(restaurant);
+        mySqlRestaurantDaoImpl.create(restaurant);
         return restaurant;
     }
 }

@@ -4,10 +4,8 @@ import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.User;
 import org.hibernate.Session;
 
-public class MySqlUserDao extends BaseDaoImpl<User> {
-    public MySqlUserDao() {
-        super(User.class);
-    }
+public class MySqlUserDaoImpl extends BaseDaoImpl<User> {
+
 
     public User getUserByLogin(String login) {
         Session session = SESSION_FACTORY.openSession();

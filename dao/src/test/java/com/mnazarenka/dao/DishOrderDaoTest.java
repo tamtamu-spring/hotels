@@ -4,9 +4,9 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
-import com.mnazarenka.dao.mysql.MySqlDishOrderDao;
-import com.mnazarenka.dao.mysql.MySqlUserDao;
+import com.mnazarenka.dao.mysql.MySqlAppartmentsDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlDishOrderDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlUserDaoImpl;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -24,20 +24,20 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
 
     @Test
     public void testFindAll() {
-        MySqlDishOrderDao mySqlDishOrderDao = new MySqlDishOrderDao();
-        MySqlUserDao mySqlUserDao = new MySqlUserDao();
-        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
+        MySqlDishOrderDaoImpl mySqlDishOrderDaoImpl = new MySqlDishOrderDaoImpl();
+        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
+        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
 
         User user = new User();
         Appartment appartment = new Appartment();
-        user = mySqlUserDao.create(user);
-        appartment = mySqlAppartmentsDao.create(appartment);
+        user = mySqlUserDaoImpl.create(user);
+        appartment = mySqlAppartmentsDaoImpl.create(appartment);
 
-        DishOrder firstDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), mySqlDishOrderDao);
-        DishOrder secondDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), mySqlDishOrderDao);
+        DishOrder firstDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), mySqlDishOrderDaoImpl);
+        DishOrder secondDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), mySqlDishOrderDaoImpl);
 
 
-        List<DishOrder> orders = mySqlDishOrderDao.findAll();
+        List<DishOrder> orders = mySqlDishOrderDaoImpl.findAll();
 
         List<LocalDateTime> dishOrderTimes = orders.stream().map(DishOrder::getOrderTime)
                 .collect(toList());
@@ -51,10 +51,10 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
         users.forEach(u -> assertNotNull(u));
         appartments.forEach(a -> assertNotNull(a));
 
-        mySqlDishOrderDao.delete(firstDishOrder);
-        mySqlDishOrderDao.delete(secondDishOrder);
-        mySqlAppartmentsDao.delete(appartment);
-        mySqlUserDao.delete(user);
+        mySqlDishOrderDaoImpl.delete(firstDishOrder);
+        mySqlDishOrderDaoImpl.delete(secondDishOrder);
+        mySqlAppartmentsDaoImpl.delete(appartment);
+        mySqlUserDaoImpl.delete(user);
     }
 
 
@@ -65,32 +65,32 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
 
     @Override
     public BaseDaoImpl<DishOrder> getCurrentDao() {
-        return new MySqlDishOrderDao();
+        return new MySqlDishOrderDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlDishOrderDao mySqlDishOrderDao = new MySqlDishOrderDao();
-        DishOrder dishOrder = saveDishOrder(null, null, LocalDateTime.of(2017, 10, 10, 10, 10), mySqlDishOrderDao);
+        MySqlDishOrderDaoImpl mySqlDishOrderDaoImpl = new MySqlDishOrderDaoImpl();
+        DishOrder dishOrder = saveDishOrder(null, null, LocalDateTime.of(2017, 10, 10, 10, 10), mySqlDishOrderDaoImpl);
 
         Long id = dishOrder.getId();
         dishOrder.setOrderTime(LocalDateTime.of(2017, 10, 10, 10, 15));
-        mySqlDishOrderDao.update(dishOrder);
+        mySqlDishOrderDaoImpl.update(dishOrder);
 
-        dishOrder = mySqlDishOrderDao.find(id);
+        dishOrder = mySqlDishOrderDaoImpl.find(id);
 
         assertEquals(LocalDateTime.of(2017, 10, 10, 10, 15), dishOrder.getOrderTime());
 
-        mySqlDishOrderDao.delete(dishOrder);
+        mySqlDishOrderDaoImpl.delete(dishOrder);
 
     }
 
-    private DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, MySqlDishOrderDao mySqlDishOrderDao) {
+    private DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, MySqlDishOrderDaoImpl mySqlDishOrderDaoImpl) {
         DishOrder dishOrder = new DishOrder();
         dishOrder.setUser(user);
         dishOrder.setAppartment(apartment);
         dishOrder.setOrderTime(time);
-        mySqlDishOrderDao.create(dishOrder);
+        mySqlDishOrderDaoImpl.create(dishOrder);
         return dishOrder;
     }
 }

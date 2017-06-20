@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlDishDao;
+import com.mnazarenka.dao.mysql.MySqlDishDaoImpl;
 import org.junit.Test;
 
 import java.util.List;
@@ -18,13 +18,13 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
     @Test
     public void testFindAll() {
 
-        MySqlDishDao mySqlDishDao = new MySqlDishDao();
+        MySqlDishDaoImpl mySqlDishDaoImpl = new MySqlDishDaoImpl();
 
-        Dish firstDish = saveDish("FirstDish", mySqlDishDao);
-        Dish secondDish = saveDish("SecondDish", mySqlDishDao);
+        Dish firstDish = saveDish("FirstDish", mySqlDishDaoImpl);
+        Dish secondDish = saveDish("SecondDish", mySqlDishDaoImpl);
 
 
-        List<Dish> hotels = mySqlDishDao.findAll();
+        List<Dish> hotels = mySqlDishDaoImpl.findAll();
 
         List<String> dishNames = hotels.stream().map(Dish::getName)
                 .collect(toList());
@@ -32,8 +32,8 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
         assertThat(hotels, hasSize(2));
         assertThat(dishNames, containsInAnyOrder("FirstDish", "SecondDish"));
 
-        mySqlDishDao.delete(firstDish);
-        mySqlDishDao.delete(secondDish);
+        mySqlDishDaoImpl.delete(firstDish);
+        mySqlDishDaoImpl.delete(secondDish);
 
     }
 
@@ -44,29 +44,29 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
 
     @Override
     public BaseDaoImpl<Dish> getCurrentDao() {
-        return new MySqlDishDao();
+        return new MySqlDishDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlDishDao mySqlDishDao = new MySqlDishDao();
-        Dish dish = saveDish("Dish", mySqlDishDao);
+        MySqlDishDaoImpl mySqlDishDaoImpl = new MySqlDishDaoImpl();
+        Dish dish = saveDish("Dish", mySqlDishDaoImpl);
 
         Long id = dish.getId();
         dish.setName("New name");
-        mySqlDishDao.update(dish);
+        mySqlDishDaoImpl.update(dish);
 
-        dish = mySqlDishDao.find(id);
+        dish = mySqlDishDaoImpl.find(id);
 
         assertEquals("New name", dish.getName());
 
-        mySqlDishDao.delete(dish);
+        mySqlDishDaoImpl.delete(dish);
     }
 
-    private Dish saveDish(String name, MySqlDishDao mySqlDishDao) {
+    private Dish saveDish(String name, MySqlDishDaoImpl mySqlDishDaoImpl) {
         Dish dish = new Dish();
         dish.setName(name);
-        mySqlDishDao.create(dish);
+        mySqlDishDaoImpl.create(dish);
         return dish;
     }
 }

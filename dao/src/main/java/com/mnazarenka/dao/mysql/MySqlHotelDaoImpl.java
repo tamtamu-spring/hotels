@@ -5,10 +5,8 @@ import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
 import org.hibernate.Session;
 
-public class MySqlHotelDao extends BaseDaoImpl<Hotel> {
-    public MySqlHotelDao() {
-        super(Hotel.class);
-    }
+public class MySqlHotelDaoImpl extends BaseDaoImpl<Hotel> {
+
 
     public Adress getAdressByHotelId(Long hotelId) {
         Session session = SESSION_FACTORY.openSession();

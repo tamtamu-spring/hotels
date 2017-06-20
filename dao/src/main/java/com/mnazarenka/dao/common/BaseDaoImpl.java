@@ -4,16 +4,18 @@ import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.mysql.db.DbSessionFactoryCreater;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.core.GenericTypeResolver;
 
 import java.util.List;
 
-public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T>{
+public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
     protected static final SessionFactory SESSION_FACTORY = DbSessionFactoryCreater.getInstance().getSessionFactory();
 
     private Class<T> genericClass;
 
-    protected BaseDaoImpl(Class<T> genericClass) {
-        this.genericClass = genericClass;
+    @SuppressWarnings("uncheked")
+    protected BaseDaoImpl() {
+        this.genericClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoImpl.class);
     }
 
     protected static SessionFactory getSessionFactory() {

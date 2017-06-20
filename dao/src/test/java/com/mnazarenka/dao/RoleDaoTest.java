@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlRoleDao;
+import com.mnazarenka.dao.mysql.MySqlRoleDaoImpl;
 import org.junit.Test;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
 
         createTestData();
 
-        List<Role> roles = new MySqlRoleDao().findAll();
+        List<Role> roles = new MySqlRoleDaoImpl().findAll();
         List<String> rolesNames = roles.stream().map(Role::getName)
                 .collect(toList());
 
@@ -40,43 +40,43 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
 
     @Override
     public BaseDaoImpl<Role> getCurrentDao() {
-        return new MySqlRoleDao();
+        return new MySqlRoleDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
-        Role role = saveRole("Role", mySqlRoleDao);
+        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
+        Role role = saveRole("Role", mySqlRoleDaoImpl);
         Long id = role.getId();
 
         role.setName("New name");
-        mySqlRoleDao.update(role);
+        mySqlRoleDaoImpl.update(role);
 
-        role = mySqlRoleDao.find(id);
+        role = mySqlRoleDaoImpl.find(id);
 
         assertEquals("New name", role.getName());
 
-        mySqlRoleDao.delete(role);
+        mySqlRoleDaoImpl.delete(role);
 
     }
 
-    private Role saveRole(String name, MySqlRoleDao mySqlRoleDao) {
+    private Role saveRole(String name, MySqlRoleDaoImpl mySqlRoleDaoImpl) {
         Role role = new Role();
         role.setName(name);
-        mySqlRoleDao.create(role);
+        mySqlRoleDaoImpl.create(role);
         return role;
     }
 
     private void createTestData() {
-        MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
-        adminRole = saveRole("Admin", mySqlRoleDao);
-        userRole = saveRole("User", mySqlRoleDao);
+        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
+        adminRole = saveRole("Admin", mySqlRoleDaoImpl);
+        userRole = saveRole("User", mySqlRoleDaoImpl);
     }
 
     private void destroyData() {
-        MySqlRoleDao mySqlRoleDao = new MySqlRoleDao();
-        mySqlRoleDao.delete(adminRole);
-        mySqlRoleDao.delete(userRole);
+        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
+        mySqlRoleDaoImpl.delete(adminRole);
+        mySqlRoleDaoImpl.delete(userRole);
     }
 
 }

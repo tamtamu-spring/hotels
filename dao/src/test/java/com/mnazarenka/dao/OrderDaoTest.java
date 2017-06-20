@@ -4,9 +4,9 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlAppartmentOderDao;
-import com.mnazarenka.dao.mysql.MySqlAppartmentsDao;
-import com.mnazarenka.dao.mysql.MySqlUserDao;
+import com.mnazarenka.dao.mysql.MySqlAppartmentOderDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlAppartmentsDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlUserDaoImpl;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -23,21 +23,21 @@ public class OrderDaoTest extends BaseDaoTest<AppartmentOrder> {
 
     @Test
     public void testFindAll() {
-        MySqlAppartmentOderDao mySqlAppartmentOderDao = new MySqlAppartmentOderDao();
-        MySqlUserDao mySqlUserDao = new MySqlUserDao();
-        MySqlAppartmentsDao mySqlAppartmentsDao = new MySqlAppartmentsDao();
+        MySqlAppartmentOderDaoImpl mySqlAppartmentOderDaoImpl = new MySqlAppartmentOderDaoImpl();
+        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
+        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
 
         User user = new User();
-        mySqlUserDao.create(user);
+        mySqlUserDaoImpl.create(user);
         Appartment appartment = new Appartment();
-        mySqlAppartmentsDao.create(appartment);
+        mySqlAppartmentsDaoImpl.create(appartment);
 
         AppartmentOrder firstOrder = saveOrder(user, appartment,
-                LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), mySqlAppartmentOderDao);
+                LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), mySqlAppartmentOderDaoImpl);
         AppartmentOrder secondOrder = saveOrder(user, appartment,
-                LocalDate.of(2017, 11, 20), LocalDate.of(2017, 11, 25), mySqlAppartmentOderDao);
+                LocalDate.of(2017, 11, 20), LocalDate.of(2017, 11, 25), mySqlAppartmentOderDaoImpl);
 
-        List<AppartmentOrder> orders = mySqlAppartmentOderDao.findAll();
+        List<AppartmentOrder> orders = mySqlAppartmentOderDaoImpl.findAll();
 
         List<LocalDate> startDates = orders.stream().map(AppartmentOrder::getStartDate)
                 .collect(toList());
@@ -52,11 +52,11 @@ public class OrderDaoTest extends BaseDaoTest<AppartmentOrder> {
         users.forEach(u -> assertNotNull(u));
         appartments.forEach(a -> assertNotNull(a));
 
-        mySqlAppartmentOderDao.delete(firstOrder);
-        mySqlAppartmentOderDao.delete(secondOrder);
+        mySqlAppartmentOderDaoImpl.delete(firstOrder);
+        mySqlAppartmentOderDaoImpl.delete(secondOrder);
 
-        mySqlAppartmentsDao.delete(appartment);
-        mySqlUserDao.delete(user);
+        mySqlAppartmentsDaoImpl.delete(appartment);
+        mySqlUserDaoImpl.delete(user);
 
     }
 
@@ -68,33 +68,33 @@ public class OrderDaoTest extends BaseDaoTest<AppartmentOrder> {
 
     @Override
     public BaseDaoImpl<AppartmentOrder> getCurrentDao() {
-        return new MySqlAppartmentOderDao();
+        return new MySqlAppartmentOderDaoImpl();
     }
 
     @Override
     public void testUpdate() {
-        MySqlAppartmentOderDao mySqlAppartmentOderDao = new MySqlAppartmentOderDao();
+        MySqlAppartmentOderDaoImpl mySqlAppartmentOderDaoImpl = new MySqlAppartmentOderDaoImpl();
         AppartmentOrder order = saveOrder(null, null,
-                LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), mySqlAppartmentOderDao);
+                LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), mySqlAppartmentOderDaoImpl);
 
         Long id = order.getId();
         order.setStartDate(LocalDate.of(2017, 10, 1));
-        mySqlAppartmentOderDao.update(order);
+        mySqlAppartmentOderDaoImpl.update(order);
 
-        order = mySqlAppartmentOderDao.find(id);
+        order = mySqlAppartmentOderDaoImpl.find(id);
 
         assertEquals(LocalDate.of(2017, 10, 1), order.getStartDate());
 
-        mySqlAppartmentOderDao.delete(order);
+        mySqlAppartmentOderDaoImpl.delete(order);
     }
 
-    private AppartmentOrder saveOrder(User user, Appartment appartment, LocalDate startDate, LocalDate endDate, MySqlAppartmentOderDao mySqlAppartmentOderDao) {
+    private AppartmentOrder saveOrder(User user, Appartment appartment, LocalDate startDate, LocalDate endDate, MySqlAppartmentOderDaoImpl mySqlAppartmentOderDaoImpl) {
         AppartmentOrder order = new AppartmentOrder();
         order.setUser(user);
         order.setAppartment(appartment);
         order.setStartDate(startDate);
         order.setEndDate(endDate);
-        mySqlAppartmentOderDao.create(order);
+        mySqlAppartmentOderDaoImpl.create(order);
         return order;
     }
 }

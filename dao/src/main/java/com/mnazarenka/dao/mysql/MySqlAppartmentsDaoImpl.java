@@ -9,11 +9,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class MySqlAppartmentsDao extends BaseDaoImpl<Appartment> {
-
-    public MySqlAppartmentsDao() {
-        super(Appartment.class);
-    }
+public class MySqlAppartmentsDaoImpl extends BaseDaoImpl<Appartment> {
 
     public List<Appartment> findAppartmentsByRange(int from, int to){
         Session session = SESSION_FACTORY.openSession();
