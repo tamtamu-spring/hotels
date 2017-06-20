@@ -7,14 +7,16 @@ import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
     @Override
     public List<Appartment> findAppartmentsByRange(int from, int to){
-        Session session = SESSION_FACTORY.openSession();
+        Session session = getSessionFactory().openSession();
         session.beginTransaction();
         List<Appartment> resultList = session.createQuery("select a from Appartment a", Appartment.class)
                 .setFirstResult(from)
@@ -28,7 +30,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
 
     @Override
     public List<EconomApartment> findAllEconomAppartments() {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = getSessionFactory().openSession();
         session.beginTransaction();
         List<EconomApartment> resultList = session.createQuery("select e from EconomApartment e", EconomApartment.class)
                 .getResultList();
@@ -39,7 +41,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
 
     @Override
     public List<StandartAppartment> findAllStandartAppartments() {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = getSessionFactory().openSession();
         session.beginTransaction();
         List<StandartAppartment> resultList = session.createQuery("select e from StandartAppartment e", StandartAppartment.class)
                 .getResultList();
@@ -50,7 +52,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
 
     @Override
     public List<LuxAppartment> findAllLuxAppartments() {
-        Session session = SESSION_FACTORY.openSession();
+        Session session = getSessionFactory().openSession();
         session.beginTransaction();
         List<LuxAppartment> resultList = session.createQuery("select e from LuxAppartment e", LuxAppartment.class)
                 .getResultList();

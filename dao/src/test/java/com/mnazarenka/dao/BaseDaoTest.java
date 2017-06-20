@@ -1,5 +1,6 @@
 package com.mnazarenka.dao;
 
+import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
 
     public abstract T getEntity();
 
-    public abstract BaseDaoImpl<T> getCurrentDao();
+    public abstract BaseDao<T> getCurrentDao();
 
     @Test
     public abstract void testUpdate();
