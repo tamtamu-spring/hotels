@@ -4,4 +4,5 @@ import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.User;
 
 public interface UserDao extends BaseDao<User> {
+    User getUserByLogin(String login);
 }

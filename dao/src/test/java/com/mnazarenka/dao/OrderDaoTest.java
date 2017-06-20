@@ -5,7 +5,7 @@ import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlAppartmentOderDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlAppartmentsDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlAppartmentDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlUserDaoImpl;
 import org.junit.Test;
 
@@ -25,12 +25,12 @@ public class OrderDaoTest extends BaseDaoTest<AppartmentOrder> {
     public void testFindAll() {
         MySqlAppartmentOderDaoImpl mySqlAppartmentOderDaoImpl = new MySqlAppartmentOderDaoImpl();
         MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
+        MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl = new MySqlAppartmentDaoImpl();
 
         User user = new User();
         mySqlUserDaoImpl.create(user);
         Appartment appartment = new Appartment();
-        mySqlAppartmentsDaoImpl.create(appartment);
+        mySqlAppartmentDaoImpl.create(appartment);
 
         AppartmentOrder firstOrder = saveOrder(user, appartment,
                 LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), mySqlAppartmentOderDaoImpl);
@@ -55,7 +55,7 @@ public class OrderDaoTest extends BaseDaoTest<AppartmentOrder> {
         mySqlAppartmentOderDaoImpl.delete(firstOrder);
         mySqlAppartmentOderDaoImpl.delete(secondOrder);
 
-        mySqlAppartmentsDaoImpl.delete(appartment);
+        mySqlAppartmentDaoImpl.delete(appartment);
         mySqlUserDaoImpl.delete(user);
 
     }

@@ -4,7 +4,7 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlAppartmentsDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlAppartmentDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlDishOrderDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlUserDaoImpl;
 import org.junit.Test;
@@ -26,12 +26,12 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
     public void testFindAll() {
         MySqlDishOrderDaoImpl mySqlDishOrderDaoImpl = new MySqlDishOrderDaoImpl();
         MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
+        MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl = new MySqlAppartmentDaoImpl();
 
         User user = new User();
         Appartment appartment = new Appartment();
         user = mySqlUserDaoImpl.create(user);
-        appartment = mySqlAppartmentsDaoImpl.create(appartment);
+        appartment = mySqlAppartmentDaoImpl.create(appartment);
 
         DishOrder firstDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), mySqlDishOrderDaoImpl);
         DishOrder secondDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), mySqlDishOrderDaoImpl);
@@ -53,7 +53,7 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
 
         mySqlDishOrderDaoImpl.delete(firstDishOrder);
         mySqlDishOrderDaoImpl.delete(secondDishOrder);
-        mySqlAppartmentsDaoImpl.delete(appartment);
+        mySqlAppartmentDaoImpl.delete(appartment);
         mySqlUserDaoImpl.delete(user);
     }
 

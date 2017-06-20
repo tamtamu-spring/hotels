@@ -6,7 +6,7 @@ import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlAppartmentsDaoImpl;
+import com.mnazarenka.dao.mysql.MySqlAppartmentDaoImpl;
 import com.mnazarenka.dao.mysql.MySqlHotelDaoImpl;
 import org.junit.Test;
 
@@ -35,33 +35,33 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Override
     public BaseDaoImpl<Appartment> getCurrentDao() {
-        return new MySqlAppartmentsDaoImpl();
+        return new MySqlAppartmentDaoImpl();
     }
 
 
     @Test
     public void testUpdate() {
-        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
+        MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl = new MySqlAppartmentDaoImpl();
 
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
-        appartment = mySqlAppartmentsDaoImpl.create(appartment);
+        appartment = mySqlAppartmentDaoImpl.create(appartment);
 
         appartment.setName("New Name");
-        mySqlAppartmentsDaoImpl.update(appartment);
+        mySqlAppartmentDaoImpl.update(appartment);
 
-        appartment = mySqlAppartmentsDaoImpl.find(appartment.getId());
+        appartment = mySqlAppartmentDaoImpl.find(appartment.getId());
 
         assertEquals("New Name", appartment.getName());
 
-        mySqlAppartmentsDaoImpl.delete(appartment);
+        mySqlAppartmentDaoImpl.delete(appartment);
     }
 
     private void destroyData() {
-        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
-        mySqlAppartmentsDaoImpl.delete(economApartment);
-        mySqlAppartmentsDaoImpl.delete(standartAppartment);
-        mySqlAppartmentsDaoImpl.delete(luxAppartment);
+        MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl = new MySqlAppartmentDaoImpl();
+        mySqlAppartmentDaoImpl.delete(economApartment);
+        mySqlAppartmentDaoImpl.delete(standartAppartment);
+        mySqlAppartmentDaoImpl.delete(luxAppartment);
 
         new MySqlHotelDaoImpl().delete(hotel);
 
@@ -71,7 +71,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     public void testFindByRange(){
         createTestData();
 
-        List<Appartment> appartments = new MySqlAppartmentsDaoImpl().findAppartmentsByRange(0, 2);
+        List<Appartment> appartments = new MySqlAppartmentDaoImpl().findAppartmentsByRange(0, 2);
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
@@ -87,7 +87,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
         createTestData();
 
-        List<Appartment> appartments = new MySqlAppartmentsDaoImpl().findAll();
+        List<Appartment> appartments = new MySqlAppartmentDaoImpl().findAll();
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
@@ -114,7 +114,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
         createTestData();
 
-        List<EconomApartment> appartments = new MySqlAppartmentsDaoImpl().findAllEconomAppartments();
+        List<EconomApartment> appartments = new MySqlAppartmentDaoImpl().findAllEconomAppartments();
 
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "EconomAppartmentDescription");
@@ -129,7 +129,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
         createTestData();
 
-        List<StandartAppartment> appartments = new MySqlAppartmentsDaoImpl().findAllStandartAppartments();
+        List<StandartAppartment> appartments = new MySqlAppartmentDaoImpl().findAllStandartAppartments();
 
         assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
@@ -146,7 +146,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
         createTestData();
 
-        List<LuxAppartment> appartments = new MySqlAppartmentsDaoImpl().findAllLuxAppartments();
+        List<LuxAppartment> appartments = new MySqlAppartmentDaoImpl().findAllLuxAppartments();
 
         assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");
@@ -161,33 +161,33 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     }
 
     private void createTestData() {
-        MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl = new MySqlAppartmentsDaoImpl();
+        MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl = new MySqlAppartmentDaoImpl();
 
         hotel = saveHotel("New Hotel", new MySqlHotelDaoImpl());
 
         economApartment = saveEconomAppartment(hotel, "EconomAppartmentName", "EconomAppartmentDescription",
-                1, true, mySqlAppartmentsDaoImpl);
+                1, true, mySqlAppartmentDaoImpl);
         standartAppartment = saveStandartAppartment(hotel, "StandartAppartmentName", "StandartAppartmentDescription",
-                2, true, true, true, mySqlAppartmentsDaoImpl);
+                2, true, true, true, mySqlAppartmentDaoImpl);
         luxAppartment = saveLuxAppartment(hotel, "LuxAppartmentName", "LuxAppartmentDescription",
-                4, true, true, true, true, true, mySqlAppartmentsDaoImpl);
+                4, true, true, true, true, true, mySqlAppartmentDaoImpl);
     }
 
 
     private EconomApartment saveEconomAppartment(Hotel hotel, String name, String description,
-                                                 int count, boolean wiFi, MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl) {
+                                                 int count, boolean wiFi, MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl) {
         EconomApartment apartment = new EconomApartment();
         apartment.setName(name);
         apartment.setHotel(hotel);
         apartment.setDescription(description);
         apartment.setGuestsCounts(count);
         apartment.setWiFi(wiFi);
-        mySqlAppartmentsDaoImpl.create(apartment);
+        mySqlAppartmentDaoImpl.create(apartment);
         return apartment;
     }
 
     private LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount,
-                                            boolean wifi, boolean wc, boolean tv, boolean bar, boolean kitchen, MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl) {
+                                            boolean wifi, boolean wc, boolean tv, boolean bar, boolean kitchen, MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl) {
         LuxAppartment luxAppartment = new LuxAppartment();
         luxAppartment.setHotel(hotel);
         luxAppartment.setName(name);
@@ -198,13 +198,13 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         luxAppartment.setTv(tv);
         luxAppartment.setBar(bar);
         luxAppartment.setKichen(kitchen);
-        mySqlAppartmentsDaoImpl.create(luxAppartment);
+        mySqlAppartmentDaoImpl.create(luxAppartment);
         return luxAppartment;
 
     }
 
     private StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description,
-                                                      int count, boolean wiFi, boolean wc, boolean tv, MySqlAppartmentsDaoImpl mySqlAppartmentsDaoImpl) {
+                                                      int count, boolean wiFi, boolean wc, boolean tv, MySqlAppartmentDaoImpl mySqlAppartmentDaoImpl) {
         StandartAppartment apartment = new StandartAppartment();
         apartment.setName(name);
         apartment.setHotel(hotel);
@@ -213,7 +213,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         apartment.setWiFi(wiFi);
         apartment.setWc(wc);
         apartment.setTv(tv);
-        mySqlAppartmentsDaoImpl.create(apartment);
+        mySqlAppartmentDaoImpl.create(apartment);
         return apartment;
     }
 

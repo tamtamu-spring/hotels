@@ -1,5 +1,6 @@
 package com.mnazarenka.dao.mysql;
 
+import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
@@ -9,8 +10,9 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class MySqlAppartmentsDaoImpl extends BaseDaoImpl<Appartment> {
+public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
+    @Override
     public List<Appartment> findAppartmentsByRange(int from, int to){
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -24,6 +26,7 @@ public class MySqlAppartmentsDaoImpl extends BaseDaoImpl<Appartment> {
 
     }
 
+    @Override
     public List<EconomApartment> findAllEconomAppartments() {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -34,6 +37,7 @@ public class MySqlAppartmentsDaoImpl extends BaseDaoImpl<Appartment> {
         return resultList;
     }
 
+    @Override
     public List<StandartAppartment> findAllStandartAppartments() {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
@@ -44,6 +48,7 @@ public class MySqlAppartmentsDaoImpl extends BaseDaoImpl<Appartment> {
         return resultList;
     }
 
+    @Override
     public List<LuxAppartment> findAllLuxAppartments() {
         Session session = SESSION_FACTORY.openSession();
         session.beginTransaction();
