@@ -4,11 +4,12 @@ import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import org.junit.Test;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-
+@Transactional
 public abstract class BaseDaoTest<T extends BaseEntity> {
 
     public abstract T getEntity();

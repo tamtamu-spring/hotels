@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(locations = "classpath:application-context.xml")
+@Transactional
 public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     @Autowired
     private AppartmentDao appartmentDao;
