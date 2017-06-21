@@ -19,9 +19,7 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
-@Transactional
+
 public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     @Autowired
     private AppartmentDao appartmentDao;

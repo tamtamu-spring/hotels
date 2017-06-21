@@ -6,7 +6,6 @@
         <version>${project.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>service</artifactId>
     <packaging>jar</packaging>
 

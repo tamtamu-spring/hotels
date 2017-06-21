@@ -4,11 +4,15 @@ import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
+@RunWith(SpringRunner.class)
+@ContextConfiguration(locations = "classpath:application-context.xml")
 @Transactional
 public abstract class BaseDaoTest<T extends BaseEntity> {
 

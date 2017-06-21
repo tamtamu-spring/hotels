@@ -12,6 +12,10 @@
 
     <name>dao</name>
 
+    <properties>
+        <hibernate.version>5.2.10.Final</hibernate.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -21,12 +25,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
-            <version>5.2.10.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -43,16 +47,5 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.42</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>4.3.8.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>4.3.8.RELEASE</version>
-        </dependency>
-
     </dependencies>
 </project>
