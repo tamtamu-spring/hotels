@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.mnazarenka.dao"})
+@ComponentScan(basePackages = {"com.mnazarenka.dao","com.mnazarenka.util"})
 @EnableTransactionManagement
 @PropertySource("classpath:database.properties")
 public class Config {

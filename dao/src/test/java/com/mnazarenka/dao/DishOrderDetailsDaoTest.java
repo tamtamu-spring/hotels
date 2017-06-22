@@ -16,24 +16,9 @@ import static org.junit.Assert.*;
 public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishOrderDetailsDao> {
     @Autowired
     private DishOrderDetailsDao dishOrderDetailsDao;
-    @Autowired
-    private DishOrderDao dishOrderDao;
-    @Autowired
-    private DishDao dishDao;
 
     @Test
     public void testFindAll() {
-
-        Dish dish = new Dish();
-        dishDao.create(dish);
-
-        DishOrder dishOrder = new DishOrder();
-        dishOrderDao.create(dishOrder);
-
-        DishOrderDetails firstDetail = saveDishOrderDetail(dish, dishOrder, 1, dishOrderDetailsDao);
-        DishOrderDetails secondDetail = saveDishOrderDetail(dish, dishOrder, 2, dishOrderDetailsDao);
-
-
         List<DishOrderDetails> details = dishOrderDetailsDao.findAll();
         List<DishOrder> dishOrders = details.stream().map(DishOrderDetails::getOrder)
                 .collect(toList());
@@ -44,11 +29,6 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishO
         dishes.forEach(d -> assertNotNull(d));
         dishOrders.forEach(o -> assertNotNull(o));
         assertThat(counts, containsInAnyOrder(1, 2));
-
-        dishOrderDetailsDao.delete(firstDetail);
-        dishOrderDetailsDao.delete(secondDetail);
-        dishOrderDao.delete(dishOrder);
-        dishDao.delete(dish);
     }
 
 
@@ -64,7 +44,7 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishO
 
     @Override
     public void testUpdate() {
-        DishOrderDetails dishOrderDetails = saveDishOrderDetail(null, null, 3, dishOrderDetailsDao);
+        DishOrderDetails dishOrderDetails = getTestDataImporter().saveDishOrderDetail(null, null, 3, dishOrderDetailsDao);
 
         Long id = dishOrderDetails.getId();
         dishOrderDetails.setCount(5);
@@ -73,18 +53,6 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishO
         dishOrderDetails = dishOrderDetailsDao.find(id);
 
         assertEquals(5, (long) dishOrderDetails.getCount());
-
-        dishOrderDetailsDao.delete(dishOrderDetails);
-
-    }
-
-    private DishOrderDetails saveDishOrderDetail(Dish dish, DishOrder order, int count, DishOrderDetailsDao dishOrderDetailsDao) {
-        DishOrderDetails dishOrderDetails = new DishOrderDetails();
-        dishOrderDetails.setDish(dish);
-        dishOrderDetails.setOrder(order);
-        dishOrderDetails.setCount(count);
-        dishOrderDetailsDao.create(dishOrderDetails);
-        return dishOrderDetails;
     }
 }
 

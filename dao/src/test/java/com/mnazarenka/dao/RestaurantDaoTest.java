@@ -2,6 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
+import com.mnazarenka.util.TestDataImporter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,18 +17,9 @@ import static org.junit.Assert.assertThat;
 public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
     @Autowired
     private RestaurantDao restaurantDao;
-    @Autowired
-    private HotelDao hotelDao;
 
     @Test
     public void testFindAll() {
-
-        Hotel hotel = new Hotel();
-        hotel = hotelDao.create(hotel);
-
-        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", hotel, restaurantDao);
-        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", hotel, restaurantDao);
-
         List<Restaurant> restaurants = restaurantDao.findAll();
 
         List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
@@ -37,12 +29,6 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
         assertThat(restaurants, hasSize(2));
         assertThat(hotels, hasSize(2));
         assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant", "SecondRestaurant"));
-
-        restaurantDao.delete(firstRestaurant);
-        restaurantDao.delete(secondRestaurant);
-
-        hotelDao.delete(hotel);
-
     }
 
   /*  @Override
@@ -57,7 +43,7 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
 
     @Override
     public void testUpdate() {
-        Restaurant restaurant = saveRestaurant("Restaurant", null, restaurantDao);
+        Restaurant restaurant = getTestDataImporter().saveRestaurant("Restaurant", null, restaurantDao);
 
         Long id = restaurant.getId();
         restaurant.setName("New name");
@@ -66,16 +52,5 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
         restaurant = restaurantDao.find(id);
 
         assertEquals("New name", restaurant.getName());
-
-        restaurantDao.delete(restaurant);
-
-    }
-
-    private Restaurant saveRestaurant(String name, Hotel hotel, RestaurantDao restaurantDao) {
-        Restaurant restaurant = new Restaurant();
-        restaurant.setName(name);
-        restaurant.setHotel(hotel);
-        restaurantDao.create(restaurant);
-        return restaurant;
     }
 }

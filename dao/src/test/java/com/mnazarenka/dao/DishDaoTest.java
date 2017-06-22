@@ -18,12 +18,6 @@ public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
 
     @Test
     public void testFindAll() {
-
-
-        Dish firstDish = saveDish("FirstDish", dishDao);
-        Dish secondDish = saveDish("SecondDish", dishDao);
-
-
         List<Dish> hotels = dishDao.findAll();
 
         List<String> dishNames = hotels.stream().map(Dish::getName)
@@ -31,10 +25,6 @@ public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
 
         assertThat(hotels, hasSize(2));
         assertThat(dishNames, containsInAnyOrder("FirstDish", "SecondDish"));
-
-        dishDao.delete(firstDish);
-        dishDao.delete(secondDish);
-
     }
 
 /*    @Override
@@ -49,7 +39,7 @@ public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
 
     @Override
     public void testUpdate() {
-        Dish dish = saveDish("Dish", dishDao);
+        Dish dish = getTestDataImporter().saveDish("Dish", dishDao);
 
         Long id = dish.getId();
         dish.setName("New name");
@@ -58,14 +48,5 @@ public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
         dish = dishDao.find(id);
 
         assertEquals("New name", dish.getName());
-
-        dishDao.delete(dish);
-    }
-
-    private Dish saveDish(String name, DishDao dishDao) {
-        Dish dish = new Dish();
-        dish.setName(name);
-        dishDao.create(dish);
-        return dish;
     }
 }

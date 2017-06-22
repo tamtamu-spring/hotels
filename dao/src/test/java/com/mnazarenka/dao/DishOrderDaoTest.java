@@ -19,23 +19,9 @@ import static org.junit.Assert.*;
 public class DishOrderDaoTest extends BaseDaoTest<DishOrder, DishOrderDao> {
     @Autowired
     private DishOrderDao dishOrderDao;
-    @Autowired
-    private UserDao userDao;
-    @Autowired
-    private AppartmentDao appartmentDao;
 
     @Test
     public void testFindAll() {
-
-        User user = new User();
-        Appartment appartment = new Appartment();
-        user = userDao.create(user);
-        appartment = appartmentDao.create(appartment);
-
-        DishOrder firstDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), dishOrderDao);
-        DishOrder secondDishOrder = saveDishOrder(user, appartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), dishOrderDao);
-
-
         List<DishOrder> orders = dishOrderDao.findAll();
 
         List<LocalDateTime> dishOrderTimes = orders.stream().map(DishOrder::getOrderTime)
@@ -49,13 +35,7 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder, DishOrderDao> {
                 LocalDateTime.of(LocalDate.now(), LocalTime.MIN)));
         users.forEach(u -> assertNotNull(u));
         appartments.forEach(a -> assertNotNull(a));
-
-        dishOrderDao.delete(firstDishOrder);
-        dishOrderDao.delete(secondDishOrder);
-        appartmentDao.delete(appartment);
-        userDao.delete(user);
     }
-
 
   /*  @Override
     public DishOrder getEntity() {
@@ -69,7 +49,7 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder, DishOrderDao> {
 
     @Override
     public void testUpdate() {
-        DishOrder dishOrder = saveDishOrder(null, null, LocalDateTime.of(2017, 10, 10, 10, 10), dishOrderDao);
+        DishOrder dishOrder = getTestDataImporter().saveDishOrder(null, null, LocalDateTime.of(2017, 10, 10, 10, 10), dishOrderDao);
 
         Long id = dishOrder.getId();
         dishOrder.setOrderTime(LocalDateTime.of(2017, 10, 10, 10, 15));
@@ -78,17 +58,5 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder, DishOrderDao> {
         dishOrder = dishOrderDao.find(id);
 
         assertEquals(LocalDateTime.of(2017, 10, 10, 10, 15), dishOrder.getOrderTime());
-
-        dishOrderDao.delete(dishOrder);
-
-    }
-
-    private DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, DishOrderDao dishOrderDao) {
-        DishOrder dishOrder = new DishOrder();
-        dishOrder.setUser(user);
-        dishOrder.setAppartment(apartment);
-        dishOrder.setOrderTime(time);
-        dishOrderDao.create(dishOrder);
-        return dishOrder;
     }
 }
