@@ -2,10 +2,8 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
-import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlRoleDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlUserDaoImpl;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -15,20 +13,23 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class UserDaoTest extends BaseDaoTest<User> {
+public class UserDaoTest extends BaseDaoTest<User, UserDao> {
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
+
     private Role adminRole;
     private Role userRole;
     private User admin;
     private User user;
-
 
     @Test
     public void testFindAll() {
 
         createTestData();
 
-        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        List<User> users = mySqlUserDaoImpl.findAll();
+        List<User> users = userDao.findAll();
 
         List<String> usersLogins = users.stream().map(User::getLogin)
                 .collect(toList());
@@ -50,44 +51,40 @@ public class UserDaoTest extends BaseDaoTest<User> {
     }
 
     private void destroyTestData() {
-        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
-        mySqlUserDaoImpl.delete(user);
-        mySqlUserDaoImpl.delete(admin);
-        mySqlRoleDaoImpl.delete(userRole);
-        mySqlRoleDaoImpl.delete(adminRole);
+        userDao.delete(user);
+        userDao.delete(admin);
+        roleDao.delete(userRole);
+        roleDao.delete(adminRole);
     }
 
     private void createTestData() {
-        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
 
-        userRole = saveRole("User", mySqlRoleDaoImpl);
-        adminRole = saveRole("Admin", mySqlRoleDaoImpl);
+        userRole = saveRole("User", roleDao);
+        adminRole = saveRole("Admin", roleDao);
 
-        admin = saveUser(false, adminRole, "AdminLogin", "AdminPassword", mySqlUserDaoImpl);
-        user = saveUser(true, userRole, "UserLogin", "UserPassword", mySqlUserDaoImpl);
+        admin = saveUser(false, adminRole, "AdminLogin", "AdminPassword", userDao);
+        user = saveUser(true, userRole, "UserLogin", "UserPassword", userDao);
 
     }
 
-    private Role saveRole(String name, MySqlRoleDaoImpl mySqlRoleDaoImpl) {
+    private Role saveRole(String name, RoleDao roleDao) {
         Role role = new Role();
         role.setName(name);
-        mySqlRoleDaoImpl.create(role);
+        roleDao.create(role);
         return role;
     }
 
-    private User saveUser(boolean blockStatus, Role role, String login, String password, MySqlUserDaoImpl mySqlUserDaoImpl) {
+    private User saveUser(boolean blockStatus, Role role, String login, String password, UserDao userDao) {
         User user = new User();
         user.setBlockStatus(blockStatus);
         user.setRole(role);
         user.setLogin(login);
         user.setPassword(password);
-        mySqlUserDaoImpl.create(user);
+        userDao.create(user);
         return user;
     }
 
-    @Override
+  /*  @Override
     public User getEntity() {
         return new User();
     }
@@ -95,22 +92,21 @@ public class UserDaoTest extends BaseDaoTest<User> {
     @Override
     public BaseDaoImpl<User> getCurrentDao() {
         return new MySqlUserDaoImpl();
-    }
+    }*/
 
     @Override
     public void testUpdate() {
 
-        MySqlUserDaoImpl mySqlUserDaoImpl = new MySqlUserDaoImpl();
-        User user = saveUser(false, null, "AdminLogin", "AdminPassword", mySqlUserDaoImpl);
+        User user = saveUser(false, null, "AdminLogin", "AdminPassword", userDao);
         Long id = user.getId();
 
         user.setLogin("New login");
-        mySqlUserDaoImpl.update(user);
+        userDao.update(user);
 
-        user = mySqlUserDaoImpl.find(id);
+        user = userDao.find(id);
 
         assertEquals("New login", user.getLogin());
 
-        mySqlUserDaoImpl.delete(user);
+        userDao.delete(user);
     }
 }

@@ -1,6 +1,5 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.Hotel;
@@ -16,7 +15,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
-public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
+public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
     @Autowired
     private AppartmentDao appartmentDao;
     @Autowired
@@ -28,7 +27,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     private LuxAppartment luxAppartment;
     private EconomApartment economApartment;
 
-
+/*
     @Override
     public Appartment getEntity() {
         Appartment appartment = new Appartment();
@@ -39,7 +38,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     @Override
     public BaseDaoImpl<Appartment> getCurrentDao() {
         return (BaseDaoImpl<Appartment>) appartmentDao;
-    }
+    }*/
 
 
     @Test

@@ -2,33 +2,33 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
-import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlHotelDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlRestaurantDaoImpl;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
-public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
-
+public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
+    @Autowired
+    private RestaurantDao restaurantDao;
+    @Autowired
+    private HotelDao hotelDao;
 
     @Test
     public void testFindAll() {
-        MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl = new MySqlRestaurantDaoImpl();
 
-        MySqlHotelDaoImpl mySqlHotelDaoImpl = new MySqlHotelDaoImpl();
         Hotel hotel = new Hotel();
-        hotel = mySqlHotelDaoImpl.create(hotel);
+        hotel = hotelDao.create(hotel);
 
-        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", hotel, mySqlRestaurantDaoImpl);
-        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", hotel, mySqlRestaurantDaoImpl);
+        Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", hotel, restaurantDao);
+        Restaurant secondRestaurant = saveRestaurant("SecondRestaurant", hotel, restaurantDao);
 
-        List<Restaurant> restaurants = mySqlRestaurantDaoImpl.findAll();
+        List<Restaurant> restaurants = restaurantDao.findAll();
 
         List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
                 .collect(toList());
@@ -38,14 +38,14 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
         assertThat(hotels, hasSize(2));
         assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant", "SecondRestaurant"));
 
-        mySqlRestaurantDaoImpl.delete(firstRestaurant);
-        mySqlRestaurantDaoImpl.delete(secondRestaurant);
+        restaurantDao.delete(firstRestaurant);
+        restaurantDao.delete(secondRestaurant);
 
-        mySqlHotelDaoImpl.delete(hotel);
+        hotelDao.delete(hotel);
 
     }
 
-    @Override
+  /*  @Override
     public Restaurant getEntity() {
         return new Restaurant();
     }
@@ -53,30 +53,29 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
     @Override
     public BaseDaoImpl<Restaurant> getCurrentDao() {
         return new MySqlRestaurantDaoImpl();
-    }
+    }*/
 
     @Override
     public void testUpdate() {
-        MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl = new MySqlRestaurantDaoImpl();
-        Restaurant restaurant = saveRestaurant("Restaurant", null, mySqlRestaurantDaoImpl);
+        Restaurant restaurant = saveRestaurant("Restaurant", null, restaurantDao);
 
         Long id = restaurant.getId();
         restaurant.setName("New name");
-        mySqlRestaurantDaoImpl.update(restaurant);
+        restaurantDao.update(restaurant);
 
-        restaurant = mySqlRestaurantDaoImpl.find(id);
+        restaurant = restaurantDao.find(id);
 
         assertEquals("New name", restaurant.getName());
 
-        mySqlRestaurantDaoImpl.delete(restaurant);
+        restaurantDao.delete(restaurant);
 
     }
 
-    private Restaurant saveRestaurant(String name, Hotel hotel, MySqlRestaurantDaoImpl mySqlRestaurantDaoImpl) {
+    private Restaurant saveRestaurant(String name, Hotel hotel, RestaurantDao restaurantDao) {
         Restaurant restaurant = new Restaurant();
         restaurant.setName(name);
         restaurant.setHotel(hotel);
-        mySqlRestaurantDaoImpl.create(restaurant);
+        restaurantDao.create(restaurant);
         return restaurant;
     }
 }

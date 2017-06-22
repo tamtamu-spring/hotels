@@ -2,9 +2,8 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
-import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlHotelDaoImpl;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -14,46 +13,45 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class HotelDaoTest extends BaseDaoTest<Hotel> {
-
+public class HotelDaoTest extends BaseDaoTest<Hotel, HotelDao> {
+    @Autowired
+    private HotelDao hotelDao;
 
     @Test
     public void findAdressByHotelIdTest() {
-        MySqlHotelDaoImpl mySqlHotelDaoImpl = new MySqlHotelDaoImpl();
 
         Adress firstHotelAdress = new Adress();
         firstHotelAdress.setCity("FirstCity");
         firstHotelAdress.setStreet("FirstStreet");
-        Hotel hotel = saveHotel("FirstHotel", firstHotelAdress, mySqlHotelDaoImpl);
+        Hotel hotel = saveHotel("FirstHotel", firstHotelAdress, hotelDao);
 
-        Adress adress = mySqlHotelDaoImpl.getAdressByHotelId(hotel.getId());
+        Long id = hotel.getId();
+        Adress adress = hotelDao.getAdressByHotelId(id);
 
         assertEquals("FirstCity FirstStreet", adress.getFullAdress());
 
-        mySqlHotelDaoImpl.delete(hotel);
+        hotelDao.delete(hotel);
     }
 
     @Test
     public void testFindAll() {
 
-        MySqlHotelDaoImpl mySqlHotelDaoImpl = new MySqlHotelDaoImpl();
-
         Adress firstHotelAdress = new Adress();
         firstHotelAdress.setCity("FirstCity");
         firstHotelAdress.setStreet("FirstStreet");
-        Hotel firstHotel = saveHotel("FirstHotel", firstHotelAdress, mySqlHotelDaoImpl);
+        Hotel firstHotel = saveHotel("FirstHotel", firstHotelAdress, hotelDao);
 
         Adress secondAdress = new Adress();
         secondAdress.setCity("SecondCity");
         secondAdress.setStreet("SecondStreet");
-        Hotel secondHotel = saveHotel("SecondHotel", secondAdress, mySqlHotelDaoImpl);
+        Hotel secondHotel = saveHotel("SecondHotel", secondAdress, hotelDao);
 
         Adress thirdAdress = new Adress();
         thirdAdress.setCity("ThirdCity");
         thirdAdress.setStreet("ThirdStreet");
-        Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, mySqlHotelDaoImpl);
+        Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, hotelDao);
 
-        List<Hotel> hotels = new MySqlHotelDaoImpl().findAll();
+        List<Hotel> hotels = hotelDao.findAll();
 
         List<String> hotelNames = hotels.stream().map(Hotel::getName)
                 .collect(toList());
@@ -63,22 +61,22 @@ public class HotelDaoTest extends BaseDaoTest<Hotel> {
         assertThat(hotelNames, containsInAnyOrder("FirstHotel", "SecondHotel", "ThirdHotel"));
         assertThat(hotelAdresses, containsInAnyOrder("FirstCity FirstStreet", "SecondCity SecondStreet", "ThirdCity ThirdStreet"));
 
-        mySqlHotelDaoImpl.delete(firstHotel);
-        mySqlHotelDaoImpl.delete(secondHotel);
-        mySqlHotelDaoImpl.delete(thirdHotel);
+        hotelDao.delete(firstHotel);
+        hotelDao.delete(secondHotel);
+        hotelDao.delete(thirdHotel);
 
     }
 
 
-    private Hotel saveHotel(String name, Adress adress, MySqlHotelDaoImpl mySqlHotelDaoImpl) {
+    private Hotel saveHotel(String name, Adress adress, HotelDao hotelDao) {
         Hotel hotel = new Hotel();
         hotel.setName(name);
         hotel.setAdress(adress);
-        mySqlHotelDaoImpl.create(hotel);
+        hotelDao.create(hotel);
         return hotel;
     }
 
-    @Override
+    /*@Override
     public Hotel getEntity() {
         Hotel hotel = new Hotel();
         return hotel;
@@ -87,22 +85,21 @@ public class HotelDaoTest extends BaseDaoTest<Hotel> {
     @Override
     public BaseDaoImpl<Hotel> getCurrentDao() {
         return new MySqlHotelDaoImpl();
-    }
+    }*/
 
     @Override
     public void testUpdate() {
-        MySqlHotelDaoImpl mySqlHotelDaoImpl = new MySqlHotelDaoImpl();
-        Hotel hotel = saveHotel("FirstHotel", null, mySqlHotelDaoImpl);
+        Hotel hotel = saveHotel("FirstHotel", null, hotelDao);
         Long id = hotel.getId();
 
         hotel.setName("New name");
-        mySqlHotelDaoImpl.update(hotel);
+        hotelDao.update(hotel);
 
-        hotel = mySqlHotelDaoImpl.find(id);
+        hotel = hotelDao.find(id);
 
         assertEquals("New name", hotel.getName());
 
-        mySqlHotelDaoImpl.delete(hotel);
+        hotelDao.delete(hotel);
 
     }
 }

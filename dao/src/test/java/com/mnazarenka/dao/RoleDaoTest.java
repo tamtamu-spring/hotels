@@ -1,9 +1,8 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
-import com.mnazarenka.dao.common.BaseDaoImpl;
-import com.mnazarenka.dao.mysql.MySqlRoleDaoImpl;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,17 +12,19 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class RoleDaoTest extends BaseDaoTest<Role> {
+public class RoleDaoTest extends BaseDaoTest<Role, RoleDao> {
+    @Autowired
+    private RoleDao roleDao;
+
     private Role userRole;
     private Role adminRole;
-
 
     @Test
     public void testFindAll() {
 
         createTestData();
 
-        List<Role> roles = new MySqlRoleDaoImpl().findAll();
+        List<Role> roles = roleDao.findAll();
         List<String> rolesNames = roles.stream().map(Role::getName)
                 .collect(toList());
 
@@ -33,7 +34,7 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
         destroyData();
     }
 
-    @Override
+   /* @Override
     public Role getEntity() {
         return new Role();
     }
@@ -41,42 +42,39 @@ public class RoleDaoTest extends BaseDaoTest<Role> {
     @Override
     public BaseDaoImpl<Role> getCurrentDao() {
         return new MySqlRoleDaoImpl();
-    }
+    }*/
 
     @Override
     public void testUpdate() {
-        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
-        Role role = saveRole("Role", mySqlRoleDaoImpl);
+        Role role = saveRole("Role", roleDao);
         Long id = role.getId();
 
         role.setName("New name");
-        mySqlRoleDaoImpl.update(role);
+        roleDao.update(role);
 
-        role = mySqlRoleDaoImpl.find(id);
+        role = roleDao.find(id);
 
         assertEquals("New name", role.getName());
 
-        mySqlRoleDaoImpl.delete(role);
+        roleDao.delete(role);
 
     }
 
-    private Role saveRole(String name, MySqlRoleDaoImpl mySqlRoleDaoImpl) {
+    private Role saveRole(String name, RoleDao roleDao) {
         Role role = new Role();
         role.setName(name);
-        mySqlRoleDaoImpl.create(role);
+        roleDao.create(role);
         return role;
     }
 
     private void createTestData() {
-        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
-        adminRole = saveRole("Admin", mySqlRoleDaoImpl);
-        userRole = saveRole("User", mySqlRoleDaoImpl);
+        adminRole = saveRole("Admin", roleDao);
+        userRole = saveRole("User", roleDao);
     }
 
     private void destroyData() {
-        MySqlRoleDaoImpl mySqlRoleDaoImpl = new MySqlRoleDaoImpl();
-        mySqlRoleDaoImpl.delete(adminRole);
-        mySqlRoleDaoImpl.delete(userRole);
+        roleDao.delete(adminRole);
+        roleDao.delete(userRole);
     }
 
 }
