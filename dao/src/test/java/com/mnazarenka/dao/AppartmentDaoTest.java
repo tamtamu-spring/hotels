@@ -7,11 +7,7 @@ import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,7 +38,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Override
     public BaseDaoImpl<Appartment> getCurrentDao() {
-        return (BaseDaoImpl<Appartment>)appartmentDao;
+        return (BaseDaoImpl<Appartment>) appartmentDao;
     }
 
 
@@ -73,7 +69,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
     }
 
     @Test
-    public void testFindByRange(){
+    public void testFindByRange() {
         createTestData();
 
         List<Appartment> appartments = appartmentDao.findAppartmentsByRange(0, 2);

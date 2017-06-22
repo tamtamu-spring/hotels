@@ -1,5 +1,6 @@
 package com.mnazarenka.dao;
 
+import com.mnazarenka.configuration.Config;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.common.BaseDaoImpl;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 @RunWith(SpringRunner.class)
-@ContextConfiguration(locations = "classpath:application-context.xml")
+@ContextConfiguration(classes = {Config.class})
 @Transactional
 public abstract class BaseDaoTest<T extends BaseEntity> {
 
