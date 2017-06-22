@@ -1,6 +1,6 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.configuration.Config;
+import com.mnazarenka.configuration.TestConfig;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.util.TestDataImporter;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {Config.class})
+@ContextConfiguration(classes = {TestConfig.class})
 @Transactional
 public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
 
