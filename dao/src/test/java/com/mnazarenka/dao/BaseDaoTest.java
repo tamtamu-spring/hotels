@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {TestConfig.class})
@@ -48,14 +47,13 @@ public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
         assertNotNull(entity);
     }
 
-    @Test
+    @Test(expected = org.hibernate.ObjectNotFoundException.class)
     public void testDelete() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        dao.create(entity);
+        entity = dao.create(entity);
         Long id = entity.getId();
         dao.delete(entity);
-        entity = dao.find(id);
-        assertNull(entity);
+        dao.find(id);
     }
 
     @Test
