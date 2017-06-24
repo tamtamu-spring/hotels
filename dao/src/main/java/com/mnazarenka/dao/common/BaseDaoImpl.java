@@ -1,6 +1,7 @@
 package com.mnazarenka.dao.common;
 
 import com.mnazarenka.dao.entity.BaseEntity;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
@@ -51,8 +52,9 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 
     @Override
     public void delete(Long id) {
-        sessionFactory.getCurrentSession().createQuery(String.format("delete from %s t where t.id = :id", genericClass.getSimpleName()),
-                genericClass).executeUpdate();
+        Session session = sessionFactory.getCurrentSession();
+        T entity = session.load(genericClass, id);
+        session.delete(entity);
     }
 
 }

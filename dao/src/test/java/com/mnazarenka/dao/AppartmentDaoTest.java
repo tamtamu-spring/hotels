@@ -4,6 +4,7 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomApartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,38 +17,26 @@ import static org.junit.Assert.*;
 
 public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
     @Autowired
-    private AppartmentDao appartmentDao;
-/*
-    @Override
-    public Appartment getEntity() {
-        Appartment appartment = new Appartment();
-        appartment.setName("New Appartment");
-        return appartment;
-    }
-
-    @Override
-    public BaseDaoImpl<Appartment> getCurrentDao() {
-        return (BaseDaoImpl<Appartment>) appartmentDao;
-    }*/
-
+    @Getter
+    private AppartmentDao dao;
 
     @Test
     public void testUpdate() {
         Appartment appartment = new Appartment();
         appartment.setName("New Appartment");
-        appartment = appartmentDao.create(appartment);
+        appartment = dao.create(appartment);
 
         appartment.setName("New Name");
-        appartmentDao.update(appartment);
+        dao.update(appartment);
 
-        appartment = appartmentDao.find(appartment.getId());
+        appartment = dao.find(appartment.getId());
 
         assertEquals("New Name", appartment.getName());
     }
 
     @Test
     public void testFindByRange() {
-        List<Appartment> appartments = appartmentDao.findAppartmentsByRange(0, 2);
+        List<Appartment> appartments = dao.findAppartmentsByRange(0, 2);
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
@@ -58,7 +47,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
 
     @Test
     public void testFindAll() {
-        List<Appartment> appartments = appartmentDao.findAll();
+        List<Appartment> appartments = dao.findAll();
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
@@ -79,7 +68,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
 
     @Test
     public void testFindEconomAppartments() {
-        List<EconomApartment> appartments = appartmentDao.findAllEconomAppartments();
+        List<EconomApartment> appartments = dao.findAllEconomAppartments();
 
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "EconomAppartmentDescription");
@@ -89,7 +78,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
 
     @Test
     public void findStandatAppartmentTest() {
-        List<StandartAppartment> appartments = appartmentDao.findAllStandartAppartments();
+        List<StandartAppartment> appartments = dao.findAllStandartAppartments();
 
         assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
@@ -101,7 +90,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment, AppartmentDao> {
 
     @Test
     public void findLuxAppartmentTest() {
-        List<LuxAppartment> appartments = appartmentDao.findAllLuxAppartments();
+        List<LuxAppartment> appartments = dao.findAllLuxAppartments();
 
         assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");

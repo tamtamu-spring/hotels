@@ -3,6 +3,7 @@ package com.mnazarenka.dao;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.DishOrderDetails;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,11 +16,12 @@ import static org.junit.Assert.*;
 
 public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishOrderDetailsDao> {
     @Autowired
-    private DishOrderDetailsDao dishOrderDetailsDao;
+    @Getter
+    private DishOrderDetailsDao dao;
 
     @Test
     public void testFindAll() {
-        List<DishOrderDetails> details = dishOrderDetailsDao.findAll();
+        List<DishOrderDetails> details = dao.findAll();
         List<DishOrder> dishOrders = details.stream().map(DishOrderDetails::getOrder)
                 .collect(toList());
         List<Dish> dishes = details.stream().map(DishOrderDetails::getDish).collect(toList());
@@ -31,26 +33,15 @@ public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishO
         assertThat(counts, containsInAnyOrder(1, 2));
     }
 
-
-   /* @Override
-    public DishOrderDetails getEntity() {
-        return new DishOrderDetails();
-    }
-
-    @Override
-    public BaseDaoImpl<DishOrderDetails> getCurrentDao() {
-        return new MySqlDishOrderDetailsDaoImpl();
-    }*/
-
     @Override
     public void testUpdate() {
-        DishOrderDetails dishOrderDetails = getTestDataImporter().saveDishOrderDetail(null, null, 3, dishOrderDetailsDao);
+        DishOrderDetails dishOrderDetails = getTestDataImporter().saveDishOrderDetail(null, null, 3, dao);
 
         Long id = dishOrderDetails.getId();
         dishOrderDetails.setCount(5);
-        dishOrderDetailsDao.update(dishOrderDetails);
+        dao.update(dishOrderDetails);
 
-        dishOrderDetails = dishOrderDetailsDao.find(id);
+        dishOrderDetails = dao.find(id);
 
         assertEquals(5, (long) dishOrderDetails.getCount());
     }

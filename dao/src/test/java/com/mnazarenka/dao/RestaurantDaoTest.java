@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.Restaurant;
-import com.mnazarenka.util.TestDataImporter;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,11 +16,12 @@ import static org.junit.Assert.assertThat;
 
 public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
     @Autowired
-    private RestaurantDao restaurantDao;
+    @Getter
+    private RestaurantDao dao;
 
     @Test
     public void testFindAll() {
-        List<Restaurant> restaurants = restaurantDao.findAll();
+        List<Restaurant> restaurants = dao.findAll();
 
         List<String> restaurantsNames = restaurants.stream().map(Restaurant::getName)
                 .collect(toList());
@@ -31,25 +32,15 @@ public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
         assertThat(restaurantsNames, containsInAnyOrder("FirstRestaurant", "SecondRestaurant"));
     }
 
-  /*  @Override
-    public Restaurant getEntity() {
-        return new Restaurant();
-    }
-
-    @Override
-    public BaseDaoImpl<Restaurant> getCurrentDao() {
-        return new MySqlRestaurantDaoImpl();
-    }*/
-
     @Override
     public void testUpdate() {
-        Restaurant restaurant = getTestDataImporter().saveRestaurant("Restaurant", null, restaurantDao);
+        Restaurant restaurant = getTestDataImporter().saveRestaurant("Restaurant", null, dao);
 
         Long id = restaurant.getId();
         restaurant.setName("New name");
-        restaurantDao.update(restaurant);
+        dao.update(restaurant);
 
-        restaurant = restaurantDao.find(id);
+        restaurant = dao.find(id);
 
         assertEquals("New name", restaurant.getName());
     }

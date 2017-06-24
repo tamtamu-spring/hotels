@@ -1,6 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Dish;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,11 +15,12 @@ import static org.junit.Assert.assertThat;
 
 public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
     @Autowired
-    private DishDao dishDao;
+    @Getter
+    private DishDao dao;
 
     @Test
     public void testFindAll() {
-        List<Dish> hotels = dishDao.findAll();
+        List<Dish> hotels = dao.findAll();
 
         List<String> dishNames = hotels.stream().map(Dish::getName)
                 .collect(toList());
@@ -27,25 +29,15 @@ public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
         assertThat(dishNames, containsInAnyOrder("FirstDish", "SecondDish"));
     }
 
-/*    @Override
-    public Dish getEntity() {
-        return new Dish();
-    }
-
-    @Override
-    public BaseDaoImpl<Dish> getCurrentDao() {
-        return new MySqlDishDaoImpl();
-    }*/
-
     @Override
     public void testUpdate() {
-        Dish dish = getTestDataImporter().saveDish("Dish", dishDao);
+        Dish dish = getTestDataImporter().saveDish("Dish", dao);
 
         Long id = dish.getId();
         dish.setName("New name");
-        dishDao.update(dish);
+        dao.update(dish);
 
-        dish = dishDao.find(id);
+        dish = dao.find(id);
 
         assertEquals("New name", dish.getName());
     }

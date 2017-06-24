@@ -2,7 +2,7 @@ package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
-import com.mnazarenka.util.TestDataImporter;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,11 +16,12 @@ import static org.junit.Assert.assertThat;
 
 public class UserDaoTest extends BaseDaoTest<User, UserDao> {
     @Autowired
-    private UserDao userDao;
+    @Getter
+    private UserDao dao;
 
     @Test
     public void testFindAll() {
-        List<User> users = userDao.findAll();
+        List<User> users = dao.findAll();
 
         List<String> usersLogins = users.stream().map(User::getLogin)
                 .collect(toList());
@@ -38,25 +39,15 @@ public class UserDaoTest extends BaseDaoTest<User, UserDao> {
         assertThat(roles, containsInAnyOrder("User", "Admin"));
     }
 
-  /*  @Override
-    public User getEntity() {
-        return new User();
-    }
-
-    @Override
-    public BaseDaoImpl<User> getCurrentDao() {
-        return new MySqlUserDaoImpl();
-    }*/
-
     @Override
     public void testUpdate() {
-        User user = getTestDataImporter().saveUser(false, null, "AdminLogin", "AdminPassword", userDao);
+        User user = getTestDataImporter().saveUser(false, null, "AdminLogin", "AdminPassword", dao);
         Long id = user.getId();
 
         user.setLogin("New login");
-        userDao.update(user);
+        dao.update(user);
 
-        user = userDao.find(id);
+        user = dao.find(id);
 
         assertEquals("New login", user.getLogin());
     }

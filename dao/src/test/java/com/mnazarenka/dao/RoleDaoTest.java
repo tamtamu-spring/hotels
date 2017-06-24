@@ -1,7 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Role;
-import com.mnazarenka.util.TestDataImporter;
+import lombok.Getter;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,11 +15,12 @@ import static org.junit.Assert.assertThat;
 
 public class RoleDaoTest extends BaseDaoTest<Role, RoleDao> {
     @Autowired
-    private RoleDao roleDao;
+    @Getter
+    private RoleDao dao;
 
     @Test
     public void testFindAll() {
-        List<Role> roles = roleDao.findAll();
+        List<Role> roles = dao.findAll();
         List<String> rolesNames = roles.stream().map(Role::getName)
                 .collect(toList());
 
@@ -27,25 +28,15 @@ public class RoleDaoTest extends BaseDaoTest<Role, RoleDao> {
         assertThat(rolesNames, containsInAnyOrder("User", "Admin"));
     }
 
-   /* @Override
-    public Role getEntity() {
-        return new Role();
-    }
-
-    @Override
-    public BaseDaoImpl<Role> getCurrentDao() {
-        return new MySqlRoleDaoImpl();
-    }*/
-
     @Override
     public void testUpdate() {
-        Role role = getTestDataImporter().saveRole("Role", roleDao);
+        Role role = getTestDataImporter().saveRole("Role", dao);
         Long id = role.getId();
 
         role.setName("New name");
-        roleDao.update(role);
+        dao.update(role);
 
-        role = roleDao.find(id);
+        role = dao.find(id);
 
         assertEquals("New name", role.getName());
     }

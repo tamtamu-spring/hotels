@@ -1,6 +1,6 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.configuration.TestConfig;
+import com.mnazarenka.configuration.Config;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.util.TestDataImporter;
@@ -16,22 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {TestConfig.class})
+@ContextConfiguration(classes = {Config.class})
 @Transactional
 public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
 
     private Class<T> entityClass;
-    @Autowired
-    private E dao;
 
     @Autowired
     private TestDataImporter testDataImporter;
 
+    @SuppressWarnings("unchecked")
     public BaseDaoTest() {
         Class[] genericTypes = (Class<T>[]) GenericTypeResolver.resolveTypeArguments(getClass(), BaseDaoTest.class);
         this.entityClass = genericTypes[0];
     }
 
+    public abstract BaseDao<T> getDao();
 
     @Before
     public void initDb() {
@@ -41,19 +41,28 @@ public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
     @Test
     public void testCreateAndFind() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        dao.create(entity);
+        getDao().create(entity);
         Long id = entity.getId();
-        entity = dao.find(id);
+        entity = getDao().find(id);
         assertNotNull(entity);
     }
 
     @Test(expected = org.hibernate.ObjectNotFoundException.class)
     public void testDelete() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        entity = dao.create(entity);
+        entity = getDao().create(entity);
         Long id = entity.getId();
-        dao.delete(entity);
-        dao.find(id);
+        getDao().delete(entity);
+        getDao().find(id);
+    }
+
+    @Test(expected = org.hibernate.ObjectNotFoundException.class)
+    public void testDeleteById() throws IllegalAccessException, InstantiationException {
+        T entity = entityClass.newInstance();
+        entity = getDao().create(entity);
+        Long id = entity.getId();
+        getDao().delete(id);
+        getDao().find(id);
     }
 
     @Test
@@ -65,25 +74,4 @@ public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
     public TestDataImporter getTestDataImporter() {
         return testDataImporter;
     }
-        /*  @Test
-          public void testCreateAndFind() {
-              T entity = getCurrentDao().create(getEntity());
-              Long id = entity.getId();
-              entity = getCurrentDao().find(id);
-              assertNotNull(entity);
-
-              getCurrentDao().delete(entity);
-          }
-      */
-
-    /*
-    @Test
-    public void testDelete() {
-        T entity = getCurrentDao().create(getEntity());
-        Long id = entity.getId();
-        getCurrentDao().delete(entity);
-        entity = getCurrentDao().find(id);
-        assertNull(entity);
-    }
-*/
 }

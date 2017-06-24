@@ -5,7 +5,7 @@ import com.mnazarenka.dao.entity.BaseEntity;
 import java.util.List;
 
 public interface  BaseDao <T extends BaseEntity> {
-    List findAll();
+    List<T> findAll();
 
     T find(Long id);
 
