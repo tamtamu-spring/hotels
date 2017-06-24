@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {DaoConfig.class})
 @Transactional
-public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
+public abstract class BaseDaoTest<T extends BaseEntity> {
 
     private Class<T> entityClass;
 
@@ -27,8 +27,7 @@ public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
 
     @SuppressWarnings("unchecked")
     public BaseDaoTest() {
-        Class[] genericTypes = (Class<T>[]) GenericTypeResolver.resolveTypeArguments(getClass(), BaseDaoTest.class);
-        this.entityClass = genericTypes[0];
+        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoTest.class);
     }
 
     public abstract BaseDao<T> getDao();
