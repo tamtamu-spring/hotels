@@ -10,19 +10,19 @@
 
     <title>hotels</title>
 
-    <link href="${pageContext.request.contextPath}css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}css/fonts.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}css/main.css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css"/>
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}libs/font-awesome-4.2.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}libs/owl-carousel/owl.carousel.css"/>
+          href="${pageContext.request.contextPath}/resources/libs/font-awesome-4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/owl-carousel/owl.carousel.css"/>
 </head>
 
 <body>
-<script src="${pageContext.request.contextPath}libs/jquery/jquery-1.11.1.min.js"></script>
-<script src="${pageContext.request.contextPath}libs/owl-carousel/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}js/common.js"></script>
-<script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/libs/jquery/jquery-1.11.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/libs/owl-carousel/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <div class="wrapper">
 
     <header class="top_header">

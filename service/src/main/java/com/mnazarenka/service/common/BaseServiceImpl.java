@@ -6,9 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Николай on 24.06.2017.
- */
 @Transactional
 public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
 
