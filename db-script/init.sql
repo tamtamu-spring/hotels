@@ -77,9 +77,9 @@ CREATE TABLE `dishes` (
   `id`                   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fk_dishes_categories` BIGINT       NOT NULL,
   `name`                 VARCHAR(255) NOT NULL
- /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE*/
+  /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
+     ON UPDATE CASCADE
+     ON DELETE CASCADE*/
 );
 
 CREATE TABLE `dishes_restaurants` (
@@ -118,7 +118,7 @@ CREATE TABLE `dish_orders_details` (
 );
 
 -- test data --
-INSERT INTO hotels (name, city, street) VALUES ("one", "city1", "street1");
+INSERT INTO hotels (name, city, street) VALUES ('one', 'city1', 'street');
 
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'standart');

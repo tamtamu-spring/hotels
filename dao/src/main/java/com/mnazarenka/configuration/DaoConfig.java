@@ -18,7 +18,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"com.mnazarenka.dao","com.mnazarenka.util"})
 @EnableTransactionManagement
 @PropertySource("classpath:database.properties")
-public class Config {
+public class DaoConfig {
     @Value("${db.url}")
     private String dbUrl;
     @Value("${db.driver-name}")

@@ -1,15 +1,17 @@
 package com.mnazarenka.service.impl;
 
+import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.mysql.MySqlAppartmentDaoImpl;
 import com.mnazarenka.service.AppartmentService;
+import com.mnazarenka.service.common.BaseServiceImpl;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implements AppartmentService {
 
-public class AppartmentServiceImpl implements AppartmentService{
-
-    public List<Appartment> findAllAppartments() {
-        MySqlAppartmentDaoImpl appartmentDao = new MySqlAppartmentDaoImpl();
-        return appartmentDao.findAll();
-    }
+    @Autowired
+    @Getter
+    private AppartmentDao dao;
 }

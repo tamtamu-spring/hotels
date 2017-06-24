@@ -1,6 +1,6 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.configuration.Config;
+import com.mnazarenka.configuration.DaoConfig;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.util.TestDataImporter;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {Config.class})
+@ContextConfiguration(classes = {DaoConfig.class})
 @Transactional
 public abstract class BaseDaoTest<T extends BaseEntity, E extends BaseDao<T>> {
 
