@@ -11,16 +11,8 @@ public class MySqlUserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 
     @Override
     public User getUserByLogin(String login) {
-        Session session = getSessionFactory().openSession();
-        session.beginTransaction();
-
-        User user = session.createQuery("select u from User u where u.login = :login",
+        return getSessionFactory().getCurrentSession().createQuery("select u from User u where u.login = :login",
                 User.class).setParameter("login", login)
-                .getSingleResult();
-
-        session.getTransaction().commit();
-        session.close();
-
-        return user;
+                .getResultList().get(0);
     }
 }

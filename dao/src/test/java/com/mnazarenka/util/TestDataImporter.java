@@ -22,7 +22,6 @@ import com.mnazarenka.dao.entity.Restaurant;
 import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.dao.entity.User;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

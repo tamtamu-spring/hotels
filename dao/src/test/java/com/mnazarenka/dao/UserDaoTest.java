@@ -51,4 +51,11 @@ public class UserDaoTest extends BaseDaoTest<User, UserDao> {
 
         assertEquals("New login", user.getLogin());
     }
+
+    @Test
+    public void testFindUserByLogin(){
+        User user = dao.getUserByLogin("AdminLogin");
+
+        assertEquals("AdminLogin", user.getLogin());
+    }
 }
