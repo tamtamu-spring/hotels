@@ -1,42 +1,48 @@
 package com.mnazarenka.service.impl;
 
+import com.mnazarenka.dao.RoleDao;
 import com.mnazarenka.dao.UserDao;
-import com.mnazarenka.dao.common.BaseDao;
+import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.service.UserService;
 import com.mnazarenka.service.common.BaseServiceImpl;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> implements UserService, UserDetailsService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     @Getter
     private UserDao dao;
+    private RoleDao roleDao;
 
     @Autowired
-    public UserServiceImpl(UserDao dao) {
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(UserDao dao, RoleDao roleDao) {
         this.dao = dao;
+        this.roleDao = roleDao;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User loadedUser = dao.getUserByLogin(login);
+    public User create(User user, Long roleId) {
+        Role role = roleDao.find(roleId);
+        user.setRole(role);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return dao.create(user);
+    }
 
-        if (loadedUser == null) {
-            throw new UsernameNotFoundException("Can't find user by provided name!");
-        }
+    @Override
+    public User create(User entity) {
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        return dao.create(entity);
+    }
 
-        org.springframework.security.core.userdetails.User user =
-                new org.springframework.security.core.userdetails.User(loadedUser.getLogin(), loadedUser.getPassword(),
-                        Collections.singletonList(new SimpleGrantedAuthority(loadedUser.getRole().getName())));
-        return user;
+    @Override
+    public User getUserByLogin(String login) {
+        return dao.getUserByLogin(login);
     }
 }
