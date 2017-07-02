@@ -13,40 +13,17 @@
     <link rel="stylesheet"
           href="/resources/libs/font-awesome-4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/resources/libs/owl-carousel/owl.carousel.css"/>
+    <script src="/resources/libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="/resources/libs/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/resources/js/common.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-<script src="/resources/libs/jquery/jquery-1.11.1.min.js"></script>
-<script src="/resources/libs/owl-carousel/owl.carousel.min.js"></script>
-<script src="/resources/js/common.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
+
 <div class="wrapper">
 
-    <header class="top_header">
-        <div class="header_top_line">
-            <div class="container">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="top_links">
-
-                            <div class="account_icon">
-                                <a href="#"><i class="fa fa-user-o"
-                                               aria-hidden="true"></i></a>
-                            </div>
-                            login
-
-                            <a class="logout" href="#">Выход</a>
-
-                            <a href="#">Вход</a>
-                            <span class="delimiter"> / </span>
-                            <a href="#">Регистрация</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div class="top_header" th:insert="~{fragments/header :: header}"></div>
 
     <div class="content">
 
@@ -73,13 +50,6 @@
         </div>
     </div>
 
-
-    <footer>
-        <div class="container">
-            <div class="col-md-12">
-                <div class="row">© Назаренко Николай</div>
-            </div>
-        </div>
-    </footer>
+    <div th:insert="~{fragments/footer :: footer}"></div>
 </div>
 </body>

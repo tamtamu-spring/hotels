@@ -18,6 +18,6 @@ public class AppartmentsController {
     public String showAllAppartments(Model model) {
         List<Appartment> appartments = appartmentService.findAll();
         model.addAttribute("appartments", appartments);
-        return "appartments";
+        return "user/appartments";
     }
 }
