@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
-public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails, DishOrderDetailsDao> {
+public class DishOrderDetailsDaoTest extends BaseDaoTest<DishOrderDetails> {
     @Autowired
     @Getter
     private DishOrderDetailsDao dao;

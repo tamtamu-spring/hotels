@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class DishDaoTest extends BaseDaoTest<Dish, DishDao> {
+public class DishDaoTest extends BaseDaoTest<Dish> {
     @Autowired
     @Getter
     private DishDao dao;

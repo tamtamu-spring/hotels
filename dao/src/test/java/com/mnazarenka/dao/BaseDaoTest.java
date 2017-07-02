@@ -4,6 +4,7 @@ import com.mnazarenka.configuration.DaoConfig;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.util.TestDataImporter;
+import com.mnazarenka.util.TestDataImporterImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

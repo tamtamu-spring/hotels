@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class RestaurantDaoTest extends BaseDaoTest<Restaurant, RestaurantDao> {
+public class RestaurantDaoTest extends BaseDaoTest<Restaurant> {
     @Autowired
     @Getter
     private RestaurantDao dao;
