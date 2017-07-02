@@ -209,7 +209,6 @@ public class TestDataImporterImpl implements TestDataImporter {
     @Override
     public User saveUser(boolean blockStatus, Role role, String login, String password, UserDao userDao) {
         User user = new User();
-        user.setBlockStatus(blockStatus);
         user.setRole(role);
         user.setLogin(login);
         user.setPassword(password);

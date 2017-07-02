@@ -20,6 +20,6 @@ import java.io.Serializable;
 public class Role extends BaseEntity implements Serializable {
     @Getter
     @Setter
-    @Column
+    @Column(name = "role")
     private String name;
 }

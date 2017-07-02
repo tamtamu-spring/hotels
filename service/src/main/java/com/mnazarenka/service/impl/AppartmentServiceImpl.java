@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implements AppartmentService {
 
-    @Autowired
     @Getter
     private AppartmentDao dao;
+
+    @Autowired
+    public AppartmentServiceImpl(AppartmentDao dao) {
+        this.dao = dao;
+    }
 }

@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 
-<header>
+<header class="top_header">
     <div class="header_top_line">
         <div class="container">
             <div class="col-lg-12">
@@ -13,9 +13,10 @@
                         </div>
                         login
 
-                        <a class="logout" href="#">Выход</a>
+                        <form hidden id="logout" th:action="@{/logout}" method="post"></form>
+                        <a class="logout" onclick="logout.submit();">Выход</a>
 
-                        <a href="#">Вход</a>
+                        <a th:href="@{/login}">Вход</a>
                         <span class="delimiter"> / </span>
                         <a href="#">Регистрация</a>
 

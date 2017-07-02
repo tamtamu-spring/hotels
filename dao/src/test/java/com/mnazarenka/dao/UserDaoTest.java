@@ -27,15 +27,12 @@ public class UserDaoTest extends BaseDaoTest<User> {
                 .collect(toList());
         List<String> userPasswords = users.stream().map(User::getPassword)
                 .collect(toList());
-        List<Boolean> userStatuses = users.stream().map(User::getBlockStatus)
-                .collect(toList());
         List<String> roles = users.stream().map(User::getRole)
                 .collect(toList()).stream().map(Role::getName).collect(toList());
 
         assertThat(users, hasSize(2));
         assertThat(usersLogins, containsInAnyOrder("AdminLogin", "UserLogin"));
         assertThat(userPasswords, containsInAnyOrder("AdminPassword", "UserPassword"));
-        assertThat(userStatuses, containsInAnyOrder(true, false));
         assertThat(roles, containsInAnyOrder("User", "Admin"));
     }
 

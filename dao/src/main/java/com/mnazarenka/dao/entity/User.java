@@ -30,8 +30,4 @@ public class User extends BaseEntity implements Serializable {
     @Setter
     @Column
     private String password;
-    @Getter
-    @Setter
-    @Column(name = "block_status")
-    private Boolean blockStatus;
 }

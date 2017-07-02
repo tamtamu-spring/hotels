@@ -14,7 +14,6 @@ CREATE TABLE `users` (
   `fk_role_id`   BIGINT       NOT NULL,
   `login`        VARCHAR(255) NOT NULL,
   `password`     VARCHAR(255) NOT NULL,
-  `block_status` BOOLEAN      NOT NULL,
   CONSTRAINT `fk_users_to_roles` FOREIGN KEY (`fk_role_id`) REFERENCES `roles` (`id`)
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
@@ -118,6 +117,12 @@ CREATE TABLE `dish_orders_details` (
 );
 
 -- test data --
+INSERT INTO roles (role) VALUES ('ADMIN');
+INSERT INTO roles (role) VALUES ('USER');
+
+INSERT INTO users (fk_role_id, login, password) VALUES (2, 'user', 'user');
+INSERT INTO users (fk_role_id, login, password) VALUES (1, 'admin', 'admin');
+
 INSERT INTO hotels (name, city, street) VALUES ('one', 'city1', 'street');
 
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
