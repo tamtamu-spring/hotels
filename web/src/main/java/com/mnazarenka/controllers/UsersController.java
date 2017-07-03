@@ -46,7 +46,7 @@ public class UsersController {
 
     @PostMapping("/admin/users")
     public String createUser(User user, String roleId){
-        userService.create(user, Long.valueOf(roleId));
+        userService.createUserWithRoleId(user, Long.valueOf(roleId));
         return "redirect:/admin/users";
     }
 }

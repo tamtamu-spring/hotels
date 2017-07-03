@@ -6,10 +6,14 @@ import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
 import com.mnazarenka.service.UserService;
 import com.mnazarenka.service.common.BaseServiceImpl;
+import com.mnazarenka.service.enums.RoleEnum;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
@@ -28,7 +32,17 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public User create(User user, Long roleId) {
+    public User createUserWithUserRole(User user) {
+        List<Role> roles = roleDao.findAll();
+        roles.stream().filter(r -> r.getName().equals(RoleEnum.USER.toString())).collect(Collectors.toList());
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(roles.get(0));
+        return dao.create(user);
+    }
+
+    @Override
+    public User createUserWithRoleId(User user, Long roleId) {
         Role role = roleDao.find(roleId);
         user.setRole(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
