@@ -59,6 +59,10 @@ footer {
     margin: 5px 5px;
 }
 
+img{
+    width: 25px;
+}
+
 .header_top_line {
     background-color: #f9fcbf;
     padding: 15px 0;
@@ -77,7 +81,7 @@ footer {
 h3 {
     text-transform: uppercase;
     text-align: center;
-    color: #fff;
+    color: #337ab7;
     font-family: "RobotoLight";
 }
 
