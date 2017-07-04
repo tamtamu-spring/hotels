@@ -31,7 +31,7 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 
     @Override
     public T find(Long id) {
-        return sessionFactory.getCurrentSession().load(genericClass, id);
+        return sessionFactory.getCurrentSession().get(genericClass, id);
     }
 
     @Override

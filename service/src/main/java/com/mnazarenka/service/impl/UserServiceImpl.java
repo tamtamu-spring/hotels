@@ -34,7 +34,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public User createUserWithUserRole(User user) {
         List<Role> roles = roleDao.findAll();
-        roles.stream().filter(r -> r.getName().equals(RoleEnum.USER.toString())).collect(Collectors.toList());
+        roles = roles.stream().filter(r -> r.getName().equals(RoleEnum.USER.toString())).collect(Collectors.toList());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(roles.get(0));
@@ -58,5 +58,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public User getUserByLogin(String login) {
         return dao.getUserByLogin(login);
+    }
+
+    @Override
+    public void updateUserWithRoleId(User user, long roleId) {
+        Role role = roleDao.find(roleId);
+        user.setRole(role);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        dao.update(user);
     }
 }

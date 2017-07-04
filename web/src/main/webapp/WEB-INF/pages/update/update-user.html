@@ -37,7 +37,7 @@
                     <div class="col-md-12">
                         <div class="panel  panel-warning">
                             <div class="panel-body">
-                                <form th:action="@{/admin/users}" method="post" th:object="${user}">
+                                <form th:action="@{/admin/users/update}" method="post" th:object="${user}">
                                     <table class="table">
                                         <tr>
                                             <th>Id</th>
@@ -46,18 +46,16 @@
                                             <th>Role</th>
                                             <th></th>
                                         </tr>
-                                        <tr th:each="user : ${users}">
+                                        <tr>
                                             <td th:text="${user.id}"></td>
                                             <td th:text="${user.login}"></td>
                                             <td th:text="${user.password}"></td>
                                             <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name))}"></td>
-                                            <td><a class="btn btn-default" th:href="@{'/admin/users/update/' + ${user.id}}"
-                                                   role="button">Update</a>
-                                                <a class="btn btn-default" th:href="@{'/admin/users/delete/' + ${user.id}}"
-                                                   role="button">Delete</a></td>
+                                            <td><a class="btn btn-default" th:href="@{/admin/users}"
+                                                   role="button">Отмена</a></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
+                                            <td><input th:field="*{id}" th:value="${user.id}" hidden></td>
                                             <td><input class="form-control" type="text" th:field="*{login}" required></td>
                                             <td><input class="form-control" type="password" th:field="*{password}" required></td>
                                             <td>
@@ -67,7 +65,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <button class="btn btn-default" type="submit">Создать</button>
+                                                <button class="btn btn-default" type="submit">Обновить</button>
                                         </tr>
                                     </table>
                                 </form>
