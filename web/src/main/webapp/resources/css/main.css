@@ -48,6 +48,10 @@ footer {
     padding: 0 10px;
 }
 
+.admin-menu{
+margin: 20px 10%;
+}
+
 .logout {
     float: right;
     font-size: 17px;

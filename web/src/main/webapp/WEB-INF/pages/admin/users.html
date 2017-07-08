@@ -26,51 +26,56 @@
 
     <div class="content">
 
-    </div>
+        <div th:insert="~{fragments/admin-account-menu :: #admin-menu}"></div>
 
-    <div class="container">
+        <div class="container">
 
-        <div class="col-md-12">
-            <div class="panel  panel-warning">
-                <div class="panel-heading">ПОЛЬЗОВАТЕЛИ</div>
-                <div class="panel-body">
-                    <div class="col-md-12">
-                        <div class="panel  panel-warning">
-                            <div class="panel-body">
-                                <form th:action="@{/admin/users}" method="post" th:object="${user}">
-                                    <table class="table">
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Login</th>
-                                            <th>Password</th>
-                                            <th>Role</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr th:each="user : ${users}">
-                                            <td th:text="${user.id}"></td>
-                                            <td th:text="${user.login}"></td>
-                                            <td th:text="${user.password}"></td>
-                                            <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name))}"></td>
-                                            <td><a class="btn btn-default" th:href="@{'/admin/users/update/' + ${user.id}}"
-                                                   role="button">Update</a>
-                                                <a class="btn btn-default" th:href="@{'/admin/users/delete/' + ${user.id}}"
-                                                   role="button">Delete</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><input class="form-control" type="text" th:field="*{login}" required></td>
-                                            <td><input class="form-control" type="password" th:field="*{password}" required></td>
-                                            <td>
-                                                <select class="form-control" name="roleId">
-                                                    <option th:each="role : ${roles}" th:text="${role.name}"
-                                                            th:value="${role.id}"></option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-default" type="submit">Создать</button>
-                                        </tr>
-                                    </table>
-                                </form>
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">ПОЛЬЗОВАТЕЛИ</div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-body">
+                                    <form th:action="@{/admin/users}" method="post" th:object="${user}">
+                                        <table class="table">
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Login</th>
+                                                <th>Password</th>
+                                                <th>Role</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr th:each="user : ${users}">
+                                                <td th:text="${user.id}"></td>
+                                                <td th:text="${user.login}"></td>
+                                                <td th:text="${user.password}"></td>
+                                                <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name))}"></td>
+                                                <td><a class="btn btn-default"
+                                                       th:href="@{'/admin/users/update/' + ${user.id}}"
+                                                       role="button">Update</a>
+                                                    <a class="btn btn-default"
+                                                       th:href="@{'/admin/users/delete/' + ${user.id}}"
+                                                       role="button">Delete</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><input class="form-control" type="text" th:field="*{login}"
+                                                           required></td>
+                                                <td><input class="form-control" type="password" th:field="*{password}"
+                                                           required></td>
+                                                <td>
+                                                    <select class="form-control" name="roleId">
+                                                        <option th:each="role : ${roles}" th:text="${role.name}"
+                                                                th:value="${role.id}"></option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-default" type="submit">Создать</button>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +83,6 @@
             </div>
         </div>
     </div>
-
     <div th:insert="~{fragments/footer :: footer}"></div>
 </div>
 </body>
