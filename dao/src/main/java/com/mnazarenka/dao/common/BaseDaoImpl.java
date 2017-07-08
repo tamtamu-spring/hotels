@@ -1,6 +1,7 @@
 package com.mnazarenka.dao.common;
 
 import com.mnazarenka.dao.entity.BaseEntity;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,10 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 
     @Override
     public T find(Long id) {
-        return sessionFactory.getCurrentSession().get(genericClass, id);
+        Session currentSession = sessionFactory.getCurrentSession();
+        T entity = currentSession.load(genericClass, id);
+        Hibernate.initialize(entity);
+        return entity;
     }
 
     @Override

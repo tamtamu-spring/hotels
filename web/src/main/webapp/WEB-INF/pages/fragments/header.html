@@ -1,4 +1,5 @@
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <header class="top_header">
     <div class="header_top_line">
@@ -6,23 +7,32 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="top_links">
+                        <span sec:authorize="isAuthenticated()">
+                            <span class="account_icon">
+                                <a href="#"><i class="fa fa-user-o"
+                                               aria-hidden="true"></i></a>
+                            </span>
+                        </span>
+                        <span sec:authorize="isAuthenticated()">
+                            <span sec:authentication="name">
+                                <span th:text="${name}"></span>
+                            </span>
+                        </span>
 
-                        <div class="account_icon">
-                            <a href="#"><i class="fa fa-user-o"
-                                           aria-hidden="true"></i></a>
-                        </div>
-                        login
+                        <a th:href="@{''(language=ru_RU)}"><img th:src="@{/resources/img/ru.png}" alt="ru"></a>
+                        <a th:href="@{''(language=en_US)}"><img th:src="@{/resources/img/en.png}" alt="en"></a>
 
-                        <a  th:href="@{''(language=ru_RU)}"><img th:src="@{/resources/img/ru.png}" alt="ru"></a>
-                        <a  th:href="@{''(language=en_US)}"><img th:src="@{/resources/img/en.png}" alt="en"></a>
+                        <span sec:authorize="isAuthenticated()">
+                            <form hidden id="logout" th:action="@{/logout}" method="post"></form>
 
-                        <form hidden id="logout" th:action="@{/logout}" method="post"></form>
+                            <a class="logout" onclick="logout.submit();" th:text="#{header.logout}"></a>
+                        </span>
 
-                        <a class="logout" onclick="logout.submit();" th:text="#{header.logout}"></a>
-
-                        <a th:href="@{/login}" th:text="#{header.login}"></a>
-                        <span class="delimiter"> / </span>
-                        <a th:href="@{/registration}"  th:text="#{header.registration}"></a>
+                        <span sec:authorize="isAnonymous()">
+                            <a th:href="@{/login}" th:text="#{header.login}"></a>
+                            <span class="delimiter"> / </span>
+                            <a th:href="@{/registration}" th:text="#{header.registration}"></a>
+                        </span>
 
                     </div>
                 </div>
