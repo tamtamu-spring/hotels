@@ -1,5 +1,6 @@
 package com.mnazarenka.service.common;
 
+import com.mnazarenka.annotation.Loggable;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
+@Loggable
 public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
 
     public abstract BaseDao<T> getDao();

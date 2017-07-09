@@ -3,7 +3,6 @@ package com.mnazarenka.dao.mysql;
 import com.mnazarenka.dao.UserDao;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.User;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,9 +1,9 @@
 package com.mnazarenka.service.impl;
 
 
+import com.mnazarenka.annotation.Loggable;
 import com.mnazarenka.dao.UserDao;
 import com.mnazarenka.dao.entity.User;
-import com.mnazarenka.service.UserService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +17,7 @@ import java.util.Collections;
 
 @Service
 @Transactional
+@Loggable
 public class CusomUserServiceImpl implements UserDetailsService {
     @Getter
     private UserDao dao;

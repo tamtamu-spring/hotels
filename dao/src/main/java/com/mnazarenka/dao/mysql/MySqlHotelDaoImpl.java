@@ -4,7 +4,6 @@ import com.mnazarenka.dao.HotelDao;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Adress;
 import com.mnazarenka.dao.entity.Hotel;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 @Repository
