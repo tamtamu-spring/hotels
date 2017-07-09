@@ -123,7 +123,9 @@ INSERT INTO roles (role) VALUES ('USER');
 INSERT INTO users (fk_role_id, login, password) VALUES (2, 'user', 'user');
 INSERT INTO users (fk_role_id, login, password) VALUES (1, 'admin', 'admin');
 
-INSERT INTO hotels (name, city, street) VALUES ('one', 'city1', 'street');
+INSERT INTO hotels (name, city, street) VALUES ('Crowne Plaza', 'Минск', 'Кирова 13');
+INSERT INTO hotels (name, city, street) VALUES ('Minsk Marriott Hotel', 'Минск', 'пр Победителей 20');
+INSERT INTO hotels (name, city, street) VALUES ('Renaissance Minsk Hotel', 'Минск', 'пр Держинского 1');
 
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'standart');
