@@ -31,8 +31,6 @@ CREATE TABLE `restaurants` (
   `id`   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   CONSTRAINT `fk_restaurants_to_hotels` FOREIGN KEY (`id`) REFERENCES `hotels` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
 );
 
 CREATE TABLE `appartments` (
