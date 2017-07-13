@@ -66,8 +66,8 @@ public class RestaurantsController {
     }
 
     @PostMapping("/admin/restaurants/update")
-    public String updateRestaurant(Restaurant restaurant){
-        restaurantService.update(restaurant);
+    public String updateRestaurant(Restaurant restaurant, long hotelId){
+        restaurantService.UpdateWithHotelId(restaurant, hotelId);
         return "redirect:/admin/restaurants";
     }
 }

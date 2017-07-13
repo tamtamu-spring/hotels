@@ -29,4 +29,12 @@ public class RestaurantServiceImpl extends BaseServiceImpl<Restaurant> implement
 
         return dao.create(restaurant);
     }
+
+    @Override
+    public void UpdateWithHotelId(Restaurant restaurant, long hotelId) {
+        Hotel hotel = hotelDao.find(hotelId);
+        restaurant.setHotel(hotel);
+
+        dao.update(restaurant);
+    }
 }
