@@ -36,20 +36,9 @@
                     <div class="panel-body">
 
                         <div class="col-md-12">
-                            <div class="btn-toolbar admin-menu" role="toolbar" >
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default"
-                                            onclick="window.location.href='/admin/lux-appartments'">ЛЮКС</button>
-                                </div>
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default"
-                                            onclick="window.location.href='/admin/standart-appartments'">СТАНДАРТ</button>
-                                </div>
-                                <div class="btn-group"  >
-                                    <button type="button" class="btn btn-default"
-                                            onclick="window.location.href='/admin/econom-appartments'">ЭКОНОМ</button>
-                                </div>
-                            </div>
+
+                            <div th:insert="~{fragments/admin-appartments-menu :: #admin-appartment-menu}"></div>
+
                             <div class="panel panel-warning">
                                 <div class="panel-body">
                                     <form th:action="@{/admin/lux-appartments}" method="post" th:object="${appartment}">

@@ -36,10 +36,12 @@
                     <div class="panel-body">
 
                         <div class="col-md-12">
-                            </div>
+
+                            <div th:insert="~{fragments/admin-appartments-menu :: #admin-appartment-menu}"></div>
+
                             <div class="panel panel-warning">
                                 <div class="panel-body">
-                                    <form th:action="@{/admin/lux-appartments/update}" method="post" th:object="${appartment}">
+                                    <form th:action="@{/admin/standart-appartments/update}" method="post" th:object="${appartment}">
                                         <table class="table">
                                             <tr>
                                                 <th>Id</th>
@@ -51,7 +53,7 @@
                                                 <th>Options</th>
                                                 <th></th>
                                             </tr>
-                                            <tr>
+                                            <tr th:each="appartment : ${appartments}">
                                                 <td th:text="${appartment.id}"></td>
                                                 <td th:text="${appartment.name}"></td>
                                                 <td th:text="${appartment.hotel.name}"></td>
@@ -62,16 +64,16 @@
                                                     <span  th:text="${appartment.wiFi}"></span>
                                                     <span  th:text="${appartment.wc}"></span>
                                                     <span  th:text="${appartment.tv}"></span>
-                                                    <span  th:text="${appartment.bar}"></span>
-                                                    <span  th:text="${appartment.kichen}"></span>
                                                 </td>
                                                 <td><a class="btn btn-default"
-                                                       th:href="@{'/admin/lux-appartments/update'}"
-                                                       role="button">Отмена</a>
-                                                    </td>
+                                                       th:href="@{'/admin/standart-appartments/update/' + ${appartment.id}}"
+                                                       role="button">Update</a>
+                                                    <a class="btn btn-default"
+                                                       th:href="@{'/admin/standart-appartments/delete/' + ${appartment.id}}"
+                                                       role="button">Delete</a></td>
                                             </tr>
                                             <tr>
-                                                <td><input hidden th:value="${appartment.id}" th:field="*{id}"></td>
+                                                <td></td>
                                                 <td><input class="form-control" type="text" th:field="*{name}"
                                                            required></td>
                                                 <td><select class="form-control" name="hotelId">
@@ -86,7 +88,7 @@
                                                            required></td>
                                                 <td></td>
                                                 <td>
-                                                    <button class="btn btn-default" type="submit">Обновить</button>
+                                                    <button class="btn btn-default" type="submit">Создать</button>
                                             </tr>
                                         </table>
                                     </form>

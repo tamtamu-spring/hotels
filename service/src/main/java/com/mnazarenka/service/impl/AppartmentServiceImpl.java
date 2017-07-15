@@ -5,6 +5,7 @@ import com.mnazarenka.dao.HotelDao;
 import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
+import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.common.BaseServiceImpl;
 import lombok.Getter;
@@ -34,6 +35,27 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
+    public StandartAppartment createStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId) {
+        Hotel hotel = hotelDao.find(hotelId);
+
+        appartment.setHotel(hotel);
+        return (StandartAppartment) dao.create(appartment);
+    }
+
+    @Override
+    public List<StandartAppartment> findAllStandartAppartments() {
+        return dao.findAllStandartAppartments();
+    }
+
+    @Override
+    public void updateStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId) {
+        Hotel hotel = hotelDao.find(hotelId);
+
+        appartment.setHotel(hotel);
+        dao.update(appartment);
+    }
+
+    @Override
     public LuxAppartment createLuxAppartmentWithHotelId(LuxAppartment appartment, long hotelId) {
         Hotel hotel = hotelDao.find(hotelId);
 
@@ -44,5 +66,13 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     @Override
     public LuxAppartment findLuxAppartment(long id) {
         return dao.findLuxAppartment(id);
+    }
+
+    @Override
+    public void updateLuxAppartmentWithHotelId(LuxAppartment appartment, long hotelId) {
+        Hotel hotel = hotelDao.find(hotelId);
+
+        appartment.setHotel(hotel);
+        dao.update(appartment);
     }
 }

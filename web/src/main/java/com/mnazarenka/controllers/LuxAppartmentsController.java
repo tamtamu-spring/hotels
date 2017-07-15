@@ -65,8 +65,8 @@ public class LuxAppartmentsController {
     }
 
     @PostMapping("/admin/lux-appartments/update")
-    public String updateLuxAppartment(LuxAppartment appartment){
-        appartmentService.update(appartment);
+    public String updateLuxAppartment(LuxAppartment appartment, long hotelId){
+        appartmentService.updateLuxAppartmentWithHotelId(appartment, hotelId);
         return "redirect:/admin/lux-appartments";
     }
 }
