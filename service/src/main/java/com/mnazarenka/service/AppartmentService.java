@@ -11,19 +11,15 @@ import java.util.List;
 public interface AppartmentService extends BaseService<Appartment> {
     List<LuxAppartment> findAllLuxAppartments();
 
-    LuxAppartment findLuxAppartment(long id);
-
     List<StandartAppartment> findAllStandartAppartments();
 
-    StandartAppartment findStandartAppartment(long id);
-
     List<EconomAppartment> findAllEconomAppartments();
-
-    EconomAppartment findEconomAppartment(long id);
 
     void createAppartmentWithHotelId(Appartment appartment, long hotelId);
 
     void updateAppartmentWithHotelId(Appartment appartment, long hotelId);
 
-    <T extends Appartment> List<T>  getAppartmentsByRange (int pageNumber, int pageCounts, Class<T> appartment);
+    <T extends Appartment> List<T>  getAppartmentsByRange (int pageNumber, int pageCounts, Class<T> clazz);
+
+    <T extends Appartment> T findAppartment(long id, Class<T> clazz);
 }

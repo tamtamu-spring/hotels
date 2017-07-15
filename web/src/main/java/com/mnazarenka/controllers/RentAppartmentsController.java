@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-public class RentLuxAppartmentController {
+public class RentAppartmentsController {
     private AppartmentService appartmentService;
 
     //@Value("#{new Integer.parseInt('${items.counts}')}")
     private Integer pageCounts = 3;
 
     @Autowired
-    public RentLuxAppartmentController(AppartmentService appartmentService) {
+    public RentAppartmentsController(AppartmentService appartmentService) {
         this.appartmentService = appartmentService;
     }
 

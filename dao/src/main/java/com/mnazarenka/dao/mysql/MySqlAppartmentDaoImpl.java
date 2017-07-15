@@ -6,6 +6,7 @@ import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,27 +15,20 @@ import java.util.List;
 public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
     @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Appartment> T findAppartment(long id, Class clazz) {
+        T entity = (T) getSessionFactory().getCurrentSession().load(clazz, id);
+        Hibernate.initialize(entity);
+        return entity;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz) {
-        if (clazz == LuxAppartment.class) {
-            return getSessionFactory().getCurrentSession().createQuery("select a from LuxAppartment a", LuxAppartment.class)
-                    .setFirstResult(from)
-                    .setMaxResults(to)
-                    .getResultList();
-        } else {
-            if (clazz == StandartAppartment.class) {
-                return getSessionFactory().getCurrentSession().createQuery("select a from StandartAppartment a", StandartAppartment.class)
-                        .setFirstResult(from)
-                        .setMaxResults(to)
-                        .getResultList();
-            } else {
-                if (clazz == EconomAppartment.class) {
-                    return getSessionFactory().getCurrentSession().createQuery("select a from EconomAppartment a", EconomAppartment.class)
-                            .setFirstResult(from)
-                            .setMaxResults(to)
-                            .getResultList();
-                } else throw new IllegalArgumentException();
-            }
-        }
+        return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
+                .setFirstResult(from)
+                .setMaxResults(to)
+                .getResultList();
     }
 
     @Override
@@ -50,23 +44,8 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     }
 
     @Override
-    public StandartAppartment findStandartAppartment(long id) {
-        return getSessionFactory().getCurrentSession().find(StandartAppartment.class, id);
-    }
-
-    @Override
     public List<LuxAppartment> findAllLuxAppartments() {
         return getSessionFactory().getCurrentSession().createQuery("select e from LuxAppartment e", LuxAppartment.class)
                 .getResultList();
-    }
-
-    @Override
-    public LuxAppartment findLuxAppartment(long id) {
-        return getSessionFactory().getCurrentSession().find(LuxAppartment.class, id);
-    }
-
-    @Override
-    public EconomAppartment findEconomAppatrment(long id) {
-        return getSessionFactory().getCurrentSession().find(EconomAppartment.class, id);
     }
 }

@@ -60,7 +60,7 @@ public class EconomAppartmentController {
 
     @GetMapping("/admin/econom-appartments/update/{id}")
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
-        EconomAppartment appartment = appartmentService.findEconomAppartment(id);
+        EconomAppartment appartment = appartmentService.findAppartment(id, EconomAppartment.class);
         model.addAttribute("appartment", appartment);
         return "update/appartments/econom";
     }

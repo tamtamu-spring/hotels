@@ -59,7 +59,7 @@ public class LuxAppartmentsController {
 
     @GetMapping("/admin/lux-appartments/update/{id}")
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
-        LuxAppartment appartment = appartmentService.findLuxAppartment(id);
+        LuxAppartment appartment = appartmentService.findAppartment(id, LuxAppartment.class);
         model.addAttribute("appartment", appartment);
         return "update/appartments/lux";
     }

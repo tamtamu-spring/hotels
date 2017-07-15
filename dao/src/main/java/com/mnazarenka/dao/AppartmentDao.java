@@ -9,6 +9,8 @@ import com.mnazarenka.dao.entity.StandartAppartment;
 import java.util.List;
 
 public interface AppartmentDao extends BaseDao<Appartment> {
+    <T extends Appartment> T findAppartment(long id, Class clazz);
+
     List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz);
 
     List<EconomAppartment> findAllEconomAppartments();
@@ -16,10 +18,4 @@ public interface AppartmentDao extends BaseDao<Appartment> {
     List<StandartAppartment> findAllStandartAppartments();
 
     List<LuxAppartment> findAllLuxAppartments();
-
-    LuxAppartment findLuxAppartment(long id);
-
-    StandartAppartment findStandartAppartment(long id);
-
-    EconomAppartment findEconomAppatrment(long id);
 }
