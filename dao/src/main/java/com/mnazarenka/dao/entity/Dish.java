@@ -19,4 +19,8 @@ public class Dish extends BaseEntity implements Serializable {
     @Setter
     @Column
     private String name;
+    @Getter
+    @Setter
+    @Column
+    private String image;
 }

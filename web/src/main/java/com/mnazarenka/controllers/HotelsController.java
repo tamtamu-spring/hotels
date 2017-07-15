@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class HotelController {
+public class HotelsController {
     private HotelService hotelService;
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public HotelsController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 

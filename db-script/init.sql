@@ -10,10 +10,10 @@ CREATE TABLE `roles` (
 );
 
 CREATE TABLE `users` (
-  `id`           BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_role_id`   BIGINT       NOT NULL,
-  `login`        VARCHAR(255) NOT NULL,
-  `password`     VARCHAR(255) NOT NULL,
+  `id`         BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_role_id` BIGINT       NOT NULL,
+  `login`      VARCHAR(255) NOT NULL,
+  `password`   VARCHAR(255) NOT NULL,
   CONSTRAINT `fk_users_to_roles` FOREIGN KEY (`fk_role_id`) REFERENCES `roles` (`id`)
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
@@ -56,7 +56,7 @@ CREATE TABLE `orders` (
   `fk_appartments_id` BIGINT NOT NULL,
   `start_date`        DATE   NOT NULL,
   `end_date`          DATE   NOT NULL,
-  `version` TIMESTAMP,
+  `version`           TIMESTAMP,
   CONSTRAINT `fk_orders_to_user` FOREIGN KEY (`fk_users_id`) REFERENCES `users` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -65,22 +65,14 @@ CREATE TABLE `orders` (
     ON DELETE CASCADE
 );
 
-/*CREATE TABLE `dishes_categories` (
-  `id`   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(255) NOT NULL
-);
-*/
 CREATE TABLE `dishes` (
-  `id`                   BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_dishes_categories` BIGINT       NOT NULL,
-  `name`                 VARCHAR(255) NOT NULL
-  /* CONSTRAINT `fk_dishes_to_dishes_categories` FOREIGN KEY (`fk_dishes_categories`) REFERENCES `dishes_categories` (`id`)
-     ON UPDATE CASCADE
-     ON DELETE CASCADE*/
+  `id`    BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name`  VARCHAR(255) NOT NULL,
+  `image` VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE `dishes_restaurants` (
-  `fk_dishes_id` BIGINT NOT NULL,
+  `fk_dishes_id`      BIGINT NOT NULL,
   `fk_restaurants_id` BIGINT NOT NULL,
   PRIMARY KEY (`fk_dishes_id`, `fk_restaurants_id`),
   CONSTRAINT `fk_dishes_restaurants_to_dishes` FOREIGN KEY (`fk_dishes_id`) REFERENCES `dishes` (`id`)
@@ -125,10 +117,35 @@ INSERT INTO hotels (name, city, street) VALUES ('Crowne Plaza', 'Минск', '�
 INSERT INTO hotels (name, city, street) VALUES ('Minsk Marriott Hotel', 'Минск', 'пр Победителей 20');
 INSERT INTO hotels (name, city, street) VALUES ('Renaissance Minsk Hotel', 'Минск', 'пр Держинского 1');
 
+INSERT INTO restaurants (name) VALUES ('Crowne Plaza Restaurant');
+INSERT INTO restaurants (name) VALUES ('Minsk Marriott Hotel Restaurant');
+
+INSERT INTO dishes (name, image) VALUES ('Харватсикий десерт', '/resources/img/dishes/sweet1.jpg');
+INSERT INTO dishes (name, image) VALUES ('Бельгийские вафли', '/resources/img/dishes/sweet2.jpg');
+INSERT INTO dishes (name, image) VALUES ('Тирамиссу', '/resources/img/dishes/sweet3.jpg');
+INSERT INTO dishes (name, image) VALUES ('Креветки с картошкой фри', '/resources/img/dishes/snack1.jpg');
+INSERT INTO dishes (name, image) VALUES ('Закуска из креветок под овощами', '/resources/img/dishes/snack2.jpg');
+INSERT INTO dishes (name, image) VALUES ('Фаршмак', '/resources/img/dishes/snack3.jpg');
+INSERT INTO dishes (name, image) VALUES ('Цыпленок с кортошкой по деревенски', '/resources/img/dishes/main1.jpg');
+INSERT INTO dishes (name, image) VALUES ('Мясные рулеты с овощами', '/resources/img/dishes/main2.jpg');
+INSERT INTO dishes (name, image) VALUES ('Свинина на гриле с беконом', '/resources/img/dishes/main3.jpg');
+
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (1, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (2, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (3, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (3, 2);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (4, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (5, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (6, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (6, 2);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (7, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (8, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 1);
+INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 2);
+
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'standart');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name3', 'desc3', 'lux');
 INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name2', 'desc2', 'econom');
 
- 
- 
+
