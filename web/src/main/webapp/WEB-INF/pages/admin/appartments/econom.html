@@ -41,7 +41,7 @@
 
                             <div class="panel panel-warning">
                                 <div class="panel-body">
-                                    <form th:action="@{/admin/standart-appartments}" method="post" th:object="${appartment}">
+                                    <form th:action="@{/admin/econom-appartments}" method="post" th:object="${appartment}">
                                         <table class="table">
                                             <tr>
                                                 <th>Id</th>
@@ -62,14 +62,12 @@
                                                 <td th:text="${appartment.costPerDay}"></td>
                                                 <td>
                                                     <span  th:text="${appartment.wiFi}"></span>
-                                                    <span  th:text="${appartment.wc}"></span>
-                                                    <span  th:text="${appartment.tv}"></span>
                                                 </td>
                                                 <td><a class="btn btn-default"
-                                                       th:href="@{'/admin/standart-appartments/update/' + ${appartment.id}}"
+                                                       th:href="@{'/admin/econom-appartments/update/' + ${appartment.id}}"
                                                        role="button">Update</a>
                                                     <a class="btn btn-default"
-                                                       th:href="@{'/admin/standart-appartments/delete/' + ${appartment.id}}"
+                                                       th:href="@{'/admin/econom-appartments/delete/' + ${appartment.id}}"
                                                        role="button">Delete</a></td>
                                             </tr>
                                             <tr>

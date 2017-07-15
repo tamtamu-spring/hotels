@@ -11,5 +11,5 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("econom")
-public class EconomApartment extends Appartment implements Serializable {
+public class EconomAppartment extends Appartment implements Serializable {
 }

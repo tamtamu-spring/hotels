@@ -1,7 +1,7 @@
 package com.mnazarenka.dao;
 
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import lombok.Getter;
@@ -68,7 +68,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Test
     public void testFindEconomAppartments() {
-        List<EconomApartment> appartments = dao.findAllEconomAppartments();
+        List<EconomAppartment> appartments = dao.findAllEconomAppartments();
 
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
         assertEquals(appartments.get(0).getDescription(), "EconomAppartmentDescription");

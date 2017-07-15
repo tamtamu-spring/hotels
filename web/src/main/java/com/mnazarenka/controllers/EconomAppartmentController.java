@@ -1,5 +1,6 @@
 package com.mnazarenka.controllers;
 
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.service.AppartmentService;
@@ -15,24 +16,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class StandartAppartmentController {
+public class EconomAppartmentController {
     private AppartmentService appartmentService;
     private HotelService hotelService;
 
     @Autowired
-    public StandartAppartmentController(AppartmentService appartmentService, HotelService hotelService) {
+    public EconomAppartmentController(AppartmentService appartmentService, HotelService hotelService) {
         this.appartmentService = appartmentService;
         this.hotelService = hotelService;
     }
 
     @ModelAttribute("appartment")
-    public StandartAppartment appartment(){
-        return new StandartAppartment();
+    public EconomAppartment appartment(){
+        return new EconomAppartment();
     }
 
     @ModelAttribute("appartments")
-    public List<StandartAppartment> appartments(){
-        return appartmentService.findAllStandartAppartments();
+    public List<EconomAppartment> appartments(){
+        return appartmentService.findAllEconomAppartments();
     }
 
     @ModelAttribute("hotels")
@@ -40,33 +41,34 @@ public class StandartAppartmentController {
         return hotelService.findAll();
     }
 
-    @GetMapping("/admin/standart-appartments")
-    public String getStandartAppartment(){
-        return "admin/appartments/standart";
+    @GetMapping("/admin/econom-appartments")
+    public String getEconomAppartment(){
+        return "admin/appartments/econom";
     }
 
-    @PostMapping("/admin/standart-appartments")
-    public String createStandartAppartment(StandartAppartment appartment, long hotelId){
+    @PostMapping("/admin/econom-appartments")
+    public String createEconomAppartment(EconomAppartment appartment, long hotelId){
         appartmentService.createAppartmentWithHotelId(appartment, hotelId);
-        return "redirect:/admin/standart-appartments";
+        return "redirect:/admin/econom-appartments";
     }
 
-    @GetMapping("/admin/standart-appartments/delete/{id}")
+    @GetMapping("/admin/econom-appartments/delete/{id}")
     public String deleteStandartAppartment(@PathVariable("id") long id){
         appartmentService.deleteById(id);
-        return "redirect:/admin/standart-appartments";
+        return "redirect:/admin/econom-appartments";
     }
 
-    @GetMapping("/admin/standart-appartments/update/{id}")
+    @GetMapping("/admin/econom-appartments/update/{id}")
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
-        StandartAppartment appartment = appartmentService.findStandartAppartment(id);
+        EconomAppartment appartment = appartmentService.findEconomAppartment(id);
         model.addAttribute("appartment", appartment);
-        return "update/appartments/standart";
+        return "update/appartments/econom";
     }
 
-    @PostMapping("/admin/standart-appartments/update")
-    public String updateStandartAppartment(StandartAppartment appartment, long hotelId){
+    @PostMapping("/admin/econom-appartments/update")
+    public String updateEconomAppartment(EconomAppartment appartment, long hotelId){
         appartmentService.updateAppartmentWithHotelId(appartment, hotelId);
-        return "redirect:/admin/standart-appartments";
+        return "redirect:/admin/econom-appartments";
     }
+
 }

@@ -3,7 +3,7 @@ package com.mnazarenka.dao.mysql;
 import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import org.springframework.stereotype.Repository;
@@ -22,8 +22,8 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     }
 
     @Override
-    public List<EconomApartment> findAllEconomAppartments() {
-        return getSessionFactory().getCurrentSession().createQuery("select e from EconomApartment e", EconomApartment.class)
+    public List<EconomAppartment> findAllEconomAppartments() {
+        return getSessionFactory().getCurrentSession().createQuery("select e from EconomAppartment e", EconomAppartment.class)
                 .getResultList();
     }
 
@@ -34,7 +34,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     }
 
     @Override
-    public StandartAppartment findEconomAppartment(long id) {
+    public StandartAppartment findStandartAppartment(long id) {
         return getSessionFactory().getCurrentSession().find(StandartAppartment.class, id);
     }
 
@@ -47,5 +47,10 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     @Override
     public LuxAppartment findLuxAppartment(long id) {
         return getSessionFactory().getCurrentSession().find(LuxAppartment.class, id);
+    }
+
+    @Override
+    public EconomAppartment findEconomAppatrment(long id) {
+        return getSessionFactory().getCurrentSession().find(EconomAppartment.class, id);
     }
 }

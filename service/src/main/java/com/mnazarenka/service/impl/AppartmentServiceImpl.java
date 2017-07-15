@@ -3,6 +3,7 @@ package com.mnazarenka.service.impl;
 import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.HotelDao;
 import com.mnazarenka.dao.entity.Appartment;
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
@@ -35,14 +36,6 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
-    public StandartAppartment createStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId) {
-        Hotel hotel = hotelDao.find(hotelId);
-
-        appartment.setHotel(hotel);
-        return (StandartAppartment) dao.create(appartment);
-    }
-
-    @Override
     public List<StandartAppartment> findAllStandartAppartments() {
         return dao.findAllStandartAppartments();
     }
@@ -50,23 +43,7 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
 
     @Override
     public StandartAppartment findStandartAppartment(long id) {
-        return dao.findEconomAppartment(id);
-    }
-
-    @Override
-    public void updateStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId) {
-        Hotel hotel = hotelDao.find(hotelId);
-
-        appartment.setHotel(hotel);
-        dao.update(appartment);
-    }
-
-    @Override
-    public LuxAppartment createLuxAppartmentWithHotelId(LuxAppartment appartment, long hotelId) {
-        Hotel hotel = hotelDao.find(hotelId);
-
-        appartment.setHotel(hotel);
-        return (LuxAppartment) dao.create(appartment);
+        return dao.findStandartAppartment(id);
     }
 
     @Override
@@ -75,7 +52,25 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
-    public void updateLuxAppartmentWithHotelId(LuxAppartment appartment, long hotelId) {
+    public List<EconomAppartment> findAllEconomAppartments() {
+        return dao.findAllEconomAppartments();
+    }
+
+    @Override
+    public EconomAppartment findEconomAppartment(long id) {
+        return dao.findEconomAppatrment(id);
+    }
+
+    @Override
+    public void createAppartmentWithHotelId(Appartment appartment, long hotelId) {
+        Hotel hotel = hotelDao.find(hotelId);
+
+        appartment.setHotel(hotel);
+        dao.create(appartment);
+    }
+
+    @Override
+    public void updateAppartmentWithHotelId(Appartment appartment, long hotelId) {
         Hotel hotel = hotelDao.find(hotelId);
 
         appartment.setHotel(hotel);

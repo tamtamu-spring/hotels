@@ -47,7 +47,7 @@ public class LuxAppartmentsController {
 
     @PostMapping("/admin/lux-appartments")
     public String createLuxAppartment(LuxAppartment appartment, long hotelId){
-        appartmentService.createLuxAppartmentWithHotelId(appartment, hotelId);
+        appartmentService.createAppartmentWithHotelId(appartment, hotelId);
         return "redirect:/admin/lux-appartments";
     }
 
@@ -66,7 +66,7 @@ public class LuxAppartmentsController {
 
     @PostMapping("/admin/lux-appartments/update")
     public String updateLuxAppartment(LuxAppartment appartment, long hotelId){
-        appartmentService.updateLuxAppartmentWithHotelId(appartment, hotelId);
+        appartmentService.updateAppartmentWithHotelId(appartment, hotelId);
         return "redirect:/admin/lux-appartments";
     }
 }

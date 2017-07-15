@@ -15,7 +15,7 @@ import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.DishOrderDetails;
-import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.Restaurant;
@@ -41,7 +41,7 @@ public interface TestDataImporter {
     StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount,
                                               boolean wifi, boolean wc, boolean tv, AppartmentDao appartmentDao);
 
-    EconomApartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao);
+    EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao);
 
     Dish saveDish(String name, DishDao dishDao);
 

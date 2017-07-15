@@ -15,7 +15,7 @@ import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.DishOrderDetails;
-import com.mnazarenka.dao.entity.EconomApartment;
+import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.Restaurant;
@@ -74,14 +74,14 @@ public class TestDataImporterImpl implements TestDataImporter {
         thirdAdress.setStreet("ThirdStreet");
         Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, hotelDao);
 
-        EconomApartment economApartment = saveEconomAppartment(firstHotel, "EconomAppartmentName", "EconomAppartmentDescription",
+        EconomAppartment economAppartment = saveEconomAppartment(firstHotel, "EconomAppartmentName", "EconomAppartmentDescription",
                 1, true, appartmentDao);
         StandartAppartment standartAppartment = saveStandartAppartment(firstHotel, "StandartAppartmentName", "StandartAppartmentDescription",
                 2, true, true, true, appartmentDao);
         LuxAppartment luxAppartment = saveLuxAppartment(firstHotel, "LuxAppartmentName", "LuxAppartmentDescription",
                 4, true, true, true, true, true, appartmentDao);
 
-        AppartmentOrder firstOrder = saveOrder(userUser, economApartment,
+        AppartmentOrder firstOrder = saveOrder(userUser, economAppartment,
                 LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), appartmentOrderDao);
         AppartmentOrder secondOrder = saveOrder(adminUser, luxAppartment,
                 LocalDate.of(2017, 11, 20), LocalDate.of(2017, 11, 25), appartmentOrderDao);
@@ -97,7 +97,7 @@ public class TestDataImporterImpl implements TestDataImporter {
         secondRestaurant.getDishes().add(firstDish);
         secondRestaurant.getDishes().add(secondDish);
 
-        DishOrder firstDishOrder = saveDishOrder(userUser, economApartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), dishOrderDao);
+        DishOrder firstDishOrder = saveDishOrder(userUser, economAppartment, LocalDateTime.of(LocalDate.now(), LocalTime.MAX), dishOrderDao);
         DishOrder secondDishOrder = saveDishOrder(adminUser, luxAppartment, LocalDateTime.of(LocalDate.now(), LocalTime.MIN), dishOrderDao);
 
         DishOrderDetails firstDetail = saveDishOrderDetail(firstDish, firstDishOrder, 1, dishOrderDetailsDao);
@@ -169,15 +169,15 @@ public class TestDataImporterImpl implements TestDataImporter {
     }
 
     @Override
-    public EconomApartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao) {
-        EconomApartment economApartment = new EconomApartment();
-        economApartment.setHotel(hotel);
-        economApartment.setName(name);
-        economApartment.setDescription(description);
-        economApartment.setGuestsCounts(guestCount);
-        economApartment.setWiFi(wifi);
-        appartmentDao.create(economApartment);
-        return economApartment;
+    public EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao) {
+        EconomAppartment economAppartment = new EconomAppartment();
+        economAppartment.setHotel(hotel);
+        economAppartment.setName(name);
+        economAppartment.setDescription(description);
+        economAppartment.setGuestsCounts(guestCount);
+        economAppartment.setWiFi(wifi);
+        appartmentDao.create(economAppartment);
+        return economAppartment;
     }
 
     @Override
