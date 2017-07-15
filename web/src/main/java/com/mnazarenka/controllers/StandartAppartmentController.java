@@ -60,7 +60,7 @@ public class StandartAppartmentController {
 
     @GetMapping("/admin/standart-appartments/update/{id}")
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
-        LuxAppartment appartment = appartmentService.findLuxAppartment(id);
+        StandartAppartment appartment = appartmentService.findStandartAppartment(id);
         model.addAttribute("appartment", appartment);
         return "update/appartments/standart";
     }

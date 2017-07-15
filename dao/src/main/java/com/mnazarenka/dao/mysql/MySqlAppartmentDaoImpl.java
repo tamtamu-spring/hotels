@@ -34,6 +34,11 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     }
 
     @Override
+    public StandartAppartment findEconomAppartment(long id) {
+        return getSessionFactory().getCurrentSession().find(StandartAppartment.class, id);
+    }
+
+    @Override
     public List<LuxAppartment> findAllLuxAppartments() {
         return getSessionFactory().getCurrentSession().createQuery("select e from LuxAppartment e", LuxAppartment.class)
                 .getResultList();

@@ -18,4 +18,6 @@ public interface AppartmentDao extends BaseDao<Appartment> {
     List<LuxAppartment> findAllLuxAppartments();
 
     LuxAppartment findLuxAppartment(long id);
+
+    StandartAppartment findEconomAppartment(long id);
 }

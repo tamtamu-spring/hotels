@@ -47,6 +47,12 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
         return dao.findAllStandartAppartments();
     }
 
+
+    @Override
+    public StandartAppartment findStandartAppartment(long id) {
+        return dao.findEconomAppartment(id);
+    }
+
     @Override
     public void updateStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId) {
         Hotel hotel = hotelDao.find(hotelId);

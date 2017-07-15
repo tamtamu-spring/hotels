@@ -21,4 +21,6 @@ public interface AppartmentService extends BaseService<Appartment> {
     StandartAppartment createStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId);
 
     void updateStandartAppartmentWithHotelId(StandartAppartment appartment, long hotelId);
+
+    StandartAppartment findStandartAppartment(long id);
 }

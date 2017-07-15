@@ -1,1 +1,99 @@
-update
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>hotels</title>
+
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/fonts.css"/>
+    <link rel="stylesheet" href="/resources/css/main.css"/>
+    <link rel="stylesheet"
+          href="/resources/libs/font-awesome-4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/resources/libs/owl-carousel/owl.carousel.css"/>
+</head>
+
+<body>
+<script src="/resources/libs/jquery/jquery-1.11.1.min.js"></script>
+<script src="/resources/libs/owl-carousel/owl.carousel.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<div class="wrapper">
+
+    <div class="top_header" th:insert="~{fragments/header :: header}"></div>
+
+    <div class="content">
+
+        <div th:insert="~{fragments/admin-account-menu :: #admin-menu}"></div>
+
+        <div class="container">
+
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">АППАРТАМЕНТЫ</div>
+                    <div class="panel-body">
+
+                        <div class="panel panel-warning">
+                            <div class="panel-body">
+                                <form th:action="@{/admin/standart-appartments/update}" method="post" th:object="${appartment}">
+                                    <table class="table">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Hotel name</th>
+                                            <th>Description</th>
+                                            <th>Guest counts</th>
+                                            <th>Cost per day</th>
+                                            <th>Options</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${appartment.id}"></td>
+                                            <td th:text="${appartment.name}"></td>
+                                            <td th:text="${appartment.hotel.name}"></td>
+                                            <td th:text="${appartment.description}"></td>
+                                            <td th:text="${appartment.guestsCounts}"></td>
+                                            <td th:text="${appartment.costPerDay}"></td>
+                                            <td>
+                                                <span  th:text="${appartment.wiFi}"></span>
+                                                <span  th:text="${appartment.wc}"></span>
+                                                <span  th:text="${appartment.tv}"></span>
+                                            </td>
+                                            <td><a class="btn btn-default"
+                                                   th:href="@{'/admin/standart-appartments'}"
+                                                   role="button">Отмена</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input hidden th:value="${appartment.id}" th:field="*{id}"></td>
+                                            <td><input class="form-control" type="text" th:field="*{name}"
+                                                       required></td>
+                                            <td><select class="form-control" name="hotelId">
+                                                <option th:each="hotel : ${hotels}" th:text="${hotel.name}"
+                                                        th:value="${hotel.id}"></option>
+                                            </select></td>
+                                            <td><input class="form-control" type="text" th:field="*{description}"
+                                                       required></td>
+                                            <td><input class="form-control" type="number" th:field="*{guestsCounts}"
+                                                       required></td>
+                                            <td><input class="form-control" type="number" th:field="*{costPerDay}"
+                                                       required></td>
+                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-default" type="submit">Обновить</button>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
