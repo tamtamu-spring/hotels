@@ -52,7 +52,7 @@ public class HotelsController {
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
         Hotel hotel = hotelService.find(id);
         model.addAttribute("hotel", hotel);
-        return "update/update-hotel";
+        return "update/hotel";
     }
 
     @PostMapping("/admin/hotels/update")

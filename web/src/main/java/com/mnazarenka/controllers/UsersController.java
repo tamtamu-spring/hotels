@@ -62,7 +62,7 @@ public class UsersController {
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
         User user = userService.find(id);
         model.addAttribute("user", user);
-        return "update/update-user";
+        return "update/user";
     }
 
     @PostMapping("/admin/users/update")

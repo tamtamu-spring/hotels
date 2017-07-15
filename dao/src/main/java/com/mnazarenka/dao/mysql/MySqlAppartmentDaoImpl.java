@@ -38,4 +38,9 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
         return getSessionFactory().getCurrentSession().createQuery("select e from LuxAppartment e", LuxAppartment.class)
                 .getResultList();
     }
+
+    @Override
+    public LuxAppartment findLuxAppartment(long id) {
+        return getSessionFactory().getCurrentSession().find(LuxAppartment.class, id);
+    }
 }

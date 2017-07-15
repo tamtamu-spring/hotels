@@ -62,7 +62,7 @@ public class RestaurantsController {
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
         Restaurant restaurant = restaurantService.find(id);
         model.addAttribute("restaurant", restaurant);
-        return "update/update-restaurant";
+        return "update/restaurant";
     }
 
     @PostMapping("/admin/restaurants/update")

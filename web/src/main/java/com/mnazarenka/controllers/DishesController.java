@@ -23,7 +23,7 @@ public class DishesController {
     }
 
     @ModelAttribute("dish")
-    public Dish hotel(){
+    public Dish dish(){
         return new Dish();
     }
 
@@ -53,7 +53,7 @@ public class DishesController {
     public String goToUpdatePage(@PathVariable("id") long id, Model model){
         Dish dish = dishService.find(id);
         model.addAttribute("dish", dish);
-        return "update/update-dish";
+        return "update/dish";
     }
 
     @PostMapping("/admin/dishes/update")

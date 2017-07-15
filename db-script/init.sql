@@ -39,6 +39,7 @@ CREATE TABLE `appartments` (
   `name`             VARCHAR(255) NOT NULL,
   `description`      VARCHAR(255),
   `guests_counts`    INT,
+  `cost_per_day`     INT,
   `wi_fi`            BOOLEAN,
   `wc`               BOOLEAN,
   `tv`               BOOLEAN,
@@ -117,7 +118,10 @@ INSERT INTO hotels (name, city, street) VALUES ('Crowne Plaza', 'Минск', '�
 INSERT INTO hotels (name, city, street) VALUES ('Minsk Marriott Hotel', 'Минск', 'пр Победителей 20');
 INSERT INTO hotels (name, city, street) VALUES ('Renaissance Minsk Hotel', 'Минск', 'пр Держинского 1');
 
-INSERT INTO restaurants (name) VALUES ('Crowne Plaza Restaurant');
+INSERT INTO appartments (fk_hotel_id, name, description, guests_counts, cost_per_day, wi_fi, wc, tv, bar, kichen, appartments_type)
+VALUES (1, 'lux1', 'descLux1' , 2, 50, TRUE ,TRUE ,TRUE ,TRUE ,TRUE, 'lux');
+
+INSERT INTO restaurants ( NAME ) VALUES ('Crowne Plaza Restaurant');
 INSERT INTO restaurants (name) VALUES ('Minsk Marriott Hotel Restaurant');
 
 INSERT INTO dishes (name, image) VALUES ('Харватсикий десерт', '/resources/img/dishes/sweet1.jpg');

@@ -41,6 +41,10 @@ public class Appartment extends BaseEntity implements Serializable {
     private Integer guestsCounts;
     @Getter
     @Setter
+    @Column(name = "cost_per_day")
+    private Integer costPerDay;
+    @Getter
+    @Setter
     @Column(name = "wi_fi")
     private Boolean wiFi;
 }
