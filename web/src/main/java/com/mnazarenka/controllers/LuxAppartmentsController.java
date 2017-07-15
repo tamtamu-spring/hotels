@@ -32,7 +32,7 @@ public class LuxAppartmentsController {
 
     @ModelAttribute("appartments")
     public List<LuxAppartment> appartments(){
-        return appartmentService.findAllLuxAppartments();
+        return appartmentService.findAllAppartments(LuxAppartment.class);
     }
 
     @ModelAttribute("hotels")

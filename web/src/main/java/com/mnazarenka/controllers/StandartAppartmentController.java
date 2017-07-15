@@ -32,7 +32,7 @@ public class StandartAppartmentController {
 
     @ModelAttribute("appartments")
     public List<StandartAppartment> appartments(){
-        return appartmentService.findAllStandartAppartments();
+        return appartmentService.findAllAppartments(StandartAppartment.class);
     }
 
     @ModelAttribute("hotels")

@@ -33,7 +33,7 @@ public class EconomAppartmentController {
 
     @ModelAttribute("appartments")
     public List<EconomAppartment> appartments(){
-        return appartmentService.findAllEconomAppartments();
+        return appartmentService.findAllAppartments(EconomAppartment.class);
     }
 
     @ModelAttribute("hotels")

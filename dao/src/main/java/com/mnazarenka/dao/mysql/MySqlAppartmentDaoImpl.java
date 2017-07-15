@@ -15,6 +15,12 @@ import java.util.List;
 public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
     @Override
+    public <T extends Appartment> List<T> findAllAppartments(Class<T> clazz) {
+        return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
+                .getResultList();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends Appartment> T findAppartment(long id, Class clazz) {
         T entity = (T) getSessionFactory().getCurrentSession().load(clazz, id);
@@ -28,24 +34,6 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
         return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
                 .setFirstResult(from)
                 .setMaxResults(to)
-                .getResultList();
-    }
-
-    @Override
-    public List<EconomAppartment> findAllEconomAppartments() {
-        return getSessionFactory().getCurrentSession().createQuery("select e from EconomAppartment e", EconomAppartment.class)
-                .getResultList();
-    }
-
-    @Override
-    public List<StandartAppartment> findAllStandartAppartments() {
-        return getSessionFactory().getCurrentSession().createQuery("select e from StandartAppartment e", StandartAppartment.class)
-                .getResultList();
-    }
-
-    @Override
-    public List<LuxAppartment> findAllLuxAppartments() {
-        return getSessionFactory().getCurrentSession().createQuery("select e from LuxAppartment e", LuxAppartment.class)
                 .getResultList();
     }
 }

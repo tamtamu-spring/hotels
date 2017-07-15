@@ -64,7 +64,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Test
     public void testFindEconomAppartments() {
-        List<EconomAppartment> appartments = dao.findAllEconomAppartments();
+        List<EconomAppartment> appartments = dao.findAllAppartments(EconomAppartment.class);
 
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 1);
@@ -73,7 +73,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Test
     public void findStandatAppartmentTest() {
-        List<StandartAppartment> appartments = dao.findAllStandartAppartments();
+        List<StandartAppartment> appartments = dao.findAllAppartments(StandartAppartment.class);
 
         assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 2);
@@ -84,7 +84,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
     @Test
     public void findLuxAppartmentTest() {
-        List<LuxAppartment> appartments = dao.findAllLuxAppartments();
+        List<LuxAppartment> appartments = dao.findAllAppartments(LuxAppartment.class);
 
         assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 4);

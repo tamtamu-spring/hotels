@@ -31,6 +31,11 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
+    public <T extends Appartment> List<T> findAllAppartments(Class<T> clazz) {
+        return dao.findAllAppartments(clazz);
+    }
+
+    @Override
     public <T extends Appartment> T findAppartment(long id, Class<T> clazz) {
         return dao.findAppartment(id, clazz);
     }
@@ -38,21 +43,6 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     @Override
     public List<? extends Appartment> getAppartmentsByRange(int pageNumber, int pageCounts, Class clazz) {
         return dao.findAppartmentsByRange(pageNumber, pageCounts, clazz);
-    }
-
-    @Override
-    public List<LuxAppartment> findAllLuxAppartments() {
-        return dao.findAllLuxAppartments();
-    }
-
-    @Override
-    public List<StandartAppartment> findAllStandartAppartments() {
-        return dao.findAllStandartAppartments();
-    }
-
-    @Override
-    public List<EconomAppartment> findAllEconomAppartments() {
-        return dao.findAllEconomAppartments();
     }
 
     @Override
