@@ -51,8 +51,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
-        List<String> appartmentDescriptions = appartments.stream().map(Appartment::getDescription)
-                .collect(toList());
         List<Integer> appartmentsCounts = appartments.stream().map(Appartment::getGuestsCounts).collect(toList());
         List<Boolean> appartmentsWifiOptions = appartments.stream().map(Appartment::getWiFi).collect(toList());
 
@@ -60,8 +58,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertThat(appartments, hasSize(3));
         assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName",
                 "LuxAppartmentName"));
-        assertThat(appartmentDescriptions, containsInAnyOrder("EconomAppartmentDescription", "StandartAppartmentDescription",
-                "LuxAppartmentDescription"));
         assertThat(appartmentsCounts, containsInAnyOrder(1, 2, 4));
         appartmentsWifiOptions.forEach(a -> assertNotNull(a));
     }
@@ -71,7 +67,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         List<EconomAppartment> appartments = dao.findAllEconomAppartments();
 
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
-        assertEquals(appartments.get(0).getDescription(), "EconomAppartmentDescription");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 1);
         assertEquals(appartments.get(0).getWiFi(), true);
     }
@@ -81,7 +76,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         List<StandartAppartment> appartments = dao.findAllStandartAppartments();
 
         assertEquals(appartments.get(0).getName(), "StandartAppartmentName");
-        assertEquals(appartments.get(0).getDescription(), "StandartAppartmentDescription");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 2);
         assertEquals(appartments.get(0).getWiFi(), true);
         assertEquals(appartments.get(0).getWc(), true);
@@ -93,7 +87,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         List<LuxAppartment> appartments = dao.findAllLuxAppartments();
 
         assertEquals(appartments.get(0).getName(), "LuxAppartmentName");
-        assertEquals(appartments.get(0).getDescription(), "LuxAppartmentDescription");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 4);
         assertEquals(appartments.get(0).getWiFi(), true);
         assertEquals(appartments.get(0).getWc(), true);

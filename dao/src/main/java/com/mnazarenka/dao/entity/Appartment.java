@@ -33,16 +33,15 @@ public class Appartment extends BaseEntity implements Serializable {
     private String name;
     @Getter
     @Setter
-    @Column
-    private String description;
-    @Getter
-    @Setter
     @Column(name = "guests_counts")
     private Integer guestsCounts;
     @Getter
     @Setter
     @Column(name = "cost_per_day")
     private Integer costPerDay;
+    @Getter
+    @Setter
+    private String image;
     @Getter
     @Setter
     @Column(name = "wi_fi")

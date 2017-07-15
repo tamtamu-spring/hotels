@@ -43,7 +43,6 @@
                                                 <th>Id</th>
                                                 <th>Name</th>
                                                 <th>Hotel name</th>
-                                                <th>Description</th>
                                                 <th>Guest counts</th>
                                                 <th>Cost per day</th>
                                                 <th>Options</th>
@@ -53,7 +52,6 @@
                                                 <td th:text="${appartment.id}"></td>
                                                 <td th:text="${appartment.name}"></td>
                                                 <td th:text="${appartment.hotel.name}"></td>
-                                                <td th:text="${appartment.description}"></td>
                                                 <td th:text="${appartment.guestsCounts}"></td>
                                                 <td th:text="${appartment.costPerDay}"></td>
                                                 <td>
@@ -76,8 +74,6 @@
                                                     <option th:each="hotel : ${hotels}" th:text="${hotel.name}"
                                                             th:value="${hotel.id}"></option>
                                                 </select></td>
-                                                <td><input class="form-control" type="text" th:field="*{description}"
-                                                           required></td>
                                                 <td><input class="form-control" type="number" th:field="*{guestsCounts}"
                                                            required></td>
                                                 <td><input class="form-control" type="number" th:field="*{costPerDay}"

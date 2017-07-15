@@ -141,7 +141,6 @@ public class TestDataImporterImpl implements TestDataImporter {
         LuxAppartment luxAppartment = new LuxAppartment();
         luxAppartment.setHotel(hotel);
         luxAppartment.setName(name);
-        luxAppartment.setDescription(description);
         luxAppartment.setGuestsCounts(guestCount);
         luxAppartment.setWiFi(wifi);
         luxAppartment.setWc(wc);
@@ -159,7 +158,6 @@ public class TestDataImporterImpl implements TestDataImporter {
         StandartAppartment standartAppartment = new StandartAppartment();
         standartAppartment.setHotel(hotel);
         standartAppartment.setName(name);
-        standartAppartment.setDescription(description);
         standartAppartment.setGuestsCounts(guestCount);
         standartAppartment.setWiFi(wifi);
         standartAppartment.setWc(wc);
@@ -173,7 +171,6 @@ public class TestDataImporterImpl implements TestDataImporter {
         EconomAppartment economAppartment = new EconomAppartment();
         economAppartment.setHotel(hotel);
         economAppartment.setName(name);
-        economAppartment.setDescription(description);
         economAppartment.setGuestsCounts(guestCount);
         economAppartment.setWiFi(wifi);
         appartmentDao.create(economAppartment);

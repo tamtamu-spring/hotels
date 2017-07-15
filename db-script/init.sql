@@ -37,9 +37,9 @@ CREATE TABLE `appartments` (
   `id`               BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fk_hotel_id`      BIGINT       NOT NULL,
   `name`             VARCHAR(255) NOT NULL,
-  `description`      VARCHAR(255),
   `guests_counts`    INT,
   `cost_per_day`     INT,
+  `image`            VARCHAR(255),
   `wi_fi`            BOOLEAN,
   `wc`               BOOLEAN,
   `tv`               BOOLEAN,
@@ -118,10 +118,7 @@ INSERT INTO hotels (name, city, street) VALUES ('Crowne Plaza', 'Минск', '�
 INSERT INTO hotels (name, city, street) VALUES ('Minsk Marriott Hotel', 'Минск', 'пр Победителей 20');
 INSERT INTO hotels (name, city, street) VALUES ('Renaissance Minsk Hotel', 'Минск', 'пр Держинского 1');
 
-INSERT INTO appartments (fk_hotel_id, name, description, guests_counts, cost_per_day, wi_fi, wc, tv, bar, kichen, appartments_type)
-VALUES (1, 'lux1', 'descLux1' , 2, 50, TRUE ,TRUE ,TRUE ,TRUE ,TRUE, 'lux');
-
-INSERT INTO restaurants ( NAME ) VALUES ('Crowne Plaza Restaurant');
+INSERT INTO restaurants (NAME) VALUES ('Crowne Plaza Restaurant');
 INSERT INTO restaurants (name) VALUES ('Minsk Marriott Hotel Restaurant');
 
 INSERT INTO dishes (name, image) VALUES ('Харватсикий десерт', '/resources/img/dishes/sweet1.jpg');
@@ -147,9 +144,22 @@ INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (8, 1);
 INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 1);
 INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 2);
 
-INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name', 'desc', 'econom');
-INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name1', 'desc1', 'standart');
-INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name3', 'desc3', 'lux');
-INSERT INTO appartments (fk_hotel_id, name, description, appartments_type) VALUES (1, 'name2', 'desc2', 'econom');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
+VALUES (1, 'Двухмесный эконом1', 'econom', TRUE, '/resources/img/appartments/econom1.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
+VALUES (1, 'Двухмесный эконом2', 'econom', TRUE, '/resources/img/appartments/econom2.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
+VALUES (1, 'Двухмесный эконом3', 'econom', TRUE, '/resources/img/appartments/econom3.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
+VALUES (2, 'Двухмесный эконом4', 'econom', TRUE, '/resources/img/appartments/econom4.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
+VALUES (3, 'Двухмесный эконом5', 'econom', TRUE, '/resources/img/appartments/econom5.jpg');
 
+INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name1', 'standart');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name3', 'lux');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name2', 'econom');
+
+
+INSERT INTO appartments (fk_hotel_id, name, guests_counts, cost_per_day, wi_fi, wc, tv, bar, kichen, appartments_type)
+VALUES (1, 'lux1', 2, 50, TRUE, TRUE, TRUE, TRUE, TRUE, 'lux');
 
