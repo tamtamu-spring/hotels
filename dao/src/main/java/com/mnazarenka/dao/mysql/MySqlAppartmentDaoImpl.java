@@ -14,11 +14,27 @@ import java.util.List;
 public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
     @Override
-    public List<Appartment> findAppartmentsByRange(int from, int to){
-        return getSessionFactory().getCurrentSession().createQuery("select a from Appartment a", Appartment.class)
-                .setFirstResult(from)
-                .setMaxResults(to)
-                .getResultList();
+    public List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz) {
+        if (clazz == LuxAppartment.class) {
+            return getSessionFactory().getCurrentSession().createQuery("select a from LuxAppartment a", LuxAppartment.class)
+                    .setFirstResult(from)
+                    .setMaxResults(to)
+                    .getResultList();
+        } else {
+            if (clazz == StandartAppartment.class) {
+                return getSessionFactory().getCurrentSession().createQuery("select a from StandartAppartment a", StandartAppartment.class)
+                        .setFirstResult(from)
+                        .setMaxResults(to)
+                        .getResultList();
+            } else {
+                if (clazz == EconomAppartment.class) {
+                    return getSessionFactory().getCurrentSession().createQuery("select a from EconomAppartment a", EconomAppartment.class)
+                            .setFirstResult(from)
+                            .setMaxResults(to)
+                            .getResultList();
+                } else throw new IllegalArgumentException();
+            }
+        }
     }
 
     @Override

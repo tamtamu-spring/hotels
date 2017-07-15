@@ -34,7 +34,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals("New Name", appartment.getName());
     }
 
-    @Test
+    /*@Test
     public void testFindByRange() {
         List<Appartment> appartments = dao.findAppartmentsByRange(0, 2);
 
@@ -44,7 +44,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertThat(appartments, hasSize(2));
         assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName"));
     }
-
+*/
     @Test
     public void testFindAll() {
         List<Appartment> appartments = dao.findAll();

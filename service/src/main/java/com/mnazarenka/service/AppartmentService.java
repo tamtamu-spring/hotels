@@ -24,4 +24,6 @@ public interface AppartmentService extends BaseService<Appartment> {
     void createAppartmentWithHotelId(Appartment appartment, long hotelId);
 
     void updateAppartmentWithHotelId(Appartment appartment, long hotelId);
+
+    <T extends Appartment> List<T>  getAppartmentsByRange (int pageNumber, int pageCounts, Class<T> appartment);
 }

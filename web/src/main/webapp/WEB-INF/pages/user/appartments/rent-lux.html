@@ -33,7 +33,11 @@
 
     <div class="container">
         <div class="col-md-12">
+
             <div class="panel  panel-warning">
+
+                <div th:insert="~{fragments/user-appartments-menu :: #user-appartment-menu}"></div>
+
                 <div class="panel-body">
                     <div class="col-md-12" th:each="appartment : ${appartments}">
                         <div class="panel  panel-warning">
@@ -44,16 +48,22 @@
                                 <table class="table">
                                     <tr>
                                         <td rowspan="3">
-                                            <img th:src="${appartment.image}"  class="img-rounded item-image">
+                                            <img th:src="${appartment.image}" class="img-rounded item-image">
                                         </td>
                                         <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span></td>
-                                        <td rowspan="3"><a th:href="@{'/user/rent/' + ${appartment.id}}" class="btn btn-info btn-lg" th:text="#{home.rent-button}"></a></td>
+                                        <td rowspan="3" class="text-center"><a
+                                                th:href="@{'/user/rent/' + ${appartment.id}}"
+                                                class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
                                     </tr>
                                     <tr>
                                         <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td>
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </td>
                                     </tr>
 
                                 </table>
@@ -61,7 +71,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li><a th:href="@{/user/rent-lux-appartments/1}">1</a></li>
+                            <li><a a th:href="@{/user/rent-lux-appartments/2}">2</a></li>
+                            <li><a a th:href="@{/user/rent-lux-appartments/3}">3</a></li>
+                            <li><a a th:href="@{/user/rent-lux-appartments/4}">4</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
         </div>
     </div>
 

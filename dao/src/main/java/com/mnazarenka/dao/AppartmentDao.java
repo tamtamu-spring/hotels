@@ -9,7 +9,7 @@ import com.mnazarenka.dao.entity.StandartAppartment;
 import java.util.List;
 
 public interface AppartmentDao extends BaseDao<Appartment> {
-    List<Appartment> findAppartmentsByRange(int from, int to);
+    List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz);
 
     List<EconomAppartment> findAllEconomAppartments();
 

@@ -31,6 +31,11 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
+    public List<? extends Appartment> getAppartmentsByRange(int pageNumber, int pageCounts, Class clazz) {
+        return dao.findAppartmentsByRange(pageNumber, pageCounts, clazz);
+    }
+
+    @Override
     public List<LuxAppartment> findAllLuxAppartments() {
         return dao.findAllLuxAppartments();
     }
