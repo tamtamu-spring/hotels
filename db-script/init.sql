@@ -44,7 +44,7 @@ CREATE TABLE `appartments` (
   `wc`               BOOLEAN,
   `tv`               BOOLEAN,
   `bar`              BOOLEAN,
-  `kichen`           BOOLEAN,
+  `kitchen`          BOOLEAN,
   `appartments_type` VARCHAR(255) NOT NULL,
   CONSTRAINT `fk_appartments_to_hotels` FOREIGN KEY (`fk_hotel_id`) REFERENCES `hotels` (`id`)
     ON UPDATE CASCADE
@@ -144,22 +144,37 @@ INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (8, 1);
 INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 1);
 INSERT INTO dishes_restaurants (fk_dishes_id, fk_restaurants_id) VALUES (9, 2);
 
-INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
-VALUES (1, 'Двухмесный эконом1', 'econom', TRUE, '/resources/img/appartments/econom1.jpg');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
-VALUES (1, 'Двухмесный эконом2', 'econom', TRUE, '/resources/img/appartments/econom2.jpg');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
-VALUES (1, 'Двухмесный эконом3', 'econom', TRUE, '/resources/img/appartments/econom3.jpg');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
-VALUES (2, 'Двухмесный эконом4', 'econom', TRUE, '/resources/img/appartments/econom4.jpg');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type, wi_fi, image)
-VALUES (3, 'Двухмесный эконом5', 'econom', TRUE, '/resources/img/appartments/econom5.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image)
+VALUES (1, 'Двухмесный эконом1', 'econom', 2, 30, TRUE, '/resources/img/appartments/econom1.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image)
+VALUES (2, 'Двухмесный эконом2', 'econom', 2, 35, TRUE, '/resources/img/appartments/econom2.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image)
+VALUES (3, 'Двухмесный эконом3', 'econom', 2, 30, TRUE, '/resources/img/appartments/econom3.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image)
+VALUES (3, 'Двухмесный эконом4', 'econom', 2, 20, TRUE, '/resources/img/appartments/econom4.jpg');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image)
+VALUES (3, 'Двухмесный эконом5', 'econom', 2, 40, TRUE, '/resources/img/appartments/econom5.jpg');
 
-INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name1', 'standart');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name3', 'lux');
-INSERT INTO appartments (fk_hotel_id, name, appartments_type) VALUES (1, 'name2', 'econom');
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv)
+VALUES (1, 'Ствндарт1', 'standart', 3, 50, TRUE, '/resources/img/appartments/standart1.jpg', TRUE, FALSE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv)
+VALUES (1, 'Ствндарт2', 'standart', 2, 45, TRUE, '/resources/img/appartments/standart2.jpg', TRUE, TRUE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv)
+VALUES (2, 'Ствндарт3', 'standart', 3, 45, TRUE, '/resources/img/appartments/standart3.jpg', TRUE, FALSE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv)
+VALUES (2, 'Ствндарт4', 'standart', 2, 55, TRUE, '/resources/img/appartments/standart4.jpg', TRUE, TRUE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv)
+VALUES (3, 'Ствндарт5', 'standart', 4, 35, TRUE, '/resources/img/appartments/standart5.jpg', TRUE, FALSE);
 
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv, bar, kitchen)
+VALUES (1, 'Люкс1', 'lux', 3, 70, TRUE, '/resources/img/appartments/lux1.jpg', TRUE, TRUE, TRUE, FALSE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv, bar, kitchen)
+VALUES (2, 'Люкс2', 'lux', 5, 65, TRUE, '/resources/img/appartments/lux2.jpg', TRUE, TRUE, TRUE, FALSE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv, bar, kitchen)
+VALUES (3, 'Люкс3', 'lux', 3, 80, TRUE, '/resources/img/appartments/lux3.jpg', TRUE, FALSE, TRUE, TRUE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv, bar, kitchen)
+VALUES (1, 'Люкс4', 'lux', 5, 100, TRUE, '/resources/img/appartments/lux4.jpg', TRUE, TRUE, TRUE, TRUE);
+INSERT INTO appartments (fk_hotel_id, name, appartments_type, guests_counts, cost_per_day, wi_fi, image, wc, tv, bar, kitchen)
+VALUES (1, 'Люкс5', 'lux', 2, 60, TRUE, '/resources/img/appartments/lux5.jpg', TRUE, FALSE, TRUE, FALSE);
 
-INSERT INTO appartments (fk_hotel_id, name, guests_counts, cost_per_day, wi_fi, wc, tv, bar, kichen, appartments_type)
-VALUES (1, 'lux1', 2, 50, TRUE, TRUE, TRUE, TRUE, TRUE, 'lux');
 

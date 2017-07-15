@@ -45,6 +45,7 @@
                                             <th>Hotel name</th>
                                             <th>Guest counts</th>
                                             <th>Cost per day</th>
+                                            <th>Image</th>
                                             <th>Options</th>
                                             <th></th>
                                         </tr>
@@ -54,6 +55,7 @@
                                             <td th:text="${appartment.hotel.name}"></td>
                                             <td th:text="${appartment.guestsCounts}"></td>
                                             <td th:text="${appartment.costPerDay}"></td>
+                                            <td><img th:src="${appartment.image}"> </td>
                                             <td>
                                                 <span  th:text="${appartment.wiFi}"></span>
                                                 <span  th:text="${appartment.wc}"></span>
@@ -76,6 +78,7 @@
                                                        required></td>
                                             <td><input class="form-control" type="number" th:field="*{costPerDay}"
                                                        required></td>
+                                            <td><input type="text" th:field="*{image}"></td>
                                             <td></td>
                                             <td>
                                                 <button class="btn btn-default" type="submit">Обновить</button>

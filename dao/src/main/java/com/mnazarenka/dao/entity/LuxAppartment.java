@@ -30,5 +30,5 @@ public class LuxAppartment extends Appartment implements Serializable{
     @Getter
     @Setter
     @Column
-    private Boolean kichen;
+    private Boolean kitchen;
 }

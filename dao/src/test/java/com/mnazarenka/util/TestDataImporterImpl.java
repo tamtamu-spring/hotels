@@ -146,7 +146,7 @@ public class TestDataImporterImpl implements TestDataImporter {
         luxAppartment.setWc(wc);
         luxAppartment.setTv(tv);
         luxAppartment.setBar(bar);
-        luxAppartment.setKichen(kitchen);
+        luxAppartment.setKitchen(kitchen);
         appartmentDao.create(luxAppartment);
         return luxAppartment;
 

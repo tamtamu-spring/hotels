@@ -92,6 +92,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals(appartments.get(0).getWc(), true);
         assertEquals(appartments.get(0).getTv(), true);
         assertEquals(appartments.get(0).getBar(), true);
-        assertEquals(appartments.get(0).getKichen(), true);
+        assertEquals(appartments.get(0).getKitchen(), true);
     }
 }
