@@ -48,8 +48,8 @@ footer {
     padding: 0 10px;
 }
 
-.admin-menu{
-margin: 20px 10%;
+.admin-menu {
+    margin: 20px 10%;
 }
 
 .logout {
@@ -63,8 +63,12 @@ margin: 20px 10%;
     margin: 5px 5px;
 }
 
-img{
+.flags {
     width: 25px;
+}
+
+.item-image{
+    width: 200px;
 }
 
 .header_top_line {

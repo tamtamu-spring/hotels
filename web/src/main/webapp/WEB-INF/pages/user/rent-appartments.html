@@ -29,19 +29,34 @@
 
     </div>
 
-    <div class="container">
-        АППАРТАМЕНТЫ
+    <div th:insert="~{fragments/user-main-menu :: #user-menu}"></div>
 
+    <div class="container">
         <div class="col-md-12">
             <div class="panel  panel-warning">
                 <div class="panel-body">
-                    <div class="col-md-6" th:each="appartment : ${appartments}">
+                    <div class="col-md-12" th:each="appartment : ${appartments}">
                         <div class="panel  panel-warning">
-                            <div class="panel-body" th:text="${appartment.name}">
-
+                            <div class="panel-body">
+                                <span th:text="${appartment.name}"></span>
                             </div>
                             <div class="panel-footer">
+                                <table class="table">
+                                    <tr>
+                                        <td rowspan="3">
+                                            <img th:src="${appartment.image}"  class="img-rounded item-image">
+                                        </td>
+                                        <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span></td>
+                                        <td rowspan="3"><a th:href="@{'/user/rent/' + ${appartment.id}}" class="btn btn-info btn-lg" th:text="#{home.rent-button}"></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
 
+                                </table>
                             </div>
                         </div>
                     </div>
