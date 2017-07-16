@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -31,6 +33,6 @@ public class DishOrder extends BaseEntity implements Serializable {
     private LocalDateTime orderTime;
     @Getter
     @Setter
-    @OneToMany(mappedBy = "order")
-    private Set<DishOrderDetails> details;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private List<DishOrderDetails> details;
 }
