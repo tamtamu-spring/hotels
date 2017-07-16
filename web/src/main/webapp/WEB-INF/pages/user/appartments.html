@@ -89,11 +89,8 @@
 
                 <div class="col-md-12 text-center">
                     <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li><a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/1'}">1</a></li>
-                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/2'}">2</a></li>
-                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/3'}">3</a></li>
-                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/4'}">4</a></li>
+                        <ul class="pagination" th:each="page : ${pages}">
+                            <li><a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/' + ${page}}" th:text="${page}"></a></li>
                         </ul>
                     </nav>
                 </div>

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,7 +18,7 @@ public class RentAppartmentsController {
     private AppartmentService appartmentService;
 
     //@Value("#{new Integer.parseInt('${items.counts}')}")
-    private Integer pageCounts = 3;
+    private Integer itemCountsOnPage = 3;
 
     @Autowired
     public RentAppartmentsController(AppartmentService appartmentService) {
@@ -29,18 +30,27 @@ public class RentAppartmentsController {
 
         switch (type) {
             case "lux": {
-                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, LuxAppartment.class);
+                long appCounts = appartmentService.getAppartmentsCount(LuxAppartment.class);
+                List<Integer> pages = getPages(appCounts);
+                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, LuxAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
                 break;
             }
             case "standart": {
-                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, StandartAppartment.class);
+                long appCounts = appartmentService.getAppartmentsCount(StandartAppartment.class);
+                List<Integer> pages = getPages(appCounts);
+                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, StandartAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
                 break;
             }
             case "econom": {
-                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, EconomAppartment.class);
+                long appCounts = appartmentService.getAppartmentsCount(EconomAppartment.class);
+                List<Integer> pages = getPages(appCounts);
+                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, EconomAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
                 break;
             }
         }
@@ -52,21 +62,31 @@ public class RentAppartmentsController {
 
         switch (type) {
             case "lux": {
+                long appCounts = appartmentService.getAppartmentsCount(LuxAppartment.class);
+                List<Integer> pages = getPages(appCounts);
                 pageNumber = getCurrentPageNumber(pageNumber);
-                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, LuxAppartment.class);
+                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, LuxAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
                 break;
             }
             case "standart": {
+                long appCounts = appartmentService.getAppartmentsCount(StandartAppartment.class);
+                List<Integer> pages = getPages(appCounts);
                 pageNumber = getCurrentPageNumber(pageNumber);
-                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, StandartAppartment.class);
+                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, StandartAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
+
                 break;
             }
             case "econom": {
+                long appCounts = appartmentService.getAppartmentsCount(EconomAppartment.class);
+                List<Integer> pages = getPages(appCounts);
                 pageNumber = getCurrentPageNumber(pageNumber);
-                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, EconomAppartment.class);
+                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, EconomAppartment.class);
                 model.addAttribute("appartments", appartments);
+                model.addAttribute("pages", pages);
                 break;
             }
         }
@@ -77,9 +97,24 @@ public class RentAppartmentsController {
 
     private int getCurrentPageNumber(int pageNumber) {
         if (pageNumber != 1) {
-            pageNumber = (pageNumber - 1) * pageCounts + 1;
+            pageNumber = (pageNumber - 1) * itemCountsOnPage + 1;
         }
         return pageNumber;
     }
 
+    private List<Integer> getPages(long appCounts) {
+
+        long pageCounts = appCounts / itemCountsOnPage;
+
+        if (appCounts % itemCountsOnPage != 0) {
+            pageCounts++;
+        }
+
+        List<Integer> pages = new ArrayList<>();
+        for (int i = 1; i <= pageCounts; i++) {
+            pages.add(i);
+        }
+
+        return pages;
+    }
 }

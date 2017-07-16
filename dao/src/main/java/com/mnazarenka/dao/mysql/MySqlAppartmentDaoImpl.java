@@ -15,6 +15,12 @@ import java.util.List;
 public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements AppartmentDao {
 
     @Override
+    public Long getAppartmentsCount(Class<? extends Appartment> apprtmentClass) {
+        return getSessionFactory().getCurrentSession().createQuery("select count(*) from " + apprtmentClass.getSimpleName() + " a", Long.class)
+                .getSingleResult();
+    }
+
+    @Override
     public <T extends Appartment> List<T> findAllAppartments(Class<T> clazz) {
         return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
                 .getResultList();

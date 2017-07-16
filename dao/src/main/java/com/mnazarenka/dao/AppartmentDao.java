@@ -14,4 +14,6 @@ public interface AppartmentDao extends BaseDao<Appartment> {
     List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz);
 
     <T extends Appartment> List<T> findAllAppartments(Class<T> clazz);
+
+    Long getAppartmentsCount(Class<? extends Appartment> apprtmentClass);
 }

@@ -19,4 +19,6 @@ public interface AppartmentService extends BaseService<Appartment> {
     <T extends Appartment> List<T> getAppartmentsByRange(int pageNumber, int pageCounts, Class<T> clazz);
 
     <T extends Appartment> T findAppartment(long id, Class<T> clazz);
+
+    Long getAppartmentsCount(Class<? extends Appartment> appartmentClass);
 }

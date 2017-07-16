@@ -31,6 +31,11 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
+    public Long getAppartmentsCount(Class<? extends Appartment> apprtmentClass) {
+        return dao.getAppartmentsCount(apprtmentClass);
+    }
+
+    @Override
     public <T extends Appartment> List<T> findAllAppartments(Class<T> clazz) {
         return dao.findAllAppartments(clazz);
     }
