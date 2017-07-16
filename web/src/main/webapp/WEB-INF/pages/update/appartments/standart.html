@@ -78,8 +78,14 @@
                                                        required></td>
                                             <td><input class="form-control" type="number" th:field="*{costPerDay}"
                                                        required></td>
-                                            <td><input type="text" th:field="*{image}"></td>
-                                            <td></td>
+                                            <td><input class="form-control" type="text" th:field="*{image}"></td>
+                                            <td><label for="wi-fi">wi-fi</label>
+                                                <input type="checkbox" th:field="*{wiFi}" id="wi-fi">
+                                                <label for="wc">wc</label>
+                                                <input type="checkbox" th:field="*{wc}" id="wc">
+                                                <label for="tv">tv</label>
+                                                <input type="checkbox" th:field="*{tv}" id="tv">
+                                                </td>
                                             <td>
                                                 <button class="btn btn-default" type="submit">Обновить</button>
                                         </tr>
