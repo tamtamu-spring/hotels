@@ -1,14 +1,19 @@
 package com.mnazarenka.controllers;
 
+import com.mnazarenka.dao.entity.AppartmentOrder;
 import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.service.AppartmentService;
+import com.mnazarenka.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +21,41 @@ import java.util.List;
 @Controller
 public class RentAppartmentsController {
     private AppartmentService appartmentService;
+    private OrderService orderService;
 
     //@Value("#{new Integer.parseInt('${items.counts}')}")
     private Integer itemCountsOnPage = 3;
 
     @Autowired
-    public RentAppartmentsController(AppartmentService appartmentService) {
+    public RentAppartmentsController(AppartmentService appartmentService, OrderService orderService) {
         this.appartmentService = appartmentService;
+        this.orderService = orderService;
+    }
+
+    @ModelAttribute("order")
+    public AppartmentOrder order(){
+        return new AppartmentOrder();
+    }
+
+    @PostMapping("/user/order")
+    public String saveOrder(long apartId, String startDate, String endDate, Authentication auth, String appartType){
+        String userName = auth.getName();
+        switch (appartType) {
+            case "lux": {
+                orderService.createOrder(LuxAppartment.class, apartId, userName, startDate, endDate);
+                break;
+            }
+            case "standart": {
+                orderService.createOrder(StandartAppartment.class, apartId, userName, startDate, endDate);
+                break;
+            }
+            case "econom": {
+                orderService.createOrder(EconomAppartment.class, apartId, userName, startDate, endDate);
+                break;
+            }
+        }
+
+        return "redirect:/user/account/orders";
     }
 
     @GetMapping("/user/rent/{type}")

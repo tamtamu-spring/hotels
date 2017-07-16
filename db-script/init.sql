@@ -58,6 +58,7 @@ CREATE TABLE `orders` (
   `start_date`        DATE   NOT NULL,
   `end_date`          DATE   NOT NULL,
   `version`           TIMESTAMP,
+  `status`            VARCHAR(255),
   CONSTRAINT `fk_orders_to_user` FOREIGN KEY (`fk_users_id`) REFERENCES `users` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,

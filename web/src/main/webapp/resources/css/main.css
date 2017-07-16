@@ -2,6 +2,9 @@ a:hover {
     text-decoration: none;
 }
 
+.appart-button{
+    margin-top: 15px;
+}
 body input:focus:required:invalid, body textarea:focus:required:invalid {
     background-color: #fff8f1;
 }

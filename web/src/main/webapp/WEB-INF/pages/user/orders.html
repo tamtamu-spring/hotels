@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>hotels</title>
+
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/fonts.css"/>
+    <link rel="stylesheet" href="/resources/css/main.css"/>
+    <link rel="stylesheet"
+          href="/resources/libs/font-awesome-4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/resources/libs/owl-carousel/owl.carousel.css"/>
+</head>
+
+<body>
+<script src="/resources/libs/jquery/jquery-1.11.1.min.js"></script>
+<script src="/resources/libs/owl-carousel/owl.carousel.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+
+<div class="wrapper">
+
+    <div class="top_header" th:insert="~{fragments/header :: header}"></div>
+
+    <div class="content">
+
+    </div>
+
+    <div th:insert="~{fragments/user-main-menu :: #user-menu}"></div>
+
+    <div class="container">
+        <div class="col-md-12">
+            <div class="panel panel-warning">
+
+                <div class="panel-body">
+                   МОИ ЗАКАЗЫ
+                </div>
+                <div class="panel-footer">
+                    <table class="table">
+                        <tr>
+                            <th>Номер</th>
+                            <th>Аппартаменты</th>
+                            <th>Начальная дата</th>
+                            <th>Конечная дата</th>
+                            <th>Статус</th>
+                            <th></th>
+                        </tr>
+                        <tr  th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.appartment.name}"></td>
+                            <td th:text="${order.startDate}"></td>
+                            <td th:text="${order.endDate}"></td>
+                            <td th:text="${order.status}"></td>
+                            <td><a class="btn btn-default"
+                                   th:href="@{'/user/orders/delete/' + ${order.id}}"
+                                   role="button">Удалить</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>

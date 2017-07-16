@@ -46,42 +46,59 @@
                                 <span th:text="${appartment.appartmentsType}"></span>
                             </div>
                             <div class="panel-footer">
-                                <table class="table">
-                                    <tr>
-                                        <td rowspan="3">
-                                            <img th:src="${appartment.image}" class="img-rounded item-image">
-                                        </td>
-                                        <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span></td>
-                                        <td rowspan="3" class="text-center"><a
-                                                th:href="@{'/user/rent/' + ${appartment.id}}"
-                                                class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <ul>
-                                                <li>Wi-Fi :
-                                                    <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
-                                                </li>
-                                                <li>TV :
-                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
-                                                </li>
-                                                <li>WC :
-                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
-                                                </li>
-                                                <li>Бар :
-                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
-                                                </li>
-                                                <li>Кухня :
-                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                </table>
+                                <form method="post" th:object="${order}" th:action="@{/user/order}">
+                                    <table class="table">
+                                        <tr>
+                                            <td rowspan="3">
+                                                <img th:src="${appartment.image}" class="img-rounded item-image">
+                                            </td>
+                                            <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span>
+                                            </td>
+                                            <td rowspan="3" class="text-center">
+                                                <input hidden name="apartId" type="text" th:value="${appartment.id}">
+                                                <input hidden name="appartType" type="text" th:value="${appartment.appartmentsType}">
+                                                <input hidden name="appartmentId" th:value="${appartment.id}">
+                                                <div>
+                                                    <label for="fromDate">Начальная дата</label>
+                                                    <input name="startDate"  class="form-control" type="date" id="fromDate"
+                                                           aria-describedby="basic-addon1">
+                                                </div>
+                                                <div>
+                                                    <label for="toDate">Конечная дата</label>
+                                                    <input name="endDate" class="form-control" type="date" id="toDate">
+                                                </div>
+                                                <button type="submit" class="btn btn-info btn-lg appart-button">
+                                                    ЗАБРАНИРОВАТЬ
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul>
+                                                    <li>Wi-Fi :
+                                                        <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
+                                                    </li>
+                                                    <li>TV :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>WC :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>Бар :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>Кухня :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -90,7 +107,8 @@
                 <div class="col-md-12 text-center">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" th:each="page : ${pages}">
-                            <li><a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/' + ${page}}" th:text="${page}"></a></li>
+                            <li><a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/' + ${page}}"
+                                   th:text="${page}"></a></li>
                         </ul>
                     </nav>
                 </div>

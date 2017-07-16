@@ -27,6 +27,6 @@ public class AccountController {
             return "redirect:/admin/users";
         }
 
-        return "redirect:user/rent-appartments";
+        return "redirect:/user/account/orders";
     }
 }

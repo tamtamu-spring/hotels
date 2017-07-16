@@ -1,5 +1,6 @@
 package com.mnazarenka.dao.entity;
 
+import com.mnazarenka.dao.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,7 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = "appartment")
 @Entity
 @Table(name = "orders")
 public class AppartmentOrder extends BaseEntity implements Serializable {
@@ -43,4 +46,9 @@ public class AppartmentOrder extends BaseEntity implements Serializable {
     @Version
     @Column
     private LocalDateTime version;
+    @Getter
+    @Setter
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
