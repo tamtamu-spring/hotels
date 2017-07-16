@@ -12,4 +12,6 @@ public interface OrderService extends BaseService<AppartmentOrder> {
     List<AppartmentOrder> findAllByUserId(Long userId);
 
     void updateOrder(long orderId, String startDate, String endDate);
+
+    void updateOrder(long orderId ,long userId, long appartId, String startDate, String endDate);
 }

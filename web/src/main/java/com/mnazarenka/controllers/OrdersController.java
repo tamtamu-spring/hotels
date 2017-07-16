@@ -1,8 +1,9 @@
 package com.mnazarenka.controllers;
 
+import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.AppartmentOrder;
-import com.mnazarenka.dao.entity.Role;
 import com.mnazarenka.dao.entity.User;
+import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.OrderService;
 import com.mnazarenka.service.UserService;
 import com.mnazarenka.service.enums.RoleEnum;
@@ -21,11 +22,14 @@ import java.util.List;
 public class OrdersController {
     private final OrderService orderService;
     private UserService userService;
+    private AppartmentService appartmentService;
 
     @Autowired
-    public OrdersController(OrderService orderService, UserService userService) {
+    public OrdersController(OrderService orderService, UserService userService, AppartmentService appartmentService) {
         this.orderService = orderService;
         this.userService = userService;
+        this.appartmentService = appartmentService;
+
     }
 
     @ModelAttribute("orders")
@@ -40,6 +44,21 @@ public class OrdersController {
         return orderService.findAll();
     }
 
+    @ModelAttribute("users")
+    public List<User> users(){
+        return userService.findAll();
+    }
+
+    @ModelAttribute("appartments")
+    public List<Appartment> appartments(){
+        return appartmentService.findAll();
+    }
+
+    @PostMapping("/admin/orders/update")
+    public String updateOrderByAdmin(long orderId, long userId, long appartId, String startDate, String endDate){
+        orderService.updateOrder(orderId, userId, appartId, startDate, endDate);
+        return "redirect:/admin/orders";
+    }
 
     @GetMapping("/admin/orders")
     public String getAdminOrders(){
