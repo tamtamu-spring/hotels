@@ -61,8 +61,23 @@
                                                 <td th:text="${appartment.costPerDay}"></td>
                                                 <td><img class="item-image" th:src="${appartment.image}"> </td>
                                                 <td>
-                                                    <span  th:text="${appartment.wiFi}"></span>
-                                                    <span  th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'none' : ${appartment.tv}) : ${appartment.tv}"></span>
+                                                    <ul>
+                                                        <li>Wi-Fi :
+                                                            <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
+                                                        </li>
+                                                        <li>TV :
+                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
+                                                        </li>
+                                                        <li>WC :
+                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
+                                                        </li>
+                                                        <li>Бар :
+                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
+                                                        </li>
+                                                        <li>Кухня :
+                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
+                                                        </li>
+                                                    </ul>
                                                 </td>
                                                 <td><a class="btn btn-default"
                                                        th:href="@{'/admin/appartments/update/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"

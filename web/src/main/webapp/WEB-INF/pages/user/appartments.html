@@ -49,19 +49,36 @@
                                 <table class="table">
                                     <tr>
                                         <td rowspan="3">
-                                            <img th:src="${appartment.image}"  class="img-rounded item-image">
+                                            <img th:src="${appartment.image}" class="img-rounded item-image">
                                         </td>
                                         <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span></td>
-                                        <td rowspan="3" class="text-center"><a th:href="@{'/user/rent/' + ${appartment.id}}" class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
+                                        <td rowspan="3" class="text-center"><a
+                                                th:href="@{'/user/rent/' + ${appartment.id}}"
+                                                class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
                                     </tr>
                                     <tr>
                                         <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span></td>
                                     </tr>
                                     <tr>
-                                        <td> <ul>
-                                            <li th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'none' : ${appartment.tv}) : ${appartment.tv}"> </li>
-                                            <li>asdasdds </li>
-                                        </ul> </td>
+                                        <td>
+                                            <ul>
+                                                <li>Wi-Fi :
+                                                    <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
+                                                </li>
+                                                <li>TV :
+                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
+                                                </li>
+                                                <li>WC :
+                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
+                                                </li>
+                                                <li>Бар :
+                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
+                                                </li>
+                                                <li>Кухня :
+                                                    <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
+                                                </li>
+                                            </ul>
+                                        </td>
                                     </tr>
 
                                 </table>
@@ -78,7 +95,8 @@
                             <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/3'}">3</a></li>
                             <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/4'}">4</a></li>
                         </ul>
-                    </nav></div>
+                    </nav>
+                </div>
 
 
             </div>
