@@ -35,13 +35,9 @@
                     <div class="panel-heading">АППАРТАМЕНТЫ</div>
                     <div class="panel-body">
 
-                        <div class="col-md-12">
-
-                            <div th:insert="~{fragments/admin-appartments-menu :: #admin-appartment-menu}"></div>
-
                             <div class="panel panel-warning">
                                 <div class="panel-body">
-
+                                    <form th:action="@{/admin/appartments/lux}" method="post" th:object="${appartment}">
                                         <table class="table">
                                             <tr>
                                                 <th>Id</th>
@@ -53,39 +49,26 @@
                                                 <th>Options</th>
                                                 <th></th>
                                             </tr>
-                                            <tr th:each="appartment : ${appartments}">
-                                                <td th:text="${appartment.id}"></td>
-                                                <td th:text="${appartment.name}"></td>
-                                                <td th:text="${appartment.hotel.name}"></td>
-                                                <td th:text="${appartment.guestsCounts}"></td>
-                                                <td th:text="${appartment.costPerDay}"></td>
-                                                <td><img class="item-image" th:src="${appartment.image}"> </td>
-                                                <td>
-                                                    <span  th:text="${appartment.wiFi}"></span>
-                                                    <span  th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'none' : ${appartment.tv}) : ${appartment.tv}"></span>
-                                                </td>
-                                                <td><a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/update/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
-                                                       role="button">Update</a>
-                                                    <a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/delete/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
-                                                       role="button">Delete</a></td>
-                                            </tr>
+
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><input hidden th:value="${appartment.id}" th:field="*{id}"></td>
+                                                <td><input class="form-control" type="text" th:field="*{name}"
+                                                           required></td>
+                                                <td><select class="form-control" name="hotelId">
+                                                    <option th:each="hotel : ${hotels}" th:text="${hotel.name}"
+                                                            th:value="${hotel.id}"></option>
+                                                </select></td>
+                                                <td><input class="form-control" type="number" th:field="*{guestsCounts}"
+                                                           required></td>
+                                                <td><input class="form-control" type="number" th:field="*{costPerDay}"
+                                                           required></td>
+                                                <td><input type="text" th:field="*{image}"></td>
                                                 <td></td>
                                                 <td>
-                                                    <a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/create/' + ${appartments.get(0).appartmentsType}}"
-                                                       role="button">Создать</a>
+                                                    <button class="btn btn-default" type="submit">Создать</button>
                                             </tr>
                                         </table>
-
+                                    </form>
                                 </div>
                             </div>
                         </div>

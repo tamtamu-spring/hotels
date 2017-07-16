@@ -1,6 +1,5 @@
 package com.mnazarenka.controllers;
 
-import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
@@ -17,9 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-/**
- * Created by Николай on 16.07.2017.
- */
 @Controller
 public class AppartmentController {
     private AppartmentService appartmentService;
@@ -30,24 +26,14 @@ public class AppartmentController {
         this.appartmentService = appartmentService;
         this.hotelService = hotelService;
     }
-/*
-    @ModelAttribute("appartment")
-    public EconomAppartment appartment(){
-        return new EconomAppartment();
-    }*/
-/*
-    @ModelAttribute("appartments")
-    public List<EconomAppartment> appartments(){
-        return appartmentService.findAllAppartments(EconomAppartment.class);
-    }*/
 
     @ModelAttribute("hotels")
-    public List<Hotel> hotels(){
+    public List<Hotel> hotels() {
         return hotelService.findAll();
     }
 
     @GetMapping("/admin/appartments/{type}")
-    public String getEconomAppartment(Model model, @PathVariable String type){
+    public String getEconomAppartment(Model model, @PathVariable String type) {
 
         switch (type) {
             case "lux": {
@@ -72,35 +58,14 @@ public class AppartmentController {
         return "/admin/appartments";
     }
 
-    @PostMapping("/admin/appartments/{type}")
-    public String createEconomAppartment(Appartment appartment, @PathVariable String type, long hotelId){
-
-        switch (type) {
-            case "lux": {
-                appartmentService.createAppartmentWithHotelId((LuxAppartment)appartment, hotelId);
-                break;
-            }
-            case "standart": {
-                appartmentService.createAppartmentWithHotelId((StandartAppartment)appartment, hotelId);
-                break;
-            }
-            case "econom": {
-                appartmentService.createAppartmentWithHotelId((EconomAppartment)appartment, hotelId);
-                break;
-            }
-        }
-
-        return "redirect:/admin/appartments/" + type;
-    }
-
     @GetMapping("/admin/appartments/delete/{id}/{type}")
-    public String deleteStandartAppartment(@PathVariable("id") long id, @PathVariable String type){
+    public String deleteStandartAppartment(@PathVariable("id") long id, @PathVariable String type) {
         appartmentService.deleteById(id);
         return "redirect:/admin/appartments/" + type;
     }
 
     @GetMapping("/admin/appartments/update/{id}/{type}")
-    public String goToUpdatePage(@PathVariable("id") long id, @PathVariable String type, Model model){
+    public String goToUpdatePage(@PathVariable("id") long id, @PathVariable String type, Model model) {
 
         switch (type) {
             case "lux": {
@@ -123,10 +88,60 @@ public class AppartmentController {
         return "update/appartments/" + type;
     }
 
-    @PostMapping("/admin/appartments/update")
-    public String updateEconomAppartment(Appartment appartment, long hotelId){
+    @PostMapping("/admin/econom-appartments/update")
+    public String updateEconomAppartment(EconomAppartment appartment, long hotelId) {
         appartmentService.updateAppartmentWithHotelId(appartment, hotelId);
-        return "redirect:/admin/update";
+        return "redirect:/admin/appartments/econom";
     }
 
+    @PostMapping("/admin/standart-appartments/update")
+    public String updateStandartAppartment(StandartAppartment appartment, long hotelId) {
+        appartmentService.updateAppartmentWithHotelId(appartment, hotelId);
+        return "redirect:/admin/appartments/standart";
+    }
+
+    @PostMapping("/admin/lux-appartments/update")
+    public String updateLuxAppartment(LuxAppartment appartment, long hotelId) {
+        appartmentService.updateAppartmentWithHotelId(appartment, hotelId);
+        return "redirect:/admin/appartments/lux";
+    }
+
+    @PostMapping("/admin/appartments/econom")
+    public String createEconomAppartment(EconomAppartment appartment, long hotelId) {
+        appartmentService.createAppartmentWithHotelId(appartment, hotelId);
+        return "redirect:/admin/appartments/econom";
+    }
+
+    @PostMapping("/admin/appartments/standart")
+    public String createStandartppartment(StandartAppartment appartment, long hotelId) {
+        appartmentService.createAppartmentWithHotelId(appartment, hotelId);
+        return "redirect:/admin/appartments/standart";
+    }
+
+    @PostMapping("/admin/appartments/lux")
+    public String createLuxAppartment(LuxAppartment appartment, long hotelId) {
+        appartmentService.createAppartmentWithHotelId(appartment, hotelId);
+        return "redirect:/admin/appartments/lux";
+    }
+
+    @GetMapping("/admin/appartments/create/{type}")
+    public String goToCreatePage(@PathVariable String type, Model model) {
+
+        switch (type) {
+            case "lux": {
+                model.addAttribute("appartment", new LuxAppartment());
+                break;
+            }
+            case "standart": {
+                model.addAttribute("appartment", new StandartAppartment());
+                break;
+            }
+            case "econom": {
+                model.addAttribute("appartment", new EconomAppartment());
+                break;
+            }
+        }
+
+        return "create/appartments/" + type;
+    }
 }
