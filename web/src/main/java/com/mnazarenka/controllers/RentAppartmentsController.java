@@ -24,70 +24,55 @@ public class RentAppartmentsController {
         this.appartmentService = appartmentService;
     }
 
+    @GetMapping("/user/rent/{type}")
+    public String goToRentPage(@PathVariable String type, Model model) {
 
-    @GetMapping("/user/rent-lux-appartments")
-    public String goToRentLuxPage(Model model) {
-
-        List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, LuxAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-lux";
+        switch (type) {
+            case "lux": {
+                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, LuxAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+            case "standart": {
+                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, StandartAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+            case "econom": {
+                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, EconomAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+        }
+        return "user/appartments";
     }
 
-    @GetMapping("/user/rent-lux-appartments/{pageNumber}")
-    public String getLuxAppartmentsWithPaging(@PathVariable int pageNumber, Model model) {
+    @GetMapping("/user/rent/{type}/{pageNumber}")
+    public String goToRentPageWithPaging(@PathVariable String type, @PathVariable int pageNumber, Model model) {
 
-        pageNumber = getCurrentPageNumber(pageNumber);
-
-        List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, LuxAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-lux";
-    }
-
-    @GetMapping("/user/rent-standart-appartments")
-    public String goToStandartRentPage(Model model) {
-
-        List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, StandartAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-standart";
-    }
-
-    @GetMapping("/user/rent-standart-appartments/{pageNumber}")
-    public String getStandartAppartmentsWithPaging(@PathVariable int pageNumber, Model model) {
-        pageNumber = getCurrentPageNumber(pageNumber);
-
-        List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, StandartAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-standart";
-    }
-
-    @GetMapping("/user/rent-econom-appartments")
-    public String goToEconomRentPage(Model model) {
-
-        List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(0, pageCounts, EconomAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-econom";
-    }
+        switch (type) {
+            case "lux": {
+                pageNumber = getCurrentPageNumber(pageNumber);
+                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, LuxAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+            case "standart": {
+                pageNumber = getCurrentPageNumber(pageNumber);
+                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, StandartAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+            case "econom": {
+                pageNumber = getCurrentPageNumber(pageNumber);
+                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, EconomAppartment.class);
+                model.addAttribute("appartments", appartments);
+                break;
+            }
+        }
 
 
-    @GetMapping("/user/rent-econom-appartments/{pageNumber}")
-    public String getEconomAppartmentsWithPaging(@PathVariable int pageNumber, Model model) {
-        pageNumber = getCurrentPageNumber(pageNumber);
-
-        List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, pageCounts, EconomAppartment.class);
-
-        model.addAttribute("appartments", appartments);
-
-        return "user/appartments/rent-econom";
+        return "user/appartments";
     }
 
     private int getCurrentPageNumber(int pageNumber) {
@@ -96,4 +81,5 @@ public class RentAppartmentsController {
         }
         return pageNumber;
     }
+
 }

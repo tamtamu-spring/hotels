@@ -34,7 +34,7 @@
     <div class="container">
         <div class="col-md-12">
 
-            <div class="panel  panel-warning">
+            <div class="panel panel-warning">
 
                 <div th:insert="~{fragments/user-appartments-menu :: #user-appartment-menu}"></div>
 
@@ -43,27 +43,25 @@
                         <div class="panel  panel-warning">
                             <div class="panel-body">
                                 <span th:text="${appartment.name}"></span>
+                                <span th:text="${appartment.appartmentsType}"></span>
                             </div>
                             <div class="panel-footer">
                                 <table class="table">
                                     <tr>
                                         <td rowspan="3">
-                                            <img th:src="${appartment.image}" class="img-rounded item-image">
+                                            <img th:src="${appartment.image}"  class="img-rounded item-image">
                                         </td>
                                         <td>Колическтво гостей : <span th:text="${appartment.guestsCounts}"></span></td>
-                                        <td rowspan="3" class="text-center"><a
-                                                th:href="@{'/user/rent/' + ${appartment.id}}"
-                                                class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
+                                        <td rowspan="3" class="text-center"><a th:href="@{'/user/rent/' + ${appartment.id}}" class="btn btn-info btn-lg">ЗАБРАНИРОВАТЬ</a></td>
                                     </tr>
                                     <tr>
                                         <td>Стоимость за сутки : <span th:text="${appartment.costPerDay}"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <ul>
-                                                <li></li>
-                                            </ul>
-                                        </td>
+                                        <td> <ul>
+                                            <li th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'none' : ${appartment.tv}) : ${appartment.tv}"> </li>
+                                            <li>asdasdds </li>
+                                        </ul> </td>
                                     </tr>
 
                                 </table>
@@ -71,16 +69,18 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-12 text-center">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li><a th:href="@{/user/rent-lux-appartments/1}">1</a></li>
-                            <li><a a th:href="@{/user/rent-lux-appartments/2}">2</a></li>
-                            <li><a a th:href="@{/user/rent-lux-appartments/3}">3</a></li>
-                            <li><a a th:href="@{/user/rent-lux-appartments/4}">4</a></li>
+                            <li><a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/1'}">1</a></li>
+                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/2'}">2</a></li>
+                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/3'}">3</a></li>
+                            <li><a a th:href="@{'/user/rent/' + ${appartments.get(0).appartmentsType}+ '/4'}">4</a></li>
                         </ul>
-                    </nav>
-                </div>
+                    </nav></div>
+
+
             </div>
 
         </div>

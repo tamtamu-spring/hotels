@@ -13,6 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -22,6 +23,11 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "appartments_type")
 public class Appartment extends BaseEntity implements Serializable {
+    @Getter
+    @Setter
+    @Column(name = "appartments_type", insertable = false, updatable = false)
+    private String appartmentsType;
+
     @Getter
     @Setter
     @ManyToOne

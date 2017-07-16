@@ -37,7 +37,7 @@
 
                         <div class="panel panel-warning">
                             <div class="panel-body">
-                                <form th:action="@{/admin/econom-appartments/update}" method="post" th:object="${appartment}">
+                                <form th:action=" @{/admin/econom-appartments/update}" method="post" th:object="${appartment}">
                                     <table class="table">
                                         <tr>
                                             <th>Id</th>
@@ -51,7 +51,7 @@
                                         </tr>
                                         <tr>
                                             <td th:text="${appartment.id}"></td>
-                                            <td th:text="${appartment.name}"></td>
+                                            <td th:text="${appartment.name.compareTo('asd')}"></td>
                                             <td th:text="${appartment.hotel.name}"></td>
                                             <td th:text="${appartment.guestsCounts}"></td>
                                             <td th:text="${appartment.costPerDay}"></td>
