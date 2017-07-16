@@ -27,11 +27,6 @@ public class DishOrder extends BaseEntity implements Serializable {
     private User user;
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "fk_appartments_id")
-    private Appartment appartment;
-    @Getter
-    @Setter
     @Column(name = "order_time")
     private LocalDateTime orderTime;
     @Getter

@@ -30,13 +30,11 @@ public class DishOrderDaoTest extends BaseDaoTest<DishOrder> {
                 .collect(toList());
 
         List<User> users = orders.stream().map(DishOrder::getUser).collect(toList());
-        List<Appartment> appartments = orders.stream().map(DishOrder::getAppartment).collect(toList());
 
         assertThat(orders, hasSize(2));
         assertThat(dishOrderTimes, containsInAnyOrder(LocalDateTime.of(LocalDate.now(), LocalTime.MAX),
                 LocalDateTime.of(LocalDate.now(), LocalTime.MIN)));
         users.forEach(u -> assertNotNull(u));
-        appartments.forEach(a -> assertNotNull(a));
     }
 
     @Override

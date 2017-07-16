@@ -13,6 +13,10 @@ body input:required:valid, body textarea:required:valid {
     background-color: #d8fff2;
 }
 
+li{
+    list-style-type: none;
+}
+
 html, body {
     height: 100%;
 }

@@ -118,7 +118,6 @@ public class TestDataImporterImpl implements TestDataImporter {
     public DishOrder saveDishOrder(User user, Appartment apartment, LocalDateTime time, DishOrderDao dishOrderDao) {
         DishOrder dishOrder = new DishOrder();
         dishOrder.setUser(user);
-        dishOrder.setAppartment(apartment);
         dishOrder.setOrderTime(time);
         dishOrderDao.create(dishOrder);
         return dishOrder;
