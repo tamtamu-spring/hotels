@@ -41,7 +41,7 @@
 
                             <div class="panel panel-warning">
                                 <div class="panel-body">
-                                    <form th:action="@{/admin/lux-appartments}" method="post" th:object="${appartment}">
+                                    <form th:action="@{'/admin/appartments/' + ${appartments.get(0).appartmentsType}}" method="post" th:object="${appartment}">
                                         <table class="table">
                                             <tr>
                                                 <th>Id</th>
@@ -62,31 +62,22 @@
                                                 <td><img class="item-image" th:src="${appartment.image}"> </td>
                                                 <td>
                                                     <span  th:text="${appartment.wiFi}"></span>
-                                                    <span  th:text="${appartment.wc}"></span>
-                                                    <span  th:text="${appartment.tv}"></span>
-                                                    <span  th:text="${appartment.bar}"></span>
-                                                    <span  th:text="${appartment.kitchen}"></span>
+                                                    <span  th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'none' : ${appartment.tv}) : ${appartment.tv}"></span>
                                                 </td>
                                                 <td><a class="btn btn-default"
-                                                       th:href="@{'/admin/lux-appartments/update/' + ${appartment.id}}"
+                                                       th:href="@{'/admin/appartments/update/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
                                                        role="button">Update</a>
                                                     <a class="btn btn-default"
-                                                       th:href="@{'/admin/lux-appartments/delete/' + ${appartment.id}}"
+                                                       th:href="@{'/admin/standart-appartments/delete/' + ${appartment.id}}"
                                                        role="button">Delete</a></td>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td><input class="form-control" type="text" th:field="*{name}"
-                                                           required></td>
-                                                <td><select class="form-control" name="hotelId">
-                                                    <option th:each="hotel : ${hotels}" th:text="${hotel.name}"
-                                                            th:value="${hotel.id}"></option>
-                                                </select></td>
-                                                <td><input class="form-control" type="number" th:field="*{guestsCounts}"
-                                                           required></td>
-                                                <td><input class="form-control" type="number" th:field="*{costPerDay}"
-                                                           required></td>
-                                                <td><input type="text" th:field="*{image}"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td>
                                                     <button class="btn btn-default" type="submit">Создать</button>
