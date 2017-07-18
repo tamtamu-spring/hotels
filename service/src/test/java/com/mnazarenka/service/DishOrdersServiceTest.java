@@ -2,13 +2,11 @@ package com.mnazarenka.service;
 
 import com.mnazarenka.dao.entity.DishOrder;
 import lombok.Getter;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 /**

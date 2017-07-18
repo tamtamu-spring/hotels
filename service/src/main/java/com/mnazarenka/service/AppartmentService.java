@@ -1,9 +1,6 @@
 package com.mnazarenka.service;
 
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.EconomAppartment;
-import com.mnazarenka.dao.entity.LuxAppartment;
-import com.mnazarenka.dao.entity.StandartAppartment;
 import com.mnazarenka.service.common.BaseService;
 
 import java.util.List;

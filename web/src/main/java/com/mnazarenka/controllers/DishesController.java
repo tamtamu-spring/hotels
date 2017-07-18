@@ -1,6 +1,5 @@
 package com.mnazarenka.controllers;
 
-import com.mnazarenka.dao.DishDao;
 import com.mnazarenka.dao.entity.Dish;
 import com.mnazarenka.service.DishServise;
 import org.springframework.beans.factory.annotation.Autowired;

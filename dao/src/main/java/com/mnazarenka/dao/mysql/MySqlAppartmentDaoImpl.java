@@ -3,9 +3,6 @@ package com.mnazarenka.dao.mysql;
 import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.common.BaseDaoImpl;
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.EconomAppartment;
-import com.mnazarenka.dao.entity.LuxAppartment;
-import com.mnazarenka.dao.entity.StandartAppartment;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 

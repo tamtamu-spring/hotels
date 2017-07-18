@@ -1,20 +1,12 @@
 package com.mnazarenka.service;
 
 import com.mnazarenka.dao.entity.AppartmentOrder;
-import com.mnazarenka.dao.entity.LuxAppartment;
-import com.mnazarenka.dao.entity.Role;
-import com.mnazarenka.dao.enums.Status;
-import com.mnazarenka.dao.utils.TestDataImporterImpl;
 import lombok.Getter;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class OrderServiceTest extends BaseServiceTest<AppartmentOrder>{

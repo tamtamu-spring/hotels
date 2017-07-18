@@ -1,8 +1,6 @@
 package com.mnazarenka.service;
 
-import com.mnazarenka.configuration.ServiceConfig;
 import com.mnazarenka.configuration.ServiceTestConfiguration;
-import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.utils.TestDataImporter;
 import com.mnazarenka.service.common.BaseService;

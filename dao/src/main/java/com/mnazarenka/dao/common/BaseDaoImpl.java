@@ -1,7 +1,6 @@
 package com.mnazarenka.dao.common;
 
 import com.mnazarenka.dao.entity.BaseEntity;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

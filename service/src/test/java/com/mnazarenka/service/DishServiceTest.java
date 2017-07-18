@@ -2,7 +2,6 @@ package com.mnazarenka.service;
 
 import com.mnazarenka.dao.entity.Dish;
 import lombok.Getter;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

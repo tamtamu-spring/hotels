@@ -1,7 +1,6 @@
 package com.mnazarenka.dao.entity;
 
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

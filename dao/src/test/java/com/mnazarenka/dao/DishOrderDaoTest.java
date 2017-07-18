@@ -1,6 +1,5 @@
 package com.mnazarenka.dao;
 
-import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.DishOrder;
 import com.mnazarenka.dao.entity.User;
 import lombok.Getter;

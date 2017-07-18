@@ -1,7 +1,6 @@
 package com.mnazarenka.service;
 
 import com.mnazarenka.dao.entity.Appartment;
-import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import lombok.Getter;
 import org.junit.Test;
@@ -11,8 +10,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class AppartmentServiceTest extends BaseServiceTest<Appartment> {
