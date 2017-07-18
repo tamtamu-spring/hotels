@@ -38,19 +38,19 @@ public class RentAppartmentsController {
     }
 
     @PostMapping("/user/order")
-    public String saveOrder(long apartId, String startDate, String endDate, Authentication auth, String appartType){
+    public String saveOrder(long apartId, AppartmentOrder order, Authentication auth, String appartType){
         String userName = auth.getName();
         switch (appartType) {
             case "lux": {
-                orderService.createOrder(LuxAppartment.class, apartId, userName, startDate, endDate);
+                orderService.createOrder(LuxAppartment.class, apartId, userName, order);
                 break;
             }
             case "standart": {
-                orderService.createOrder(StandartAppartment.class, apartId, userName, startDate, endDate);
+                orderService.createOrder(StandartAppartment.class, apartId, userName, order);
                 break;
             }
             case "econom": {
-                orderService.createOrder(EconomAppartment.class, apartId, userName, startDate, endDate);
+                orderService.createOrder(EconomAppartment.class, apartId, userName, order);
                 break;
             }
         }

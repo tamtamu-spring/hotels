@@ -8,14 +8,21 @@ import com.mnazarenka.service.OrderService;
 import com.mnazarenka.service.UserService;
 import com.mnazarenka.service.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -31,6 +38,23 @@ public class OrdersController {
         this.appartmentService = appartmentService;
 
     }
+/*
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException{
+                setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+
+            @Override
+            public String getAsText() throws IllegalArgumentException {
+                return DateTimeFormatter.ofPattern("yyyy-MM-dd").format((LocalDate) getValue());
+            }
+        });
+    }
+*/
 
     @ModelAttribute("orders")
     public List<AppartmentOrder> orders(Authentication auth){
@@ -81,12 +105,13 @@ public class OrdersController {
     public String getUpdatePage(@PathVariable long id, Model model){
         AppartmentOrder appartmentOrder = orderService.find(id);
         model.addAttribute("order", appartmentOrder);
+
         return "update/user-order";
     }
 
     @PostMapping("/user/orders/update")
-    public String updateOrder(long orderId, String startDate, String endDate){
-        orderService.updateOrder(orderId, startDate, endDate);
+    public String updateOrder(AppartmentOrder order, long userId, long appartId){
+       orderService.updateOrder(userId, appartId, order);
 
         return "redirect:/user/account/orders";
     }
@@ -94,9 +119,11 @@ public class OrdersController {
     @GetMapping("/{user}/orders/delete/{id}")
     public String deleteOrder(@PathVariable long id, @PathVariable String user){
         orderService.deleteById(id);
+
         if(user.equalsIgnoreCase(RoleEnum.USER.toString())){
             return "redirect:/user/account/orders";
         }
+
         return "redirect:/admin/orders";
     }
 }

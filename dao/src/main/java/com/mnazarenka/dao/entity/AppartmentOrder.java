@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,15 +37,18 @@ public class AppartmentOrder extends BaseEntity implements Serializable {
     @Getter
     @Setter
     @Column(name = "start_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @Getter
     @Setter
     @Column(name = "end_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     @Getter
     @Setter
     @Version
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd: HH:mm:ss")
     private LocalDateTime version;
     @Getter
     @Setter

@@ -32,6 +32,17 @@ public class OrderServiceImpl extends BaseServiceImpl<AppartmentOrder> implement
     }
 
     @Override
+    public void updateOrder(long userId, long appartId, AppartmentOrder order) {
+        User user = userService.find(userId);
+        Appartment appartment = appartmentDao.find(appartId);
+
+        order.setUser(user);
+        order.setAppartment(appartment);
+
+        dao.update(order);
+    }
+
+    @Override
     public void updateOrder(long orderId, long userId, long appartId, String startDate, String endDate) {
         AppartmentOrder appartmentOrder = dao.find(orderId);
         User user = userService.find(userId);
@@ -65,14 +76,11 @@ public class OrderServiceImpl extends BaseServiceImpl<AppartmentOrder> implement
     }
 
     @Override
-    public AppartmentOrder createOrder(Class<? extends Appartment> clazz, Long apartId, String userName, String startDate, String endDate) {
+    public AppartmentOrder createOrder(Class<? extends Appartment> clazz, Long apartId, String userName, AppartmentOrder order) {
         User user = userService.getUserByLogin(userName);
 
-        AppartmentOrder order = new AppartmentOrder();
         order.setUser(user);
         order.setAppartment(appartmentDao.findAppartment(apartId, clazz));
-        order.setStartDate(LocalDate.parse(startDate));
-        order.setEndDate(LocalDate.parse(endDate));
         order.setStatus(Status.ADDED);
 
         return dao.create(order);

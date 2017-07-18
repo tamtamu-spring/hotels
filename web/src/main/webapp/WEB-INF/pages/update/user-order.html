@@ -58,10 +58,16 @@
                                                        th:href="@{'/user/account/orders'}">Отмена</a></td>
                                             </tr>
                                             <tr>
-                                                <td><input hidden type="text" name="orderId" th:value="${order.id}"></td>
-                                                <td><input class="form-control" type="date" name="startDate"
+                                                <td><input hidden type="text" th:field="*{id}" th:value="${order.id}">
+                                                <input hidden type="datetime" th:field="*{version}" th:value="${order.version}">
+                                                <input hidden th:value="${order.user.id}" type="number" name="userId">
+                                                    <input hidden th:value="${order.appartment.id}" type="number" name="appartId">
+                                                    <input hidden th:value="${order.status}" type="text" th:field="*{status}"></td>
+                                                <td><input class="form-control" th:value="*{endDate}" type="date"
+                                                           th:field="*{startDate}"
                                                            required></td>
-                                                <td><input class="form-control" type="date" name="endDate"
+                                                <td><input class="form-control" th:value="*{endDate}" type="date"
+                                                           th:field="*{endDate}"
                                                            required></td>
                                                 <td></td>
                                                 <td></td>

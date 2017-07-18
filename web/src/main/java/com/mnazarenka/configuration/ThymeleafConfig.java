@@ -2,6 +2,7 @@ package com.mnazarenka.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
@@ -26,8 +27,13 @@ public class ThymeleafConfig {
     }
 
     @Bean
+    public Java8TimeDialect java8TimeDialect(){
+        return new Java8TimeDialect();
+    }
+    @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.addDialect(java8TimeDialect());
         engine.setAdditionalDialects(Collections.singleton(springSecurityDialect()));
         engine.setEnableSpringELCompiler(true);
         engine.setTemplateResolver(templateResolver());

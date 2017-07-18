@@ -40,6 +40,11 @@
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
             <version>${thymeleaf-extras-springsecurity4.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+            <version>3.0.0.RELEASE</version>
+        </dependency>
 
     </dependencies>
     <properties>

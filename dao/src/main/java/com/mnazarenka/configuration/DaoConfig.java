@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.Properties;
 
 @Configuration
@@ -70,6 +71,7 @@ public class DaoConfig {
         properties.setProperty("hibernate.hbm2ddl.auto", creationPolicy);
         properties.setProperty("hibernate.cache.region.factory_class", casheFactory);
         properties.setProperty("cache.use_second_level_cache", useCashe);
+        properties.setProperty("hibernate.connection.isolation", String.valueOf(Connection.TRANSACTION_REPEATABLE_READ));
 
         return properties;
     }

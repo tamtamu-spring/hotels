@@ -7,11 +7,13 @@ import com.mnazarenka.service.common.BaseService;
 import java.util.List;
 
 public interface OrderService extends BaseService<AppartmentOrder> {
-    AppartmentOrder createOrder(Class<? extends Appartment> clazz, Long apartId, String userName, String startDate, String endDate);
+    AppartmentOrder createOrder(Class<? extends Appartment> clazz, Long apartId, String userName, AppartmentOrder order);
 
     List<AppartmentOrder> findAllByUserId(Long userId);
 
     void updateOrder(long orderId, String startDate, String endDate);
 
     void updateOrder(long orderId ,long userId, long appartId, String startDate, String endDate);
+
+    void updateOrder(long userId, long appartId, AppartmentOrder order);
 }
