@@ -79,8 +79,8 @@ public class OrdersController {
     }
 
     @PostMapping("/admin/orders/update")
-    public String updateOrderByAdmin(long orderId, long userId, long appartId, String startDate, String endDate){
-        orderService.updateOrder(orderId, userId, appartId, startDate, endDate);
+    public String updateOrderByAdmin(long appartId, long userId, AppartmentOrder order){
+        orderService.updateOrder(appartId, userId, order);
         return "redirect:/admin/orders";
     }
 
@@ -111,7 +111,7 @@ public class OrdersController {
 
     @PostMapping("/user/orders/update")
     public String updateOrder(AppartmentOrder order, long userId, long appartId){
-       orderService.updateOrder(userId, appartId, order);
+       orderService.updateOrder(appartId, userId, order);
 
         return "redirect:/user/account/orders";
     }
