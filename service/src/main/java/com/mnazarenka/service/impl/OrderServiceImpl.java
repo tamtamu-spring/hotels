@@ -32,6 +32,13 @@ public class OrderServiceImpl extends BaseServiceImpl<AppartmentOrder> implement
     }
 
     @Override
+    public void changeStatus(Status status, long appartId, long userId, AppartmentOrder order) {
+        order.setStatus(status);
+
+        updateOrder(appartId, userId, order);
+    }
+
+    @Override
     public void updateOrder(long appartId, long userId, AppartmentOrder order) {
         User user = userService.find(userId);
         Appartment appartment = appartmentDao.find(appartId);

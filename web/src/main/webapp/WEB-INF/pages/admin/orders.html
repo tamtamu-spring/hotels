@@ -60,7 +60,26 @@
                                                        role="button">Update</a>
                                                     <a class="btn btn-default"
                                                        th:href="@{'/admin/orders/delete/' + ${order.id}}"
-                                                       role="button">Delete</a></td>
+                                                       role="button">Delete</a>
+                                                <!--<form id="confirm" th:action="@{admin/orders/confirm}" method="post" th:object="${order}" >
+                                                    <input hidden form="confirm" type="number" th:field="*{id}" th:value="${order.id}">
+                                                    <input hidden form="confirm" type="number" name="userId" th:value="${order.user.id}">
+                                                    <input hidden form="confirm" type="number" name="appartId" th:value="${order.appartment.id}">
+                                                    <input hidden form="confirm" type="date" th:field="*{startDate}" th:value="${order.startDate}">
+                                                    <input hidden form="confirm" type="date" th:field="*{endDate}" th:value="${order.endDate}">
+                                                    <input hidden form="confirm" type="datetime" th:field="*{version}" th:value="${order.version}">
+                                                    <button form="confirm" type="submit">Confirm</button>
+                                                </form>
+                                                    <form name="reject" method="post" th:action="@{admin/orders/reject}" th:object="${order}" >
+                                                        <input hidden type="number" th:field="*{id}" th:value="${order.id}">
+                                                        <input hidden type="number" name="userId" th:value="${order.user.id}">
+                                                        <input hidden type="number" name="appartId" th:value="${order.appartment.id}">
+                                                        <input hidden type="date" th:field="*{startDate}" th:value="${order.startDate}">
+                                                        <input hidden type="date" th:field="*{endDate}" th:value="${order.endDate}">
+                                                        <input hidden type="datetime" th:field="*{version}" th:value="${order.version}">
+                                                        <button type="submit">Reject</button>
+                                                    </form>-->
+                                                </td>
                                             </tr>
 
                                         </table>

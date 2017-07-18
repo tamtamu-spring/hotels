@@ -17,7 +17,6 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @Table(name = "appartments")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

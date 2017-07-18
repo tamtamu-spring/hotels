@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
-@ToString(exclude = "details", callSuper = true)
 @Entity
 @Table(name = "dish_orders")
 public class DishOrder extends BaseEntity implements Serializable {

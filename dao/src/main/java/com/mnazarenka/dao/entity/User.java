@@ -15,7 +15,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @NoArgsConstructor
-@ToString(callSuper = true, exclude = "appartments")
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements Serializable {

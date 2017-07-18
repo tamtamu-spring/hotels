@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "my-cache")
 @Table(name = "restaurants")

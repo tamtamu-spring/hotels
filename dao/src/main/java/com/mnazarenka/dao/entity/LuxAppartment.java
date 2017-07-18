@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("lux")
 public class LuxAppartment extends Appartment implements Serializable{

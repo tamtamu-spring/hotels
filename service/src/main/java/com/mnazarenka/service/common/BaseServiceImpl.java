@@ -3,6 +3,7 @@ package com.mnazarenka.service.common;
 import com.mnazarenka.annotation.Loggable;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
+import org.hibernate.Hibernate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,7 +21,9 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
 
     @Override
     public T find(Long id) {
-        return getDao().find(id);
+        T entity = getDao().find(id);
+        Hibernate.initialize(entity);
+        return entity;
     }
 
     @Override

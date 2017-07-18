@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @Table(name = "dish_orders_details")
 public class DishOrderDetails extends BaseEntity implements Serializable {

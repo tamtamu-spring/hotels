@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @Table(name = "dishes")
 public class Dish extends BaseEntity implements Serializable {

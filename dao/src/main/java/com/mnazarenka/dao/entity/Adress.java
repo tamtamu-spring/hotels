@@ -12,7 +12,6 @@ import java.io.Serializable;
 
 @Embeddable
 @NoArgsConstructor
-@ToString
 public class Adress implements Serializable {
     @Getter
     @Setter

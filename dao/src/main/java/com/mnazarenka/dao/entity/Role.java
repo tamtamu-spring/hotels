@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "roles")

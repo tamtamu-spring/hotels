@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@ToString(callSuper = true, exclude = "appartment")
 @Entity
 @Table(name = "orders")
 public class AppartmentOrder extends BaseEntity implements Serializable {

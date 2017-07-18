@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("econom")
 public class EconomAppartment extends Appartment implements Serializable {

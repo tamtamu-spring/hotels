@@ -17,7 +17,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 @NoArgsConstructor
-@ToString(exclude = "entities", callSuper = true)
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "my-cache")
 @Table(name = "hotels")
