@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +39,17 @@ public class RentAppartmentsController {
     }
 
     @ModelAttribute("order")
-    public AppartmentOrder order(){
+    public AppartmentOrder order() {
         return new AppartmentOrder();
     }
 
     @PostMapping("/user/order")
-    public String saveOrder(long apartId, AppartmentOrder order, Authentication auth, String appartType){
+    public String saveOrder(long apartId, @Valid AppartmentOrder order, Authentication auth, String appartType, BindingResult bindingResult, HttpServletRequest request) {
+        if (order.getStartDate().isAfter(order.getEndDate())) {
+            bindingResult.addError(new ObjectError("dateRangeErr", "Неверный период дат"));
+            return "redirect:" + request.getHeader("referer");
+        }
+
         String userName = auth.getName();
         Class appartmentClass = appartmentUtil.getAppartmentClass(appartType);
 

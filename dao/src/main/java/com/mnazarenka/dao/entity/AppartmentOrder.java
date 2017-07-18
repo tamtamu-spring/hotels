@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,11 +39,13 @@ public class AppartmentOrder extends BaseEntity implements Serializable {
     @Setter
     @Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Начальная дата не может быть пустой")
     private LocalDate startDate;
     @Getter
     @Setter
     @Column(name = "end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Конечная дата не может быть пустой")
     private LocalDate endDate;
     @Getter
     @Setter

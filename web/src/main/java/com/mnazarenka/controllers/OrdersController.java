@@ -13,11 +13,15 @@ import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureExcep
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -93,12 +97,22 @@ public class OrdersController {
     }
 
     @PostMapping("/user/orders/update")
-    public String updateOrder(AppartmentOrder order, long userId, long appartId){
+    public String updateOrder(@Valid AppartmentOrder order, long userId, long appartId, Model model, BindingResult bindingResult, HttpServletRequest request){
+        if(bindingResult.hasErrors()){
+            return "redirect:"  + request.getHeader("referer");
+        }
+
+        if(order.getStartDate().isAfter(order.getEndDate())){
+            bindingResult.addError(new ObjectError("dateRangeErr", "Неверный период дат"));
+            return "redirect:"  + request.getHeader("referer");
+        }
+
         try {
             orderService.updateOrder(appartId, userId, order);
         } catch (HibernateOptimisticLockingFailureException e) {
             e.printStackTrace();
-            System.out.println("optimistic lock exception");
+            bindingResult.addError(new ObjectError("lockError", "Ваши данные устарели"));
+            return "redirect:"  + request.getHeader("referer");
         }
 
         return "redirect:/user/account/orders";
