@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @DiscriminatorValue("lux")
-public class LuxAppartment extends Appartment implements Serializable{
+public class LuxAppartment extends Appartment implements Serializable {
     @Getter
     @Setter
     @Column

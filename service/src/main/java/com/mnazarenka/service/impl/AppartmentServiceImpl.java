@@ -21,8 +21,7 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     private HotelDao hotelDao;
 
     @Autowired
-    public AppartmentServiceImpl(AppartmentDao dao, HotelDao hotelDao)
-    {
+    public AppartmentServiceImpl(AppartmentDao dao, HotelDao hotelDao) {
         this.dao = dao;
         this.hotelDao = hotelDao;
     }

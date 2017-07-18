@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AspectConfig {
 
     @Bean
-    public ServicesLogger serviceLogger(){
+    public ServicesLogger serviceLogger() {
         return new ServicesLogger();
     }
 }

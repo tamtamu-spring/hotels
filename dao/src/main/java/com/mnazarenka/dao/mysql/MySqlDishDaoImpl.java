@@ -6,6 +6,6 @@ import com.mnazarenka.dao.entity.Dish;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MySqlDishDaoImpl extends BaseDaoImpl<Dish> implements DishDao{
+public class MySqlDishDaoImpl extends BaseDaoImpl<Dish> implements DishDao {
 
 }

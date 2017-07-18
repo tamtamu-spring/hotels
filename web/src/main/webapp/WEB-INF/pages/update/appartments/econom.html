@@ -37,7 +37,8 @@
 
                         <div class="panel panel-warning">
                             <div class="panel-body">
-                                <form th:action=" @{/admin/econom-appartments/update}" method="post" th:object="${appartment}">
+                                <form th:action=" @{/admin/econom-appartments/update}" method="post"
+                                      th:object="${appartment}">
                                     <table class="table">
                                         <tr>
                                             <th>Id</th>
@@ -55,9 +56,9 @@
                                             <td th:text="${appartment.hotel.name}"></td>
                                             <td th:text="${appartment.guestsCounts}"></td>
                                             <td th:text="${appartment.costPerDay}"></td>
-                                            <td><img class="item-image" th:src="${appartment.image}"> </td>
+                                            <td><img class="item-image" th:src="${appartment.image}"></td>
                                             <td>
-                                                <span  th:text="${appartment.wiFi}"></span>
+                                                <span th:text="${appartment.wiFi}"></span>
                                             </td>
                                             <td><a class="btn btn-default"
                                                    th:href="@{'/admin/appartments/econom'}"
@@ -75,7 +76,8 @@
                                             <td><input class="form-control" type="number" th:field="*{guestsCounts}"
                                                        required></td>
                                             <td><input class="form-control" type="number" th:field="*{costPerDay}"
-                                                       required></td>0
+                                                       required></td>
+                                            0
                                             <td><input class="form-control" type="text" th:field="*{image}"></td>
                                             <td><label for="wi-fi">wi-fi</label>
                                                 <input type="checkbox" th:field="*{wiFi}" id="wi-fi"></td>

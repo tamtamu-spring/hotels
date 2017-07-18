@@ -60,21 +60,25 @@
                                                        th:href="@{'/admin/orders'}">Отмена</a></td>
                                             </tr>
                                             <tr>
-                                                <td><input hidden type="text" th:field="*{id}" th:value="${order.id}"></td>
+                                                <td><input hidden type="text" th:field="*{id}" th:value="${order.id}">
+                                                </td>
                                                 <td><select class="form-control" name="userId">
                                                     <option th:each="user : ${users}" th:text="${user.login}"
                                                             th:value="${user.id}"></option>
                                                 </select></td>
                                                 <td><select class="form-control" name="appartId">
-                                                    <option th:each="appartment : ${appartments}" th:text="${appartment.name}"
+                                                    <option th:each="appartment : ${appartments}"
+                                                            th:text="${appartment.name}"
                                                             th:value="${appartment.id}"></option>
                                                 </select></td>
                                                 <td><input class="form-control" type="date" th:field="*{startDate}"
                                                            required></td>
                                                 <td><input class="form-control" type="date" th:field="*{endDate}"
                                                            required></td>
-                                                <td><input hidden th:field="*{status}" type="text" th:value="${order.status}">
-                                                    <input hidden th:field="*{version}" type="datetime" th:value="${order.version}"></td>
+                                                <td><input hidden th:field="*{status}" type="text"
+                                                           th:value="${order.status}">
+                                                    <input hidden th:field="*{version}" type="datetime"
+                                                           th:value="${order.version}"></td>
 
                                                 <td>
                                                     <button class="btn btn-default" type="submit">Обновить</button>

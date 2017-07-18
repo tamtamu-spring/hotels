@@ -22,41 +22,41 @@ public class HotelsController {
     }
 
     @ModelAttribute("hotel")
-    public Hotel hotel(){
+    public Hotel hotel() {
         return new Hotel();
     }
 
     @ModelAttribute("hotels")
-    public List<Hotel> hotels(){
+    public List<Hotel> hotels() {
         return hotelService.findAll();
     }
 
     @GetMapping("/admin/hotels")
-    public String getHotels(){
+    public String getHotels() {
         return "admin/hotels";
     }
 
     @PostMapping("/admin/hotels")
-    public String createHotel(Hotel hotel){
+    public String createHotel(Hotel hotel) {
         hotelService.create(hotel);
         return "redirect:/admin/hotels";
     }
 
     @GetMapping("/admin/hotels/delete/{id}")
-    public String deleteHotel(@PathVariable("id") long id){
+    public String deleteHotel(@PathVariable("id") long id) {
         hotelService.deleteById(id);
         return "redirect:/admin/hotels";
     }
 
     @GetMapping("/admin/hotels/update/{id}")
-    public String goToUpdatePage(@PathVariable("id") long id, Model model){
+    public String goToUpdatePage(@PathVariable("id") long id, Model model) {
         Hotel hotel = hotelService.find(id);
         model.addAttribute("hotel", hotel);
         return "update/hotel";
     }
 
     @PostMapping("/admin/hotels/update")
-    public String updateHotel(Hotel hotel){
+    public String updateHotel(Hotel hotel) {
         hotelService.update(hotel);
         return "redirect:/admin/hotels";
     }

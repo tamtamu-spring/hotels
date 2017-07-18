@@ -42,64 +42,64 @@
                             <div class="panel panel-warning">
                                 <div class="panel-body">
 
-                                        <table class="table">
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Hotel name</th>
-                                                <th>Guest counts</th>
-                                                <th>Cost per day</th>
-                                                <th>Image</th>
-                                                <th>Options</th>
-                                                <th></th>
-                                            </tr>
-                                            <tr th:each="appartment : ${appartments}">
-                                                <td th:text="${appartment.id}"></td>
-                                                <td th:text="${appartment.name}"></td>
-                                                <td th:text="${appartment.hotel.name}"></td>
-                                                <td th:text="${appartment.guestsCounts}"></td>
-                                                <td th:text="${appartment.costPerDay}"></td>
-                                                <td><img class="item-image img-rounded" th:src="${appartment.image}"> </td>
-                                                <td>
-                                                    <ul>
-                                                        <li>Wi-Fi :
-                                                            <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
-                                                        </li>
-                                                        <li>TV :
-                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
-                                                        </li>
-                                                        <li>WC :
-                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
-                                                        </li>
-                                                        <li>Бар :
-                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
-                                                        </li>
-                                                        <li>Кухня :
-                                                            <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                                <td><a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/update/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
-                                                       role="button">Update</a>
-                                                    <a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/delete/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
-                                                       role="button">Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a class="btn btn-default"
-                                                       th:href="@{'/admin/appartments/create/' + ${appartments.get(0).appartmentsType}}"
-                                                       role="button">Создать</a>
-                                            </tr>
-                                        </table>
+                                    <table class="table">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Hotel name</th>
+                                            <th>Guest counts</th>
+                                            <th>Cost per day</th>
+                                            <th>Image</th>
+                                            <th>Options</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr th:each="appartment : ${appartments}">
+                                            <td th:text="${appartment.id}"></td>
+                                            <td th:text="${appartment.name}"></td>
+                                            <td th:text="${appartment.hotel.name}"></td>
+                                            <td th:text="${appartment.guestsCounts}"></td>
+                                            <td th:text="${appartment.costPerDay}"></td>
+                                            <td><img class="item-image img-rounded" th:src="${appartment.image}"></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Wi-Fi :
+                                                        <span th:text="${appartment.wiFi} ? 'Есть' : 'Нет'"></span>
+                                                    </li>
+                                                    <li>TV :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.tv} ? 'Есть' : 'Нет')) : (${appartment.tv} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>WC :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? (${appartment.appartmentsType.compareTo('standart')} ? 'Нет' : (${appartment.wc} ? 'Есть' : 'Нет')) : (${appartment.wc} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>Бар :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.bar} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                    <li>Кухня :
+                                                        <span th:text="${appartment.appartmentsType.compareTo('lux')} ? 'Нет' : (${appartment.kitchen} ? 'Есть' : 'Нет')"></span>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td><a class="btn btn-default"
+                                                   th:href="@{'/admin/appartments/update/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
+                                                   role="button">Update</a>
+                                                <a class="btn btn-default"
+                                                   th:href="@{'/admin/appartments/delete/' + ${appartment.id} + '/' + ${appartment.appartmentsType}}"
+                                                   role="button">Delete</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a class="btn btn-default"
+                                                   th:href="@{'/admin/appartments/create/' + ${appartments.get(0).appartmentsType}}"
+                                                   role="button">Создать</a>
+                                        </tr>
+                                    </table>
 
                                 </div>
                             </div>

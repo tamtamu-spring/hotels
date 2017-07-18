@@ -31,34 +31,34 @@ public class DishOrdersController {
     }
 
     @ModelAttribute("dishes")
-    public List<Dish> dishes(){
+    public List<Dish> dishes() {
         return dishServise.findAll();
     }
 
     @ModelAttribute("dishOrders")
-    public List<DishOrder> dishOrders(){
+    public List<DishOrder> dishOrders() {
         return dishOrderService.findAll();
     }
 
     @PostMapping("/user/dishes")
-    public String saveDishOrder(Authentication auth, long dishId, int dishCount){
+    public String saveDishOrder(Authentication auth, long dishId, int dishCount) {
         User user = userService.getUserByLogin(auth.getName());
         dishOrderService.create(user.getId(), dishId, dishCount);
         return "redirect:/user/dishes";
     }
 
     @GetMapping("/user/dishes")
-    public String getDishesPage(){
+    public String getDishesPage() {
         return "user/dishes";
     }
 
     @GetMapping("/admin/dish-orders")
-    public String getAdminDishOrdersPage(){
+    public String getAdminDishOrdersPage() {
         return "admin/dish-orders";
     }
 
     @GetMapping("/admin/dish-order/delete/{id}")
-    public String deleteDishOrder(@PathVariable long id){
+    public String deleteDishOrder(@PathVariable long id) {
         dishOrderService.deleteById(id);
         return "redirect:/admin/dish-orders";
     }

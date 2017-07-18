@@ -26,47 +26,47 @@ public class RestaurantsController {
     }
 
     @ModelAttribute("restaurant")
-    public Restaurant restaurant(){
+    public Restaurant restaurant() {
         return new Restaurant();
     }
 
     @ModelAttribute("hotels")
-    public List<Hotel> hotels(){
+    public List<Hotel> hotels() {
         return hotelService.findAll();
     }
 
     @ModelAttribute("restaurants")
-    public List<Restaurant> restaurants(){
+    public List<Restaurant> restaurants() {
         List<Restaurant> all = restaurantService.findAll();
         return all;
     }
 
     @GetMapping("/admin/restaurants")
-    public String getRestaurants(){
+    public String getRestaurants() {
         return "admin/restaurants";
     }
 
     @PostMapping("/admin/restaurants")
-    public String createRestaurant(Restaurant restaurant, long hotelId){
+    public String createRestaurant(Restaurant restaurant, long hotelId) {
         restaurantService.createRestaurantWithHotelId(restaurant, hotelId);
         return "redirect:/admin/restaurants";
     }
 
     @GetMapping("/admin/restaurants/delete/{id}")
-    public String deleteRestaurant(@PathVariable("id") long id){
+    public String deleteRestaurant(@PathVariable("id") long id) {
         restaurantService.deleteById(id);
         return "redirect:/admin/restaurants";
     }
 
     @GetMapping("/admin/restaurants/update/{id}")
-    public String goToUpdatePage(@PathVariable("id") long id, Model model){
+    public String goToUpdatePage(@PathVariable("id") long id, Model model) {
         Restaurant restaurant = restaurantService.find(id);
         model.addAttribute("restaurant", restaurant);
         return "update/restaurant";
     }
 
     @PostMapping("/admin/restaurants/update")
-    public String updateRestaurant(Restaurant restaurant, long hotelId){
+    public String updateRestaurant(Restaurant restaurant, long hotelId) {
         restaurantService.UpdateWithHotelId(restaurant, hotelId);
         return "redirect:/admin/restaurants";
     }

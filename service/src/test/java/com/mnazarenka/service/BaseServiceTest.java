@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {ServiceTestConfiguration.class})
 @Transactional
-public abstract class BaseServiceTest <T extends BaseEntity>{
+public abstract class BaseServiceTest<T extends BaseEntity> {
 
     private Class<T> entityClass;
 

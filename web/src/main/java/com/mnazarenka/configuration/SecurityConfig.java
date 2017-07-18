@@ -26,29 +26,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/resources/**")
-                    .permitAll()
+                .permitAll()
                 .antMatchers("/home", "/login", "/registration")
-                    .permitAll()
+                .permitAll()
                 .antMatchers("/admin/**")
-                    .hasAuthority("ADMIN")
+                .hasAuthority("ADMIN")
                 .anyRequest()
-                    .authenticated()
+                .authenticated()
 
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/home")
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/home")
 
                 .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
 
                 .and()
                 .csrf().disable();
 
-       http.userDetailsService(userDetailsService);
+        http.userDetailsService(userDetailsService);
     }
 
     @Autowired

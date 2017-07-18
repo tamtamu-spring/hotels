@@ -9,7 +9,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class HotelServiceTest extends BaseServiceTest<Hotel>{
+public class HotelServiceTest extends BaseServiceTest<Hotel> {
     @Autowired
     @Getter
     private HotelService service;

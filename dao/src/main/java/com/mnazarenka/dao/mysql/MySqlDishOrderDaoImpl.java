@@ -6,6 +6,6 @@ import com.mnazarenka.dao.entity.DishOrder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MySqlDishOrderDaoImpl extends BaseDaoImpl<DishOrder> implements DishOrderDao{
+public class MySqlDishOrderDaoImpl extends BaseDaoImpl<DishOrder> implements DishOrderDao {
 
 }

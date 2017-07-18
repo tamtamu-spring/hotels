@@ -56,7 +56,8 @@
                                                        th:href="@{'/admin/hotels'}">Отмена</a></td>
                                             </tr>
                                             <tr>
-                                                <td><input hidden type="text" th:field="*{id}" th:value="${hotel.id}"></td>
+                                                <td><input hidden type="text" th:field="*{id}" th:value="${hotel.id}">
+                                                </td>
                                                 <td><input class="form-control" type="text" th:field="*{name}"
                                                            required></td>
                                                 <td><input class="form-control" type="text" th:field="*{adress.city}"

@@ -6,7 +6,7 @@ import com.mnazarenka.dao.entity.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MySqlUserDaoImpl extends BaseDaoImpl<User> implements UserDao{
+public class MySqlUserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {

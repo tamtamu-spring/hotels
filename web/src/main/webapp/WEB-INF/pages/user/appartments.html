@@ -57,22 +57,26 @@
                                             </td>
                                             <td rowspan="3" class="text-center">
                                                 <input hidden name="apartId" type="text" th:value="${appartment.id}">
-                                                <input hidden name="appartType" type="text" th:value="${appartment.appartmentsType}">
+                                                <input hidden name="appartType" type="text"
+                                                       th:value="${appartment.appartmentsType}">
                                                 <input hidden name="appartmentId" th:value="${appartment.id}">
                                                 <div>
                                                     <label for="fromDate">Начальная дата</label>
-                                                    <input th:field="*{startDate}"  class="form-control" type="date" id="fromDate"
+                                                    <input th:field="*{startDate}" class="form-control" type="date"
+                                                           id="fromDate"
                                                            aria-describedby="basic-addon1">
-                                                    <div th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></div>
+                                                    <div th:each="err : ${#fields.errors('startDate')}"
+                                                         th:text="${err}"></div>
                                                 </div>
                                                 <div>
                                                     <label for="toDate">Конечная дата</label>
-                                                    <input th:field="*{endDate}" class="form-control" type="date" id="toDate">
+                                                    <input th:field="*{endDate}" class="form-control" type="date"
+                                                           id="toDate">
                                                     <div th:each="err : ${#fields.errors('endDate')}" th:text="${err}">
-                                                </div>
-                                                <button type="submit" class="btn btn-info btn-lg appart-button">
-                                                    ЗАБРАНИРОВАТЬ
-                                                </button>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-info btn-lg appart-button">
+                                                        ЗАБРАНИРОВАТЬ
+                                                    </button>
                                             </td>
                                         </tr>
                                         <tr>

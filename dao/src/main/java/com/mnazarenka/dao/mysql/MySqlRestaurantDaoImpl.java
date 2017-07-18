@@ -6,6 +6,6 @@ import com.mnazarenka.dao.entity.Restaurant;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MySqlRestaurantDaoImpl extends BaseDaoImpl<Restaurant> implements RestaurantDao{
+public class MySqlRestaurantDaoImpl extends BaseDaoImpl<Restaurant> implements RestaurantDao {
 
 }

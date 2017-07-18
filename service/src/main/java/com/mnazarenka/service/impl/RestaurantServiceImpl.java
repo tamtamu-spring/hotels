@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RestaurantServiceImpl extends BaseServiceImpl<Restaurant> implements RestaurantService{
+public class RestaurantServiceImpl extends BaseServiceImpl<Restaurant> implements RestaurantService {
     @Getter
     private RestaurantDao dao;
     private HotelDao hotelDao;

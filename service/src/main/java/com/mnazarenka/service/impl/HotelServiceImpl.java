@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HotelServiceImpl extends BaseServiceImpl<Hotel> implements HotelService{
+public class HotelServiceImpl extends BaseServiceImpl<Hotel> implements HotelService {
     @Getter
     private HotelDao dao;
 

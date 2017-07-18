@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 public class ServiceConfig {
 
     @Bean
-    public Logger logger(){
+    public Logger logger() {
         return Logger.getLogger(Logger.class);
     }
 }

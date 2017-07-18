@@ -12,7 +12,7 @@ public interface OrderService extends BaseService<AppartmentOrder> {
 
     List<AppartmentOrder> findAllByUserId(Long userId);
 
-    void updateOrder(long appartId ,long userId, AppartmentOrder order);
+    void updateOrder(long appartId, long userId, AppartmentOrder order);
 
     void changeStatus(Status status, long appartId, long userId, AppartmentOrder order);
 }

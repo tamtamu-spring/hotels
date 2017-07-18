@@ -39,29 +39,29 @@ public class OrdersController {
     }
 
     @ModelAttribute("orders")
-    public List<AppartmentOrder> orders(Authentication auth){
+    public List<AppartmentOrder> orders(Authentication auth) {
         User user = userService.getUserByLogin(auth.getName());
         List<AppartmentOrder> orders = orderService.findAllByUserId(user.getId());
         return orders;
     }
 
     @ModelAttribute("allOrders")
-    public List<AppartmentOrder> allOrders(){
+    public List<AppartmentOrder> allOrders() {
         return orderService.findAll();
     }
 
     @ModelAttribute("users")
-    public List<User> users(){
+    public List<User> users() {
         return userService.findAll();
     }
 
     @ModelAttribute("appartments")
-    public List<Appartment> appartments(){
+    public List<Appartment> appartments() {
         return appartmentService.findAll();
     }
 
     @PostMapping("/admin/orders/update")
-    public String updateOrderByAdmin(long appartId, long userId, AppartmentOrder order){
+    public String updateOrderByAdmin(long appartId, long userId, AppartmentOrder order) {
         try {
             orderService.updateOrder(appartId, userId, order);
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -72,24 +72,24 @@ public class OrdersController {
     }
 
     @GetMapping("/admin/orders")
-    public String getAdminOrders(){
+    public String getAdminOrders() {
         return "admin/orders";
     }
 
     @GetMapping("/admin/order/update/{id}")
-    public String getAdminOrderUpdatePage(@PathVariable long id, Model model){
+    public String getAdminOrderUpdatePage(@PathVariable long id, Model model) {
         AppartmentOrder appartmentOrder = orderService.find(id);
         model.addAttribute("order", appartmentOrder);
         return "update/admin-order";
     }
 
     @GetMapping("/user/account/orders")
-    private String getOrdersPage(){
+    private String getOrdersPage() {
         return "user/orders";
     }
 
     @GetMapping("/user/orders/update/{id}")
-    public String getUpdatePage(@PathVariable long id, Model model){
+    public String getUpdatePage(@PathVariable long id, Model model) {
         AppartmentOrder appartmentOrder = orderService.find(id);
         model.addAttribute("order", appartmentOrder);
 
@@ -97,14 +97,14 @@ public class OrdersController {
     }
 
     @PostMapping("/user/orders/update")
-    public String updateOrder(@Valid AppartmentOrder order, long userId, long appartId, Model model, BindingResult bindingResult, HttpServletRequest request){
-        if(bindingResult.hasErrors()){
-            return "redirect:"  + request.getHeader("referer");
+    public String updateOrder(@Valid AppartmentOrder order, long userId, long appartId, Model model, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:" + request.getHeader("referer");
         }
 
-        if(order.getStartDate().isAfter(order.getEndDate())){
+        if (order.getStartDate().isAfter(order.getEndDate())) {
             bindingResult.addError(new ObjectError("dateRangeErr", "Неверный период дат"));
-            return "redirect:"  + request.getHeader("referer");
+            return "redirect:" + request.getHeader("referer");
         }
 
         try {
@@ -112,17 +112,17 @@ public class OrdersController {
         } catch (HibernateOptimisticLockingFailureException e) {
             e.printStackTrace();
             bindingResult.addError(new ObjectError("lockError", "Ваши данные устарели"));
-            return "redirect:"  + request.getHeader("referer");
+            return "redirect:" + request.getHeader("referer");
         }
 
         return "redirect:/user/account/orders";
     }
 
     @GetMapping("/{user}/orders/delete/{id}")
-    public String deleteOrder(@PathVariable long id, @PathVariable String user){
+    public String deleteOrder(@PathVariable long id, @PathVariable String user) {
         orderService.deleteById(id);
 
-        if(user.equalsIgnoreCase(RoleEnum.USER.toString())){
+        if (user.equalsIgnoreCase(RoleEnum.USER.toString())) {
             return "redirect:/user/account/orders";
         }
 
@@ -130,13 +130,13 @@ public class OrdersController {
     }
 
     @PostMapping("admin/orders/reject")
-    public String rejectOrder(long appartId, long userId, AppartmentOrder order){
+    public String rejectOrder(long appartId, long userId, AppartmentOrder order) {
         orderService.changeStatus(Status.REJECTED, appartId, userId, order);
         return "redirect:/admin/orders";
     }
 
     @PostMapping("admin/orders/confirm")
-    public String confirmOrder(long appartId, long userId, AppartmentOrder order){
+    public String confirmOrder(long appartId, long userId, AppartmentOrder order) {
         orderService.changeStatus(Status.CONFIRMED, appartId, userId, order);
         return "redirect:/admin/orders";
     }

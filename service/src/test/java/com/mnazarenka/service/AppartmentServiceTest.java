@@ -24,7 +24,7 @@ public class AppartmentServiceTest extends BaseServiceTest<Appartment> {
     }
 
     @Test
-    public void testGetCount(){
+    public void testGetCount() {
         Long appartmentsCount = service.getAppartmentsCount(LuxAppartment.class);
 
         assertThat(appartmentsCount, equalTo(1L));

@@ -59,10 +59,14 @@
                                             </tr>
                                             <tr>
                                                 <td><input hidden type="text" th:field="*{id}" th:value="${order.id}">
-                                                <input hidden type="datetime" th:field="*{version}" th:value="${order.version}">
-                                                <input hidden th:value="${order.user.id}" type="number" name="userId">
-                                                    <input hidden th:value="${order.appartment.id}" type="number" name="appartId">
-                                                    <input hidden th:value="${order.status}" type="text" th:field="*{status}"></td>
+                                                    <input hidden type="datetime" th:field="*{version}"
+                                                           th:value="${order.version}">
+                                                    <input hidden th:value="${order.user.id}" type="number"
+                                                           name="userId">
+                                                    <input hidden th:value="${order.appartment.id}" type="number"
+                                                           name="appartId">
+                                                    <input hidden th:value="${order.status}" type="text"
+                                                           th:field="*{status}"></td>
                                                 <td><input class="form-control" th:value="*{endDate}" type="date"
                                                            th:field="*{startDate}"
                                                            required></td>
@@ -77,7 +81,8 @@
                                             </tr>
                                         </table>
                                     </form>
-                                    <div class="alert alert-danger" role="alert"  th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+                                    <div class="alert alert-danger" role="alert" th:each="err : ${#fields.allErrors()}"
+                                         th:text="${err}"></div>
                                 </div>
                             </div>
                         </div>

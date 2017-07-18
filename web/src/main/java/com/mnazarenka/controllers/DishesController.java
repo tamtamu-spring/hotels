@@ -22,41 +22,41 @@ public class DishesController {
     }
 
     @ModelAttribute("dish")
-    public Dish dish(){
+    public Dish dish() {
         return new Dish();
     }
 
     @ModelAttribute("dishes")
-    public List<Dish> dishes(){
+    public List<Dish> dishes() {
         return dishService.findAll();
     }
 
     @GetMapping("/admin/dishes")
-    public String getDishes(){
+    public String getDishes() {
         return "admin/dishes";
     }
 
     @PostMapping("/admin/dishes")
-    public String createDish(Dish dish){
+    public String createDish(Dish dish) {
         dishService.create(dish);
         return "redirect:/admin/dishes";
     }
 
     @GetMapping("/admin/dishes/delete/{id}")
-    public String deleteDish(@PathVariable("id") long id){
+    public String deleteDish(@PathVariable("id") long id) {
         dishService.deleteById(id);
         return "redirect:/admin/dishes";
     }
 
     @GetMapping("/admin/dishes/update/{id}")
-    public String goToUpdatePage(@PathVariable("id") long id, Model model){
+    public String goToUpdatePage(@PathVariable("id") long id, Model model) {
         Dish dish = dishService.find(id);
         model.addAttribute("dish", dish);
         return "update/dish";
     }
 
     @PostMapping("/admin/dishes/update")
-    public String updateDish(Dish dish){
+    public String updateDish(Dish dish) {
         dishService.update(dish);
         return "redirect:/admin/dishes";
     }

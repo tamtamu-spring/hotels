@@ -36,7 +36,7 @@
             <div class="panel panel-warning">
 
                 <div class="panel-body">
-                   МОИ ЗАКАЗЫ
+                    МОИ ЗАКАЗЫ
                 </div>
                 <div class="panel-footer">
                     <table class="table">
@@ -47,7 +47,7 @@
                             <th>Статус</th>
                             <th></th>
                         </tr>
-                        <tr  th:each="order : ${orders}">
+                        <tr th:each="order : ${orders}">
                             <td th:text="${order.id}"></td>
                             <td th:text="${order.startDate}"></td>
                             <td th:text="${order.endDate}"></td>

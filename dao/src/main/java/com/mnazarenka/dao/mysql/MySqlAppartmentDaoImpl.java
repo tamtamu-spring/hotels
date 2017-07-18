@@ -19,7 +19,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
 
     @Override
     public <T extends Appartment> List<T> findAllAppartments(Class<T> clazz) {
-        return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
+        return getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
                 .getResultList();
     }
 
@@ -34,7 +34,7 @@ public class MySqlAppartmentDaoImpl extends BaseDaoImpl<Appartment> implements A
     @Override
     @SuppressWarnings("unchecked")
     public List<? extends Appartment> findAppartmentsByRange(int from, int to, Class clazz) {
-        return  getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
+        return getSessionFactory().getCurrentSession().createQuery("select a from " + clazz.getSimpleName() + " a", clazz)
                 .setFirstResult(from)
                 .setMaxResults(to)
                 .getResultList();

@@ -56,8 +56,10 @@
                                         </tr>
                                         <tr>
                                             <td><input th:field="*{id}" th:value="${user.id}" hidden></td>
-                                            <td><input class="form-control" type="text" th:field="*{login}" required></td>
-                                            <td><input class="form-control" type="password" th:field="*{password}" required></td>
+                                            <td><input class="form-control" type="text" th:field="*{login}" required>
+                                            </td>
+                                            <td><input class="form-control" type="password" th:field="*{password}"
+                                                       required></td>
                                             <td>
                                                 <select class="form-control" name="roleId">
                                                     <option th:each="role : ${roles}" th:text="${role.name}"

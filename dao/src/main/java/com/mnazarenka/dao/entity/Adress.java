@@ -23,7 +23,7 @@ public class Adress implements Serializable {
     private String street;
 
     @Transient
-    public String getFullAdress(){
+    public String getFullAdress() {
         return String.format("%s %s", city, street);
     }
 }

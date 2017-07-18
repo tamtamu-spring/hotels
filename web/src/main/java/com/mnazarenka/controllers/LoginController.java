@@ -18,22 +18,22 @@ public class LoginController {
     }
 
     @ModelAttribute
-    public User user(){
+    public User user() {
         return new User();
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "autorization";
     }
 
     @GetMapping("/registration")
-    public String registrationForm(){
+    public String registrationForm() {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(User user, String confirmPassword){
+    public String registration(User user, String confirmPassword) {
         userService.createUserWithUserRole(user);
         return "autorization";
     }

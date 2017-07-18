@@ -15,12 +15,12 @@ import java.util.HashMap;
 public class AppartmentUtil {
     private HashMap<String, Class> classes;
 
-    public Class getAppartmentClass(String type){
+    public Class getAppartmentClass(String type) {
         return classes.get(type);
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         classes = new HashMap<>();
         classes.put("lux", LuxAppartment.class);
         classes.put("standart", StandartAppartment.class);

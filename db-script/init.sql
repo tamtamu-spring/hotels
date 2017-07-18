@@ -86,9 +86,9 @@ CREATE TABLE `dishes_restaurants` (
 );
 
 CREATE TABLE `dish_orders` (
-  `id`                BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_users_id`       BIGINT NOT NULL,
-  `order_time`        DATE   NOT NULL,
+  `id`          BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_users_id` BIGINT NOT NULL,
+  `order_time`  DATE   NOT NULL,
   CONSTRAINT `fk_dish_orders_to_user` FOREIGN KEY (`fk_users_id`) REFERENCES `users` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE

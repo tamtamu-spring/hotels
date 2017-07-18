@@ -42,7 +42,7 @@ public class DaoConfig {
     private String useCashe;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(dbUrl);
         dataSource.setDriverClassName(driverName);
@@ -53,7 +53,7 @@ public class DaoConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setPackagesToScan("com.mnazarenka.dao.entity");
@@ -77,7 +77,7 @@ public class DaoConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager manager = new HibernateTransactionManager();
         manager.setSessionFactory(sessionFactory);
 

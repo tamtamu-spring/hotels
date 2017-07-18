@@ -168,7 +168,7 @@ public class TestDataImporterImpl implements TestDataImporter {
     }
 
     @Override
-    public EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, String image ,boolean wifi, AppartmentDao appartmentDao) {
+    public EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, String image, boolean wifi, AppartmentDao appartmentDao) {
         EconomAppartment economAppartment = new EconomAppartment();
         economAppartment.setHotel(hotel);
         economAppartment.setName(name);
