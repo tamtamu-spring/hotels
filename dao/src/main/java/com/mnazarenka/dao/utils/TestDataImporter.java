@@ -1,4 +1,4 @@
-package com.mnazarenka.util;
+package com.mnazarenka.dao.utils;
 
 import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.AppartmentOrderDao;
@@ -35,15 +35,15 @@ public interface TestDataImporter {
 
     AppartmentOrder saveOrder(User user, Appartment appartment, LocalDate startDate, LocalDate endDate, AppartmentOrderDao appartmentOrderDao);
 
-    LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount,
+    LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount, String image,
                                     boolean wifi, boolean wc, boolean tv, boolean bar, boolean kitchen, AppartmentDao appartmentDao);
 
-    StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount,
+    StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount, String image,
                                               boolean wifi, boolean wc, boolean tv, AppartmentDao appartmentDao);
 
-    EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao);
+    EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, String image, boolean wifi, AppartmentDao appartmentDao);
 
-    Dish saveDish(String name, DishDao dishDao);
+    Dish saveDish(String name, String image, DishDao dishDao);
 
     Restaurant saveRestaurant(String name, Hotel hotel, RestaurantDao restaurantDao);
 

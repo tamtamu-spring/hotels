@@ -34,17 +34,17 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals("New Name", appartment.getName());
     }
 
-    /*@Test
+    @Test
     public void testFindByRange() {
-        List<Appartment> appartments = dao.findAppartmentsByRange(0, 2);
+        List<? extends Appartment> appartments = dao.findAppartmentsByRange(0, 3, LuxAppartment.class);
 
         List<String> appartmentNames = appartments.stream().map(Appartment::getName)
                 .collect(toList());
 
-        assertThat(appartments, hasSize(2));
-        assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName"));
+        assertThat(appartments, hasSize(1));
+        assertThat(appartmentNames, containsInAnyOrder("LuxAppartmentName"));
     }
-*/
+
     @Test
     public void testFindAll() {
         List<Appartment> appartments = dao.findAll();
@@ -53,11 +53,12 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
                 .collect(toList());
         List<Integer> appartmentsCounts = appartments.stream().map(Appartment::getGuestsCounts).collect(toList());
         List<Boolean> appartmentsWifiOptions = appartments.stream().map(Appartment::getWiFi).collect(toList());
-
+        List<String> images = appartments.stream().map(Appartment::getImage).collect(toList());
 
         assertThat(appartments, hasSize(3));
         assertThat(appartmentNames, containsInAnyOrder("EconomAppartmentName", "StandartAppartmentName",
                 "LuxAppartmentName"));
+        assertThat(images, containsInAnyOrder("economImage", "standartImage", "luxImage"));
         assertThat(appartmentsCounts, containsInAnyOrder(1, 2, 4));
         appartmentsWifiOptions.forEach(a -> assertNotNull(a));
     }
@@ -69,6 +70,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals(appartments.get(0).getName(), "EconomAppartmentName");
         assertEquals((long) appartments.get(0).getGuestsCounts(), 1);
         assertEquals(appartments.get(0).getWiFi(), true);
+        assertEquals(appartments.get(0).getImage(), "economImage");
     }
 
     @Test
@@ -80,6 +82,7 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals(appartments.get(0).getWiFi(), true);
         assertEquals(appartments.get(0).getWc(), true);
         assertEquals(appartments.get(0).getTv(), true);
+        assertEquals(appartments.get(0).getImage(), "standartImage");
     }
 
     @Test
@@ -93,5 +96,6 @@ public class AppartmentDaoTest extends BaseDaoTest<Appartment> {
         assertEquals(appartments.get(0).getTv(), true);
         assertEquals(appartments.get(0).getBar(), true);
         assertEquals(appartments.get(0).getKitchen(), true);
+        assertEquals(appartments.get(0).getImage(), "luxImage");
     }
 }

@@ -1,4 +1,4 @@
-package com.mnazarenka.util;
+package com.mnazarenka.dao.utils;
 
 import com.mnazarenka.dao.AppartmentDao;
 import com.mnazarenka.dao.AppartmentOrderDao;
@@ -75,19 +75,19 @@ public class TestDataImporterImpl implements TestDataImporter {
         Hotel thirdHotel = saveHotel("ThirdHotel", thirdAdress, hotelDao);
 
         EconomAppartment economAppartment = saveEconomAppartment(firstHotel, "EconomAppartmentName", "EconomAppartmentDescription",
-                1, true, appartmentDao);
+                1, "economImage", true, appartmentDao);
         StandartAppartment standartAppartment = saveStandartAppartment(firstHotel, "StandartAppartmentName", "StandartAppartmentDescription",
-                2, true, true, true, appartmentDao);
+                2, "standartImage", true, true, true, appartmentDao);
         LuxAppartment luxAppartment = saveLuxAppartment(firstHotel, "LuxAppartmentName", "LuxAppartmentDescription",
-                4, true, true, true, true, true, appartmentDao);
+                4, "luxImage", true, true, true, true, true, appartmentDao);
 
         AppartmentOrder firstOrder = saveOrder(userUser, economAppartment,
                 LocalDate.of(2017, 10, 10), LocalDate.of(2017, 10, 15), appartmentOrderDao);
         AppartmentOrder secondOrder = saveOrder(adminUser, luxAppartment,
                 LocalDate.of(2017, 11, 20), LocalDate.of(2017, 11, 25), appartmentOrderDao);
 
-        Dish firstDish = saveDish("FirstDish", dishDao);
-        Dish secondDish = saveDish("SecondDish", dishDao);
+        Dish firstDish = saveDish("FirstDish", "firstImage", dishDao);
+        Dish secondDish = saveDish("SecondDish", "secondImage", dishDao);
 
         Restaurant firstRestaurant = saveRestaurant("FirstRestaurant", firstHotel, restaurantDao);
         firstRestaurant.getDishes().add(firstDish);
@@ -135,12 +135,13 @@ public class TestDataImporterImpl implements TestDataImporter {
     }
 
     @Override
-    public LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount,
+    public LuxAppartment saveLuxAppartment(Hotel hotel, String name, String description, int guestCount, String image,
                                            boolean wifi, boolean wc, boolean tv, boolean bar, boolean kitchen, AppartmentDao appartmentDao) {
         LuxAppartment luxAppartment = new LuxAppartment();
         luxAppartment.setHotel(hotel);
         luxAppartment.setName(name);
         luxAppartment.setGuestsCounts(guestCount);
+        luxAppartment.setImage(image);
         luxAppartment.setWiFi(wifi);
         luxAppartment.setWc(wc);
         luxAppartment.setTv(tv);
@@ -152,12 +153,13 @@ public class TestDataImporterImpl implements TestDataImporter {
     }
 
     @Override
-    public StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount,
+    public StandartAppartment saveStandartAppartment(Hotel hotel, String name, String description, int guestCount, String image,
                                                      boolean wifi, boolean wc, boolean tv, AppartmentDao appartmentDao) {
         StandartAppartment standartAppartment = new StandartAppartment();
         standartAppartment.setHotel(hotel);
         standartAppartment.setName(name);
         standartAppartment.setGuestsCounts(guestCount);
+        standartAppartment.setImage(image);
         standartAppartment.setWiFi(wifi);
         standartAppartment.setWc(wc);
         standartAppartment.setTv(tv);
@@ -166,20 +168,22 @@ public class TestDataImporterImpl implements TestDataImporter {
     }
 
     @Override
-    public EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, boolean wifi, AppartmentDao appartmentDao) {
+    public EconomAppartment saveEconomAppartment(Hotel hotel, String name, String description, int guestCount, String image ,boolean wifi, AppartmentDao appartmentDao) {
         EconomAppartment economAppartment = new EconomAppartment();
         economAppartment.setHotel(hotel);
         economAppartment.setName(name);
         economAppartment.setGuestsCounts(guestCount);
+        economAppartment.setImage(image);
         economAppartment.setWiFi(wifi);
         appartmentDao.create(economAppartment);
         return economAppartment;
     }
 
     @Override
-    public Dish saveDish(String name, DishDao dishDao) {
+    public Dish saveDish(String name, String image, DishDao dishDao) {
         Dish dish = new Dish();
         dish.setName(name);
+        dish.setImage(image);
         dishDao.create(dish);
         return dish;
     }

@@ -31,7 +31,7 @@ public class DishDaoTest extends BaseDaoTest<Dish> {
 
     @Override
     public void testUpdate() {
-        Dish dish = getTestDataImporter().saveDish("Dish", dao);
+        Dish dish = getTestDataImporter().saveDish("Dish", "image", dao);
 
         Long id = dish.getId();
         dish.setName("New name");

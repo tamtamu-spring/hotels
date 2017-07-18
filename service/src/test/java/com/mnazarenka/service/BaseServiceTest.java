@@ -1,9 +1,11 @@
-package com.mnazarenka.dao;
+package com.mnazarenka.service;
 
-import com.mnazarenka.configuration.DaoConfig;
+import com.mnazarenka.configuration.ServiceConfig;
+import com.mnazarenka.configuration.ServiceTestConfiguration;
 import com.mnazarenka.dao.common.BaseDao;
 import com.mnazarenka.dao.entity.BaseEntity;
 import com.mnazarenka.dao.utils.TestDataImporter;
+import com.mnazarenka.service.common.BaseService;
 import lombok.Getter;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {DaoConfig.class})
+@ContextConfiguration(classes = {ServiceTestConfiguration.class})
 @Transactional
-public abstract class BaseDaoTest<T extends BaseEntity> {
+public abstract class BaseServiceTest <T extends BaseEntity>{
 
     private Class<T> entityClass;
 
@@ -28,11 +30,11 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
     private TestDataImporter testDataImporter;
 
     @SuppressWarnings("unchecked")
-    public BaseDaoTest() {
-        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoTest.class);
+    public BaseServiceTest() {
+        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseServiceTest.class);
     }
 
-    public abstract BaseDao<T> getDao();
+    public abstract BaseService<T> getService();
 
     @Before
     public void initDb() {
@@ -42,33 +44,30 @@ public abstract class BaseDaoTest<T extends BaseEntity> {
     @Test
     public void testCreateAndFind() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        getDao().create(entity);
+        getService().create(entity);
         Long id = entity.getId();
-        entity = getDao().find(id);
+        entity = getService().find(id);
         assertNotNull(entity);
     }
 
     @Test(expected = org.hibernate.ObjectNotFoundException.class)
     public void testDelete() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        entity = getDao().create(entity);
+        entity = getService().create(entity);
         Long id = entity.getId();
-        getDao().delete(entity);
-        getDao().find(id);
+        getService().delete(entity);
+        getService().find(id);
     }
 
     @Test(expected = org.hibernate.ObjectNotFoundException.class)
     public void testDeleteById() throws IllegalAccessException, InstantiationException {
         T entity = entityClass.newInstance();
-        entity = getDao().create(entity);
+        entity = getService().create(entity);
         Long id = entity.getId();
-        getDao().delete(id);
-        getDao().find(id);
+        getService().deleteById(id);
+        getService().find(id);
     }
 
     @Test
     public abstract void testFindAll();
-
-    @Test
-    public abstract void testUpdate();
 }
