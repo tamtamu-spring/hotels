@@ -1,9 +1,8 @@
 package com.mnazarenka.controllers;
 
+import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.AppartmentOrder;
-import com.mnazarenka.dao.entity.EconomAppartment;
-import com.mnazarenka.dao.entity.LuxAppartment;
-import com.mnazarenka.dao.entity.StandartAppartment;
+import com.mnazarenka.dao.utils.AppartmentUtil;
 import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,16 @@ import java.util.List;
 public class RentAppartmentsController {
     private AppartmentService appartmentService;
     private OrderService orderService;
+    private AppartmentUtil appartmentUtil;
 
     //@Value("#{new Integer.parseInt('${items.counts}')}")
     private Integer itemCountsOnPage = 3;
 
     @Autowired
-    public RentAppartmentsController(AppartmentService appartmentService, OrderService orderService) {
+    public RentAppartmentsController(AppartmentService appartmentService, OrderService orderService, AppartmentUtil appartmentUtil) {
         this.appartmentService = appartmentService;
         this.orderService = orderService;
+        this.appartmentUtil = appartmentUtil;
     }
 
     @ModelAttribute("order")
@@ -40,90 +41,36 @@ public class RentAppartmentsController {
     @PostMapping("/user/order")
     public String saveOrder(long apartId, AppartmentOrder order, Authentication auth, String appartType){
         String userName = auth.getName();
-        switch (appartType) {
-            case "lux": {
-                orderService.createOrder(LuxAppartment.class, apartId, userName, order);
-                break;
-            }
-            case "standart": {
-                orderService.createOrder(StandartAppartment.class, apartId, userName, order);
-                break;
-            }
-            case "econom": {
-                orderService.createOrder(EconomAppartment.class, apartId, userName, order);
-                break;
-            }
-        }
+        Class appartmentClass = appartmentUtil.getAppartmentClass(appartType);
+
+        orderService.createOrder(appartmentClass, apartId, userName, order);
 
         return "redirect:/user/account/orders";
     }
 
     @GetMapping("/user/rent/{type}")
     public String goToRentPage(@PathVariable String type, Model model) {
+        Class appartmentClass = appartmentUtil.getAppartmentClass(type);
 
-        switch (type) {
-            case "lux": {
-                long appCounts = appartmentService.getAppartmentsCount(LuxAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, LuxAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-                break;
-            }
-            case "standart": {
-                long appCounts = appartmentService.getAppartmentsCount(StandartAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, StandartAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-                break;
-            }
-            case "econom": {
-                long appCounts = appartmentService.getAppartmentsCount(EconomAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, EconomAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-                break;
-            }
-        }
+        long appCounts = appartmentService.getAppartmentsCount(appartmentClass);
+        List<Integer> pages = getPages(appCounts);
+        List<? extends Appartment> appartments = appartmentService.getAppartmentsByRange(0, itemCountsOnPage, appartmentClass);
+        model.addAttribute("appartments", appartments);
+        model.addAttribute("pages", pages);
+
         return "user/appartments";
     }
 
     @GetMapping("/user/rent/{type}/{pageNumber}")
     public String goToRentPageWithPaging(@PathVariable String type, @PathVariable int pageNumber, Model model) {
+        Class appartmentClass = appartmentUtil.getAppartmentClass(type);
 
-        switch (type) {
-            case "lux": {
-                long appCounts = appartmentService.getAppartmentsCount(LuxAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                pageNumber = getCurrentPageNumber(pageNumber);
-                List<LuxAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, LuxAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-                break;
-            }
-            case "standart": {
-                long appCounts = appartmentService.getAppartmentsCount(StandartAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                pageNumber = getCurrentPageNumber(pageNumber);
-                List<StandartAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, StandartAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-
-                break;
-            }
-            case "econom": {
-                long appCounts = appartmentService.getAppartmentsCount(EconomAppartment.class);
-                List<Integer> pages = getPages(appCounts);
-                pageNumber = getCurrentPageNumber(pageNumber);
-                List<EconomAppartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, EconomAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("pages", pages);
-                break;
-            }
-        }
-
+        long appCounts = appartmentService.getAppartmentsCount(appartmentClass);
+        List<Integer> pages = getPages(appCounts);
+        pageNumber = getCurrentPageNumber(pageNumber);
+        List<? extends Appartment> appartments = appartmentService.getAppartmentsByRange(pageNumber - 1, itemCountsOnPage, appartmentClass);
+        model.addAttribute("appartments", appartments);
+        model.addAttribute("pages", pages);
 
         return "user/appartments";
     }

@@ -41,7 +41,7 @@ public class AppartmentServiceImpl extends BaseServiceImpl<Appartment> implement
     }
 
     @Override
-    public <T extends Appartment> T findAppartment(long id, Class<T> clazz) {
+    public <T extends Appartment> T findAppartment(long id, Class clazz) {
         return dao.findAppartment(id, clazz);
     }
 

@@ -1,9 +1,11 @@
 package com.mnazarenka.controllers;
 
+import com.mnazarenka.dao.entity.Appartment;
 import com.mnazarenka.dao.entity.EconomAppartment;
 import com.mnazarenka.dao.entity.Hotel;
 import com.mnazarenka.dao.entity.LuxAppartment;
 import com.mnazarenka.dao.entity.StandartAppartment;
+import com.mnazarenka.dao.utils.AppartmentUtil;
 import com.mnazarenka.service.AppartmentService;
 import com.mnazarenka.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,13 @@ import java.util.List;
 public class AppartmentController {
     private AppartmentService appartmentService;
     private HotelService hotelService;
+    private AppartmentUtil appartmentUtil;
 
     @Autowired
-    public AppartmentController(AppartmentService appartmentService, HotelService hotelService) {
+    public AppartmentController(AppartmentService appartmentService, HotelService hotelService, AppartmentUtil appartmentUtil) {
         this.appartmentService = appartmentService;
         this.hotelService = hotelService;
+        this.appartmentUtil = appartmentUtil;
     }
 
     @ModelAttribute("hotels")
@@ -33,28 +37,13 @@ public class AppartmentController {
     }
 
     @GetMapping("/admin/appartments/{type}")
-    public String getEconomAppartment(Model model, @PathVariable String type) {
+    public String getEconomAppartment(Model model, @PathVariable String type) throws IllegalAccessException, InstantiationException {
+        Class appartmentClass = appartmentUtil.getAppartmentClass(type);
 
-        switch (type) {
-            case "lux": {
-                List<LuxAppartment> appartments = appartmentService.findAllAppartments(LuxAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("appartment", new LuxAppartment());
-                break;
-            }
-            case "standart": {
-                List<StandartAppartment> appartments = appartmentService.findAllAppartments(StandartAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("appartment", new StandartAppartment());
-                break;
-            }
-            case "econom": {
-                List<EconomAppartment> appartments = appartmentService.findAllAppartments(EconomAppartment.class);
-                model.addAttribute("appartments", appartments);
-                model.addAttribute("appartment", new EconomAppartment());
-                break;
-            }
-        }
+        List<? extends Appartment> appartments = appartmentService.findAllAppartments(appartmentClass);
+        model.addAttribute("appartments", appartments);
+        model.addAttribute("appartment", appartmentClass.newInstance());
+
         return "/admin/appartments";
     }
 
@@ -66,25 +55,9 @@ public class AppartmentController {
 
     @GetMapping("/admin/appartments/update/{id}/{type}")
     public String goToUpdatePage(@PathVariable("id") long id, @PathVariable String type, Model model) {
+        Class appartmentClass = appartmentUtil.getAppartmentClass(type);
 
-        switch (type) {
-            case "lux": {
-                LuxAppartment appartment = appartmentService.findAppartment(id, LuxAppartment.class);
-                model.addAttribute("appartment", appartment);
-                break;
-            }
-            case "standart": {
-                StandartAppartment appartment = appartmentService.findAppartment(id, StandartAppartment.class);
-                model.addAttribute("appartment", appartment);
-                break;
-            }
-            case "econom": {
-                EconomAppartment appartment = appartmentService.findAppartment(id, EconomAppartment.class);
-                model.addAttribute("appartment", appartment);
-                break;
-            }
-        }
-
+        model.addAttribute("appartment", appartmentService.findAppartment(id, appartmentClass));
         return "update/appartments/" + type;
     }
 
@@ -125,23 +98,10 @@ public class AppartmentController {
     }
 
     @GetMapping("/admin/appartments/create/{type}")
-    public String goToCreatePage(@PathVariable String type, Model model) {
+    public String goToCreatePage(@PathVariable String type, Model model) throws IllegalAccessException, InstantiationException {
+        Class appartmentClass = appartmentUtil.getAppartmentClass(type);
 
-        switch (type) {
-            case "lux": {
-                model.addAttribute("appartment", new LuxAppartment());
-                break;
-            }
-            case "standart": {
-                model.addAttribute("appartment", new StandartAppartment());
-                break;
-            }
-            case "econom": {
-                model.addAttribute("appartment", new EconomAppartment());
-                break;
-            }
-        }
-
+        model.addAttribute("appartment", appartmentClass.newInstance());
         return "create/appartments/" + type;
     }
 }
